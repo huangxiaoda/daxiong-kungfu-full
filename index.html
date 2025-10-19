@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大熊学武功：功夫节奏挑战</title>
+    <link rel="icon" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">    
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 页面整体样式 */
+        body {
+            font-family: 'Zhi Mang Xing', cursive, sans-serif;
+            background-color: #f7e0b5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        
+        /* 游戏容器 */
+        .game-container {
+            width: 95%;
+            max-width: 900px;
+            height: 800px;
+            background: linear-gradient(to bottom, #aed581, #dce775);
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #8bc34a;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 顶部信息栏 */
+        .info-bar {
+            background-color: #558b2f;
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.6em;
+            font-weight: bold;
+            border-bottom: 4px solid #33691e;
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .info-bar span {
+            margin: 0 15px;
+        }
+        
+        .info-bar .level {
+            font-size: 0.8em;
+            color: #cddc39;
+        }
+        
+        #bgMusicToggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        #bgMusicToggle:hover {
+            color: #cddc39;
+        }
+        
+        /* 游戏区域 */
+        .play-area {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        
+        /* 师傅图标 */
+        #master {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 7em;
+            color: rgba(0, 0, 0, 0.7);
+            user-select: none;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+            line-height: 1;
+        }
+        
+        /* 师傅的招式提示 */
+        .master-move-display {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-size: 4em;
+            color: #d84315;
+            font-weight: bold;
+            text-align: center;
+            min-width: 150px;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 15;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .master-move-display.show {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+        
+        .master-move-display .text {
+            font-size: 0.4em;
+            color: #333;
+            margin-top: 5px;
+        }
+        
+        /* 大熊图标 */
+        #bear {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9em;
+            color: #6d4c41;
+            user-select: none;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+            line-height: 1;
+            display: block;
+        }
+        
+        /* 玩家操作按钮 */
+        .player-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            max-width: 250px;
+        }
+        
+        .action-button {
+            width: 100px;
+            height: 100px;
+            background-color: #ffb300;
+            border: 3px solid #fb8c00;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            user-select: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-button:hover:not(:disabled) {
+            background-color: #ffa000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .action-button:active:not(:disabled) {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #e65100;
+        }
+        
+        .action-button:disabled {
+            background-color: #cccccc;
+            border-color: #bbbbbb;
+            color: #a0a0a0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .action-button .text {
+            font-size: 0.4em;
+            color: #333;
+            margin-top: 5px;
+        }
+        
+        /* 游戏反馈提示 */
+        .feedback {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6em;
+            font-weight: bold;
+            color: #4CAF50;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.6);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 20;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        
+        .feedback.show {
+            opacity: 1;
+            transform: translate(-50%, -70%);
+        }
+        
+        .feedback.wrong {
+            color: #F44336;
+        }
+        
+        .feedback.combo {
+            color: #FFEB3B;
+            font-size: 7em;
+            animation: pulse 0.5s ease-out forwards;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -60%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -70%) scale(1); opacity: 0; }
+        }
+        
+        /* 游戏结束或开始前的叠加层 */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+            flex-direction: column;
+            color: white;
+            font-size: 2.2em;
+            text-align: center;
+            border-radius: 25px;
+        }
+        
+        .overlay h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .overlay p {
+            font-size: 0.8em;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+        
+        .overlay button {
+            background-color: #ffb300;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .overlay button:hover {
+            background-color: #ffa000;
+        }
+        
+        .overlay.hidden {
+            display: none !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* 放松音乐播放器样式 */
+        .relax-music-player {
+            width: calc(100% - 40px);
+            background-color: #e0f2f7;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #b2ebf2;
+            z-index: 5;
+        }
+        
+        .relax-music-player h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #00bcd4;
+            font-size: 1.2em;
+        }
+        
+        .relax-music-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .relax-music-controls button {
+            background-color: #4dd0e1;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .relax-music-controls button:hover {
+            background-color: #26c6da;
+        }
+        
+        .relax-music-controls input[type="range"] {
+            width: 100px;
+            -webkit-appearance: none;
+            height: 6px;
+            background: #b2ebf2;
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        .relax-music-controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #00bcd4;
+            cursor: pointer;
+        }
+        
+        .relax-music-controls label {
+            font-size: 0.9em;
+            color: #00838f;
+        }
+        
+        /* 音乐选择器布局调整 */
+        .music-selector-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        
+        .music-selector {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+            min-width: 180px;
+            justify-content: center;
+        }
+        
+        .music-selector label {
+            font-size: 0.9em;
+            color: #00838f;
+            white-space: nowrap;
+        }
+        
+        .music-selector select {
+            padding: 5px 8px;
+            border-radius: 8px;
+            border: 1px solid #00bcd4;
+            background-color: #e0f7fa;
+            color: #00838f;
+            font-size: 0.9em;
+            cursor: pointer;
+            flex-grow: 1;
+            min-width: 80px;
+            max-width: 180px;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .game-container {
+                height: 780px;
+                width: 98%;
+                border-radius: 20px;
+            }
+            
+            .info-bar {
+                font-size: 1.2em;
+                padding: 10px 15px;
+            }
+            
+            #master {
+                top: 5px;
+                font-size: 5em;
+            }
+            
+            #bear {
+                bottom: 100px;
+                font-size: 7em;
+            }
+            
+            .master-move-display {
+                top: 20%;
+                font-size: 3em;
+                padding: 10px 15px;
+                min-height: 60px;
+            }
+            
+            .player-controls {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 15px;
+                bottom: 10px;
+                max-width: 200px;
+            }
+            
+            .action-button {
+                width: 70px;
+                height: 70px;
+                font-size: 2.2em;
+            }
+            
+            .action-button .text {
+                font-size: 0.3em;
+            }
+            
+            .feedback {
+                font-size: 4em;
+            }
+            
+            .feedback.combo {
+                font-size: 5em;
+            }
+            
+            .overlay {
+                font-size: 1.5em;
+            }
+            
+            .overlay h2 {
+                font-size: 1.2em;
+            }
+            
+            .overlay p {
+                font-size: 0.7em;
+            }
+            
+            .overlay button {
+                padding: 10px 20px;
+                font-size: 1.2em;
+            }
+            
+            .relax-music-player {
+                padding: 10px 15px;
+                margin-top: 15px;
+            }
+            
+            .relax-music-player h3 {
+                font-size: 1.1em;
+            }
+            
+            .relax-music-controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .relax-music-controls input[type="range"] {
+                width: 80%;
+            }
+            
+            .music-selector-row {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+                width: 100%;
+            }
+            
+            .music-selector {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .music-selector select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- 游戏背景音乐 -->
+        <audio id="game-bg-music" loop>
+            您的浏览器不支持游戏背景音乐。
+        </audio>
+        
+        <div class="info-bar">
+            <span>时间: <span id="timer">60</span>s</span>
+            <span>分数: <span id="score">0</span></span>
+            <span>连击: <span id="combo">0</span></span>
+            <span class="level">等级: <span id="level">学徒</span></span>
+            <button id="bgMusicToggle" title="切换背景音乐">
+                <i class="fas fa-volume-up"></i>
+            </button>
+        </div>
+        
+        <div class="play-area">
+            <!-- 师傅图标 -->
+            <div id="master" class="character">👨‍🏫</div>
+            
+            <!-- 大熊图标 -->
+            <div id="bear" class="character">🐻</div>
+            
+            <div id="masterMoveDisplay" class="master-move-display">
+                <span class="emoji"></span>
+                <div class="text"></div>
+            </div>
+            
+            <div id="feedback" class="feedback"></div>
+            
+            <div class="player-controls">
+                <button class="action-button" data-action="left-punch">
+                    <span>👊</span><div class="text">左拳</div>
+                </button>
+                <button class="action-button" data-action="right-punch">
+                    <span>🤜</span><div class="text">右拳</div>
+                </button>
+                <button class="action-button" data-action="up-kick">
+                    <span>🤸</span><div class="text">上踢</div>
+                </button>
+                <button class="action-button" data-action="down-block">
+                    <span>🛡️</span><div class="text">下挡</div>
+                </button>
+                <button class="action-button" data-action="jump">
+                    <span>⬆️</span><div class="text">跳跃</div>
+                </button>
+                <button class="action-button" data-action="crouch">
+                    <span>⤵️</span><div class="text">蹲伏</div>
+                </button>
+            </div>
+        </div>
+        
+        <div class="relax-music-player">
+            <div class="music-selector-row">
+                <div class="music-selector">
+                    <label for="bgMusicSelector">游戏音乐:</label>
+                    <select id="bgMusicSelector"></select>
+                </div>
+                <div class="music-selector">
+                    <label for="relaxMusicSelector">放松音乐:</label>
+                    <select id="relaxMusicSelector"></select>
+                </div>
+            </div>
+            
+            <h3>🎵 放松音乐控制 🎵</h3>
+            
+            <audio id="relax-audio" loop>
+                您的浏览器不支持放松音乐。
+            </audio>
+            
+            <div class="relax-music-controls">
+                <button id="relaxPlayButton">播放</button>
+                <button id="relaxPauseButton">暂停</button>
+                <label for="relaxVolumeSlider">音量:</label>
+                <input type="range" id="relaxVolumeSlider" min="0" max="1" step="0.05" value="0.5">
+            </div>
+        </div>
+        
+        <div class="overlay" id="gameOverlay">
+            <h2>大熊学武功！</h2>
+            <p>看师傅演示，快速点击对应的招式！</p>
+            <button id="startButton">开始练功</button>
+        </div>
+    </div>
+    
+    <script>
+        // ===== 元素获取 =====
+        const timerElement = document.getElementById('timer');
+        const scoreElement = document.getElementById('score');
+        const comboElement = document.getElementById('combo');
+        const levelElement = document.getElementById('level');
+        const masterMoveDisplay = document.getElementById('masterMoveDisplay');
+        const masterMoveEmoji = masterMoveDisplay.querySelector('.emoji');
+        const masterMoveText = masterMoveDisplay.querySelector('.text');
+        const actionButtons = document.querySelectorAll('.action-button');
+        const feedbackDisplay = document.getElementById('feedback');
+        const gameOverlay = document.getElementById('gameOverlay');
+        const startButton = document.getElementById('startButton');
+        
+        // 游戏音乐元素
+        const gameBgMusic = document.getElementById('game-bg-music');
+        const bgMusicToggle = document.getElementById('bgMusicToggle');
+        const bgMusicIcon = bgMusicToggle.querySelector('i');
+        const bgMusicSelector = document.getElementById('bgMusicSelector');
+        gameBgMusic.volume = 0.3;
+        let isGameBgMusicPlaying = false;
+        
+        // 放松音乐元素
+        const relaxAudio = document.getElementById('relax-audio');
+        const relaxPlayButton = document.getElementById('relaxPlayButton');
+        const relaxPauseButton = document.getElementById('relaxPauseButton');
+        const relaxVolumeSlider = document.getElementById('relaxVolumeSlider');
+        const relaxMusicSelector = document.getElementById('relaxMusicSelector');
+        relaxAudio.volume = relaxVolumeSlider.value;
+        
+        // ===== 游戏状态变量 =====
+        let score = 0;
+        let combo = 0;
+        let timeLeft = 60;
+        let gameInterval;
+        let moveInterval;
+        let isGameRunning = false;
+        let expectedMoveId = null;
+        let moveTimeout = null;
+        let level = 1;
+        
+        // ===== 游戏数据 =====
+        const moves = [
+            { id: 'left-punch', emoji: '👊', text: '左拳' },
+            { id: 'right-punch', emoji: '🤜', text: '右拳' },
+            { id: 'up-kick', emoji: '🤸', text: '上踢' },
+            { id: 'down-block', emoji: '🛡️', text: '下挡' },
+            { id: 'jump', emoji: '⬆️', text: '跳跃' },
+            { id: 'crouch', emoji: '⤵️', text: '蹲伏' }
+        ];
+        
+        const levels = [
+            { scoreThreshold: 0, name: '学徒', moveSpeed: 1500 },
+            { scoreThreshold: 100, name: '小熊武者', moveSpeed: 1200 },
+            { scoreThreshold: 300, name: '功夫大熊', moveSpeed: 1000 },
+            { scoreThreshold: 600, name: '宗师之徒', moveSpeed: 800 },
+            { scoreThreshold: 1000, name: '熊霸天下', moveSpeed: 600 }
+        ];
+        
+        // 音乐列表
+        const gameMusicList = [
+            { name: "功夫节奏", src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3" },
+            { name: "振奋打击", src: "https://assets.mixkit.co/sfx/preview/mixkit-martial-arts-punch-2047.mp3" },
+            { name: "山林修炼", src: "https://www.bensound.com/bensound-music/bensound-littleidea.mp3" }
+        ];
+        
+        const relaxMusicList = [
+            { name: "森林摇篮曲", src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Forest-Lullaby.mp3" },
+            { name: "雨林冥想", src: "https://assets.mixkit.co/sfx/preview/mixkit-forest-stream-loop-2009.mp3" },
+            { name: "海浪声", src: "https://www.bensound.com/bensound-music/bensound-relaxing.mp3" }
+        ];
+        
+        // ===== 音乐播放辅助函数 =====
+        async function loadAndPlayMusic(audioElement, src, shouldPlay) {
+            console.log(`尝试加载: ${src}, 预期播放: ${shouldPlay}`);
+            audioElement.src = src;
+            audioElement.load();
+            
+            if (shouldPlay) {
+                try {
+                    await new Promise((resolve, reject) => {
+                        const onCanPlayThrough = () => {
+                            console.log(`Audio canplaythrough: ${src}`);
+                            audioElement.removeEventListener('canplaythrough', onCanPlayThrough);
+                            audioElement.removeEventListener('loadeddata', onLoadedData);
+                            audioElement.removeEventListener('error', onError);
+                            resolve();
+                        };
+                        
+                        const onLoadedData = () => {
+                            console.log(`Audio loadeddata: ${src}`);
+                            audioElement.removeEventListener('canplaythrough', onCanPlayThrough);
+                            audioElement.removeEventListener('loadeddata', onLoadedData);
+                            audioElement.removeEventListener('error', onError);
+                            resolve();
+                        };
+                        
+                        const onError = (e) => {
+                            console.error(`Audio error during load/play: ${src}`, e);
+                            audioElement.removeEventListener('canplaythrough', onCanPlayThrough);
+                            audioElement.removeEventListener('loadeddata', onLoadedData);
+                            audioElement.removeEventListener('error', onError);
+                            reject(new Error(`Audio load error for ${src}: ${e.message || e.type}`));
+                        };
+                        
+                        audioElement.addEventListener('canplaythrough', onCanPlayThrough);
+                        audioElement.addEventListener('loadeddata', onLoadedData);
+                        audioElement.addEventListener('error', onError);
+                        
+                        if (audioElement.readyState >= 4) {
+                            onCanPlayThrough();
+                        } else if (audioElement.readyState >= 2) {
+                            onLoadedData();
+                        }
+                        
+                        setTimeout(() => {
+                            reject(new Error(`Audio load timeout for ${src}`));
+                        }, 7000);
+                    });
+                    
+                    await audioElement.play();
+                    console.log(`音乐 ${src} 成功播放。`);
+                    return true;
+                } catch (e) {
+                    console.warn(`音乐播放失败 (URL: ${src})，可能需要用户交互或链接失效/格式错误:`, e);
+                    return false;
+                }
+            }
+            return false;
+        }
+        
+        // 填充音乐选择器下拉菜单
+        function populateMusicSelectors() {
+            bgMusicSelector.innerHTML = '';
+            relaxMusicSelector.innerHTML = '';
+            
+            gameMusicList.forEach((music) => {
+                const option = document.createElement('option');
+                option.value = music.src;
+                option.textContent = music.name;
+                bgMusicSelector.appendChild(option);
+            });
+            
+            if (gameMusicList.length > 0) {
+                gameBgMusic.src = gameMusicList[0].src;
+                gameBgMusic.load();
+            }
+            
+            relaxMusicList.forEach((music) => {
+                const option = document.createElement('option');
+                option.value = music.src;
+                option.textContent = music.name;
+                relaxMusicSelector.appendChild(option);
+            });
+            
+            if (relaxMusicList.length > 0) {
+                relaxAudio.src = relaxMusicList[0].src;
+                relaxAudio.load();
+            }
+        }
+        
+        // ===== 游戏核心逻辑 =====
+        
+        // 重置游戏状态
+        function resetGame() {
+            score = 0;
+            combo = 0;
+            timeLeft = 60;
+            level = 1;
+            
+            scoreElement.textContent = score;
+            comboElement.textContent = combo;
+            timerElement.textContent = timeLeft;
+            levelElement.textContent = levels[0].name;
+            
+            // 确保在重置时清除所有计时器
+            if (gameInterval) {
+                clearInterval(gameInterval);
+                gameInterval = null;
+            }
+            
+            if (moveInterval) {
+                clearInterval(moveInterval);
+                moveInterval = null;
+            }
+            
+            if (moveTimeout) {
+                clearTimeout(moveTimeout);
+                moveTimeout = null;
+            }
+            
+            isGameRunning = false;
+            expectedMoveId = null;
+            
+            masterMoveDisplay.classList.remove('show');
+            feedbackDisplay.classList.remove('show', 'correct', 'wrong', 'combo');
+            feedbackDisplay.textContent = '';
+            
+            enableActionButtons(true);
+            
+            gameBgMusic.pause();
+            gameBgMusic.currentTime = 0;
+            isGameBgMusicPlaying = false;
+            bgMusicIcon.classList.remove('fa-volume-mute');
+            bgMusicIcon.classList.add('fa-volume-up');
+            
+            relaxAudio.pause();
+            relaxAudio.currentTime = 0;
+        }
+        
+        // 开始游戏
+        async function startGame() {
+            console.log("startGame called.");
+            
+            // 如果游戏已经在运行，或者正在启动过程中，则忽略重复调用
+            if (isGameRunning) {
+                console.log("Game is already running or starting, ignoring duplicate call.");
+                return;
+            }
+            
+            resetGame();
+            
+            // 关键：在设置isGameRunning=true之前先隐藏overlay，防止竞争条件
+            gameOverlay.classList.add('hidden');
+            
+            // 增加一个短延迟，确保浏览器有足够时间处理 DOM 更新和渲染
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            isGameRunning = true;
+            
+            try {
+                gameInterval = setInterval(updateTimer, 1000);
+                console.log("Game interval set with ID:", gameInterval);
+            } catch (error) {
+                console.error("Failed to set gameInterval:", error);
+                isGameRunning = false;
+                gameOverlay.classList.remove('hidden');
+                return;
+            }
+            
+            startNewMoveSequence();
+            
+            // 音乐播放逻辑
+            if (isGameBgMusicPlaying) {
+                await loadAndPlayMusic(gameBgMusic, bgMusicSelector.value, true);
+            }
+            
+            relaxAudio.pause();
+            console.log("startGame finished. Game is running.");
+        }
+        
+        // 更新计时器
+        function updateTimer() {
+            // 只有当游戏正在运行时才更新时间
+            if (!isGameRunning) {
+                if (gameInterval) {
+                    clearInterval(gameInterval);
+                    gameInterval = null;
+                }
+                console.log("updateTimer called but game is not running.");
+                return;
+            }
+            
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            console.log("Time left:", timeLeft, " (isGameRunning:", isGameRunning, ")");
+            
+            if (timeLeft <= 0) {
+                endGame();
+            }
+        }
+        
+        // 开始新的招式序列
+        function startNewMoveSequence() {
+            if (moveInterval) clearInterval(moveInterval);
+            
+            let currentLevelData = levels[0];
+            for (let i = levels.length - 1; i >= 0; i--) {
+                if (score >= levels[i].scoreThreshold) {
+                    currentLevelData = levels[i];
+                    level = i + 1;
+                    break;
+                }
+            }
+            
+            levelElement.textContent = currentLevelData.name;
+            moveInterval = setInterval(showNextMove, currentLevelData.moveSpeed);
+            showNextMove();
+        }
+        
+        // 显示下一个招式
+        function showNextMove() {
+            if (!isGameRunning) return;
+            
+            clearTimeout(moveTimeout);
+            
+            if (expectedMoveId !== null) {
+                handleWrongGuess(null);
+            }
+            
+            masterMoveDisplay.classList.remove('show');
+            
+            const randomIndex = Math.floor(Math.random() * moves.length);
+            const nextMove = moves[randomIndex];
+            
+            masterMoveEmoji.textContent = nextMove.emoji;
+            masterMoveText.textContent = nextMove.text;
+            masterMoveDisplay.classList.add('show');
+            
+            expectedMoveId = nextMove.id;
+            
+            actionButtons.forEach(button => {
+                button.disabled = false;
+                button.classList.remove('correct', 'wrong');
+            });
+            
+            const currentLevelData = levels.find(l => score >= l.scoreThreshold) || levels[levels.length - 1];
+            
+            moveTimeout = setTimeout(() => {
+                if (expectedMoveId !== null && isGameRunning) {
+                    handleWrongGuess(null);
+                }
+            }, currentLevelData.moveSpeed - 200);
+        }
+        
+        // 处理玩家动作
+        function handlePlayerAction(event) {
+            console.log("Player action clicked. Expected:", expectedMoveId, "Clicked:", event.currentTarget.dataset.action);
+            
+            if (!isGameRunning || expectedMoveId === null) {
+                console.log("Action ignored: Not running or no expected move.");
+                return;
+            }
+            
+            clearTimeout(moveTimeout);
+            
+            const clickedAction = event.currentTarget.dataset.action;
+            const isCorrect = (clickedAction === expectedMoveId);
+            
+            expectedMoveId = null;
+            masterMoveDisplay.classList.remove('show');
+            enableActionButtons(false);
+            
+            if (isCorrect) {
+                console.log("Correct!");
+                score += (10 + combo * 2);
+                combo++;
+                
+                scoreElement.textContent = score;
+                comboElement.textContent = combo;
+                
+                if (combo > 1) {
+                    showFeedback(`连击 x${combo}!`, 'combo');
+                } else {
+                    showFeedback('正确！', 'correct');
+                }
+                
+                const nextLevelThreshold = levels[level] ? levels[level].scoreThreshold : Infinity;
+                
+                if (score >= nextLevelThreshold) {
+                    level++;
+                    levelElement.textContent = levels[level-1].name;
+                    startNewMoveSequence();
+                    showFeedback(`等级提升！`, 'combo');
+                }
+            } else {
+                console.log("Wrong!");
+                handleWrongGuess(event.currentTarget);
+            }
+        }
+        
+        // 处理错误猜测
+        function handleWrongGuess(clickedButton) {
+            score = Math.max(0, score - 5);
+            combo = 0;
+            
+            scoreElement.textContent = score;
+            comboElement.textContent = combo;
+            
+            showFeedback('错误！', 'wrong');
+            
+            if (clickedButton) {
+                clickedButton.classList.add('wrong');
+            }
+            
+            expectedMoveId = null;
+        }
+        
+        // 显示反馈
+        function showFeedback(text, type) {
+            feedbackDisplay.classList.remove('show', 'correct', 'wrong', 'combo');
+            feedbackDisplay.textContent = text;
+            feedbackDisplay.classList.add('show');
+            
+            if (type) {
+                feedbackDisplay.classList.add(type);
+            }
+            
+            setTimeout(() => {
+                feedbackDisplay.classList.remove('show');
+            }, 1000);
+        }
+        
+        // 启用/禁用动作按钮
+        function enableActionButtons(enable) {
+            actionButtons.forEach(button => {
+                button.disabled = !enable;
+            });
+        }
+        
+        // 结束游戏
+        function endGame() {
+            clearInterval(gameInterval);
+            clearInterval(moveInterval);
+            clearTimeout(moveTimeout);
+            
+            isGameRunning = false;
+            enableActionButtons(false);
+            masterMoveDisplay.classList.remove('show');
+            expectedMoveId = null;
+            
+            gameBgMusic.pause();
+            gameBgMusic.currentTime = 0;
+            isGameBgMusicPlaying = false;
+            bgMusicIcon.classList.remove('fa-volume-mute');
+            bgMusicIcon.classList.add('fa-volume-up');
+            
+            gameOverlay.classList.remove('hidden');
+            gameOverlay.querySelector('h2').textContent = '练功结束！';
+            gameOverlay.querySelector('p').textContent = `你的最终分数是：${score} 分，大熊达到了 ${levelElement.textContent} 境界！`;
+            gameOverlay.querySelector('button').textContent = '再来一局';
+        }
+        
+        // ===== 事件监听器 =====
+        
+        actionButtons.forEach(button => {
+            button.addEventListener('click', handlePlayerAction);
+        });
+        
+        bgMusicToggle.addEventListener('click', async () => {
+            if (gameBgMusic.paused) {
+                const success = await loadAndPlayMusic(gameBgMusic, bgMusicSelector.value, true);
+                if (success) {
+                    isGameBgMusicPlaying = true;
+                    bgMusicIcon.classList.remove('fa-volume-mute');
+                    bgMusicIcon.classList.add('fa-volume-up');
+                    
+                    if (!relaxAudio.paused) {
+                        relaxAudio.pause();
+                    }
+                }
+            } else {
+                gameBgMusic.pause();
+                isGameBgMusicPlaying = false;
+                bgMusicIcon.classList.remove('fa-volume-up');
+                bgMusicIcon.classList.add('fa-volume-mute');
+            }
+        });
+        
+        bgMusicSelector.addEventListener('change', async (e) => {
+            const newSrc = e.target.value;
+            const wasPlaying = isGameBgMusicPlaying;
+            gameBgMusic.pause();
+            gameBgMusic.currentTime = 0;
+            const success = await loadAndPlayMusic(gameBgMusic, newSrc, wasPlaying);
+            if (success) {
+                isGameBgMusicPlaying = true;
+                bgMusicIcon.classList.remove('fa-volume-mute');
+                bgMusicIcon.classList.add('fa-volume-up');
+                
+                if (!relaxAudio.paused) {
+                    relaxAudio.pause();
+                }
+            } else {
+                isGameBgMusicPlaying = false;
+                bgMusicIcon.classList.remove('fa-volume-up');
+                bgMusicIcon.classList.add('fa-volume-mute');
+            }
+        });
+        
+        relaxPlayButton.addEventListener('click', async () => {
+            const success = await loadAndPlayMusic(relaxAudio, relaxMusicSelector.value, true);
+            if (success) {
+                if (!gameBgMusic.paused) {
+                    gameBgMusic.pause();
+                    isGameBgMusicPlaying = false;
+                    bgMusicIcon.classList.remove('fa-volume-up');
+                    bgMusicIcon.classList.add('fa-volume-mute');
+                }
+            }
+        });
+        
+        relaxPauseButton.addEventListener('click', () => {
+            relaxAudio.pause();
+        });
+        
+        relaxVolumeSlider.addEventListener('input', () => {
+            relaxAudio.volume = relaxVolumeSlider.value;
+        });
+        
+        relaxMusicSelector.addEventListener('change', async (e) => {
+            const newSrc = e.target.value;
+            const wasRelaxPlaying = !relaxAudio.paused;
+            relaxAudio.pause();
+            relaxAudio.currentTime = 0;
+            const success = await loadAndPlayMusic(relaxAudio, newSrc, wasRelaxPlaying);
+            if (success) {
+                if (!gameBgMusic.paused) {
+                    gameBgMusic.pause();
+                    isGameBgMusicPlaying = false;
+                    bgMusicIcon.classList.remove('fa-volume-up');
+                    bgMusicIcon.classList.add('fa-volume-mute');
+                }
+            }
+        });
+        
+        // ===== 初始设置 =====
+        document.addEventListener('DOMContentLoaded', () => {
+            populateMusicSelectors();
+            gameOverlay.classList.remove('hidden');
+            startButton.addEventListener('click', startGame);
+            resetGame();
+        });
+    </script>
+</body>
+</html>
+
