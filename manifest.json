@@ -21,9 +21,5 @@
       "type": "image/png"
     }
   ],
-  "categories": ["games", "education", "entertainment"],
-  "lang": "zh-CN",
-  "author": "大熊工作室"
+  "categories": ["games", "education"]
 }
-
-
