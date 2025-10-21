@@ -1253,6 +1253,50 @@
             }
         });
 
+        // ===== Paddle 测试函数 =====
+function checkPaddleLoaded() {
+    if (typeof Paddle === 'undefined') {
+        console.error('❌ Paddle SDK 未加载');
+        alert('Paddle SDK 加载失败，请检查网络或脚本加载');
+        return false;
+    }
+    console.log('✅ Paddle SDK 加载成功');
+    console.log('Paddle 版本:', Paddle.Version);
+    return true;
+}
+
+function testPaymentWindow() {
+    if (!checkPaddleLoaded()) {
+        return;
+    }
+    
+    // 设置沙盒环境
+    Paddle.Environment.set('sandbox');
+    
+    console.log('🔄 尝试打开支付窗口...');
+    
+    // 使用 Paddle 的示例产品ID进行测试
+    Paddle.Checkout.open({
+        product: 12345, // 这是 Paddle 的示例产品ID
+        successCallback: function(data) {
+            console.log('✅ 支付成功回调:', data);
+            alert('支付测试成功！这是沙盒环境，不会真实扣款。');
+        },
+        closeCallback: function(data) {
+            console.log('ℹ️ 用户关闭支付窗口:', data);
+            alert('支付窗口已关闭');
+        },
+        loadCallback: function() {
+            console.log('✅ 支付窗口加载完成');
+        }
+    });
+}
+
+// 页面加载后自动检查
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔍 检查 Paddle 加载状态...');
+    setTimeout(checkPaddleLoaded, 1000);
+});
         // ===== 初始设置 =====
         document.addEventListener('DOMContentLoaded', () => {
             populateMusicSelectors();
@@ -1270,3 +1314,4 @@
     </script>
 </body>
 </html>
+
