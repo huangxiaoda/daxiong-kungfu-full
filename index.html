@@ -11,6 +11,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script>
+    // 初始化 Paddle - 使用测试vendor ID
+    Paddle.Environment.set('sandbox');
+    Paddle.Setup({ vendor: 1234 }); // 先用测试ID，等验证通过后替换真实ID
+    </script>
     <style>
         /* 页面整体样式 */
         body {
@@ -1314,4 +1320,5 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
