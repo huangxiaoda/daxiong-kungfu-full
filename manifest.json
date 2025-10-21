@@ -1,5 +1,5 @@
-"version": "1.1",
-"name": "大熊学武功完整版",
+{
+  "name": "大熊学武功完整版",
   "short_name": "大熊学武功Pro",
   "description": "功夫节奏挑战 - 完整版",
   "version": "2.0",
@@ -24,5 +24,6 @@
   "categories": ["games", "education", "entertainment"],
   "lang": "zh-CN",
   "author": "大熊工作室"
+}
 
 
