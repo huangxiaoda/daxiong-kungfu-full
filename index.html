@@ -978,7 +978,14 @@
             bgMusicIcon.classList.add('fa-volume-up');
 
             relaxAudio.pause();
-            relaxAudio.currentTime = 0;
+            relaxAudio.currentTime = 0; 
+            // === 新增：域名迁移状态清理 ===
+    const currentDomain = window.location.hostname;
+    if (currentDomain === 'daxiongkungfu.com') {
+        // 如果是新域名，确保状态完全重置
+        localStorage.removeItem('daxiong_game_state');
+        localStorage.setItem('domain_migrated', 'true');
+    }
         }
 
         // 开始游戏
@@ -1320,5 +1327,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
