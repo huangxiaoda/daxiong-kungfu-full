@@ -717,13 +717,13 @@
             } else {
                 let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
                 
-                if (playCount < 10) {
+                if (playCount < 5) {
                     playCount++;
                     localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
                     showRemainingTries(10 - playCount);
                     
-                    if (playCount >= 8) {
-                        showFeedback(`剩余试玩次数: ${10 - playCount}`, 'combo');
+                    if (playCount >= 3) {
+                        showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
                     }
                     return true;
                 } else {
@@ -1327,6 +1327,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
 
