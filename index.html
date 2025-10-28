@@ -979,13 +979,19 @@
 
             relaxAudio.pause();
             relaxAudio.currentTime = 0; 
-            // === 新增：域名迁移状态清理 ===
-    const currentDomain = window.location.hostname;
-    if (currentDomain === 'daxiongkungfu.com') {
-        // 如果是新域名，确保状态完全重置
-        localStorage.removeItem('daxiong_game_state');
-        localStorage.setItem('domain_migrated', 'true');
-    }
+           // === 修复：全面的域名迁移状态清理 ===
+const currentDomain = window.location.hostname;
+if (currentDomain === 'daxiongkungfu.com') {
+    // 清理所有可能的状态键（包括新发现的 daxiong_play_count）
+    const keysToRemove = [
+        'daxiong_game_state', 
+        'daxiong_play_count',      // ← 新增这个
+        'daxiong_pro_unlocked'     // ← 新增这个
+    ];
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+    localStorage.setItem('domain_migrated', 'true');
+    console.log('✅ 已清理所有游戏状态');
+}
         }
 
         // 开始游戏
@@ -1327,6 +1333,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
 
