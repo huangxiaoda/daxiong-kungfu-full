@@ -1109,7 +1109,7 @@ const currentDomain = window.location.hostname;
                 if (expectedMoveId !== null && isGameRunning) {
                     handleWrongGuess(null);
                 }
-            }, currentLevelData.moveSpeed - 200);
+            }, Math.max(currentLevelData.moveSpeed - 200, 300)); // 确保至少有300ms反应时间
         }
 
         // 处理玩家动作
@@ -1343,6 +1343,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
 
