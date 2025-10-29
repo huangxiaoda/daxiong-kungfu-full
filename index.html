@@ -1277,16 +1277,23 @@ if (currentDomain === 'daxiongkungfu.com') {
         });
 
         relaxVolumeSlider.addEventListener('input', function() {
-    if(relaxAudio) {   
-        relaxAudio.volume = relaxVolumeSlider.value;
-        console.log("放松音乐音量设置为:", this.value); // 用于调试，可删除
+    if(relaxAudio) {
+        const volume = parseFloat(this.value);
+        relaxAudio.volume = volume;
+        console.log("放松音乐音量设置为:", volume);
+        
+        // 保存音量偏好
+        localStorage.setItem('relax_music_volume', volume.toString());
     }
 });
 
-// 可选：添加一个 'change' 事件监听器，确保拖动结束后也生效
-relaxVolumeSlider.addEventListener('change', function() {
-    if(relaxAudio) {
-        relaxAudio.volume = this.value;
+// 可选：页面加载时恢复音量设置
+window.addEventListener('load', function() {
+    const savedVolume = localStorage.getItem('relax_music_volume');
+    if (savedVolume && relaxVolumeSlider && relaxAudio) {
+        const volume = parseFloat(savedVolume);
+        relaxVolumeSlider.value = volume;
+        relaxAudio.volume = volume;
     }
 });
 
@@ -1367,6 +1374,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
 
