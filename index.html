@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- 添加emoji字体支持 -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Apple+Color+Emoji&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
     <script>
@@ -20,7 +22,7 @@
     <style>
         /* 页面整体样式 */
         body {
-            font-family: 'Zhi Mang Xing', cursive, sans-serif;
+             font-family: 'Zhi Mang Xing', cursive, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
             background-color: #f7e0b5;
             margin: 0;
             padding: 0;
@@ -494,7 +496,26 @@
             z-index: 25;
             font-family: 'Press Start 2P', cursive;
         }
+/* 确保emoji正确显示 */
+.character, .action-button span, .master-move-display .emoji {
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Zhi Mang Xing', cursive;
+}
 
+/* 师傅和大熊的emoji样式 */
+#master, #bear {
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+/* 动作按钮的emoji */
+.action-button span {
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+    font-size: 1.2em;
+}
+
+/* 师傅招式显示的emoji */
+.master-move-display .emoji {
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+}
         /* 响应式调整 */
         @media (max-width: 768px) {
             .game-container {
@@ -1357,23 +1378,41 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🔍 检查 Paddle 加载状态...');
     setTimeout(checkPaddleLoaded, 1000);
 });
-        // ===== 初始设置 =====
-        document.addEventListener('DOMContentLoaded', () => {
-            populateMusicSelectors();
-            gameOverlay.classList.remove('hidden');
-            startButton.addEventListener('click', startGame);
-            
-            // 添加购买按钮事件监听
-            const purchaseButton = document.getElementById('purchaseButton');
-            if (purchaseButton) {
-                purchaseButton.addEventListener('click', initiatePurchase);
-            }
-            
-            resetGame();
-        });
+       // ===== 初始设置 =====
+document.addEventListener('DOMContentLoaded', () => {
+    // 检测emoji显示是否正常
+    const testEmoji = document.createElement('div');
+    testEmoji.style.fontFamily = 'Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji';
+    testEmoji.innerHTML = '🤜🛡️🤸'; // 测试有问题的emoji
+    testEmoji.style.position = 'absolute';
+    testEmoji.style.left = '-9999px';
+    document.body.appendChild(testEmoji);
+    
+    setTimeout(() => {
+        const isEmojiSupported = testEmoji.offsetWidth > 50; // 简单检测
+        if (!isEmojiSupported) {
+            console.warn('Emoji显示可能不正常，考虑备用方案');
+        }
+        document.body.removeChild(testEmoji);
+    }, 100);
+
+    // 原有的初始化代码
+    populateMusicSelectors();
+    gameOverlay.classList.remove('hidden');
+    startButton.addEventListener('click', startGame);
+    
+    // 添加购买按钮事件监听
+    const purchaseButton = document.getElementById('purchaseButton');
+    if (purchaseButton) {
+        purchaseButton.addEventListener('click', initiatePurchase);
+    }
+    
+    resetGame();
+});
     </script>
 </body>
 </html>
+
 
 
 
