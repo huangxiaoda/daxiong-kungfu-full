@@ -719,31 +719,32 @@
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
-        // 检查游戏状态
-        function checkGameStatus() {
-            const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
-            
-            if (isUnlocked) {
-                hideRemainingTries();
-                return true;
-            } else {
-                let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
-                
-                if (playCount < 5) {
-                    playCount++;
-                    localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
-                    showRemainingTries(5 - playCount);
-                    
-                    if (playCount >= 3) {
-                        showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
-                    }
-                    return true;
-                } else {
-                    showPurchaseOverlay();
-                    return false;
-                }
+       // 检查游戏状态
+function checkGameStatus() {
+    const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
+    
+    if (isUnlocked) {
+        hideRemainingTries();
+        return true;
+    } else {
+        let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
+        console.log(`当前试玩次数: ${playCount}`); // 调试信息
+        
+        // 只在游戏开始时显示剩余次数，不增加次数
+        showRemainingTries(5 - playCount);
+        
+        if (playCount < 5) {
+            // 注意：这里不再增加次数，次数在游戏结束时增加
+            if (playCount >= 3) {
+                showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
             }
+            return true;
+        } else {
+            showPurchaseOverlay();
+            return false;
         }
+    }
+}
 
         // 显示购买弹窗
         function showPurchaseOverlay() {
@@ -990,18 +991,15 @@
 
             relaxAudio.pause();
             relaxAudio.currentTime = 0; 
-           // === 修复：全面的域名迁移状态清理 ===
+          // === 修复：重置时不要清除播放次数 ===
+// 只清理游戏状态，保留试玩次数
 const currentDomain = window.location.hostname;
- if (currentDomain === 'daxiongkungfu.com') {
-        const keysToRemove = [
-            'daxiong_game_state', 
-            'daxiong_play_count',
-            'daxiong_pro_unlocked'
-        ];
-        keysToRemove.forEach(key => localStorage.removeItem(key));
-        localStorage.setItem('domain_migrated', 'true');
-        console.log('✅ 重置游戏时清理所有状态');
-    }
+if (currentDomain === 'daxiongkungfu.com') {
+    // 只清除游戏状态，不清除试玩次数
+    localStorage.removeItem('daxiong_game_state');
+    localStorage.setItem('domain_migrated', 'true');
+    console.log('✅ 重置游戏状态，保留试玩次数');
+}
         }
 
         // 开始游戏
@@ -1196,6 +1194,22 @@ const currentDomain = window.location.hostname;
             isGameBgMusicPlaying = false;
             bgMusicIcon.classList.remove('fa-volume-mute');
             bgMusicIcon.classList.add('fa-volume-up');
+             // === 修复：游戏结束时保存播放次数 ===
+    const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
+    if (!isUnlocked) {
+        let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
+        // 确保播放次数正确增加
+        if (playCount < 5) {
+            playCount++;
+            localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
+            console.log(`游戏结束，播放次数更新为: ${playCount}`);
+            
+            // 显示剩余次数提示
+            if (playCount >= 3) {
+                showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
+            }
+        }
+    }
             gameOverlay.classList.remove('hidden');
             gameOverlay.querySelector('h2').textContent = '练功结束！';
             gameOverlay.querySelector('p').textContent = `你的最终分数是：${score} 分，大熊达到了 ${levelElement.textContent} 境界！`;
@@ -1353,6 +1367,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
 
