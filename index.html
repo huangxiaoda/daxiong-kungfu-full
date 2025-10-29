@@ -694,7 +694,7 @@
         <div id="purchaseOverlay" class="overlay hidden">
             <div class="purchase-modal">
                 <h2>试练结束！</h2>
-                <p>少侠已体验10次功夫试练</p>
+                <p>少侠已体验5次功夫试练</p>
                 <p>解锁完整版，畅享无限武道！</p>
                 <button id="purchaseButton">解锁完整游戏</button>
                 <p class="price">领悟真功夫</p>
@@ -732,7 +732,7 @@
                 if (playCount < 5) {
                     playCount++;
                     localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
-                    showRemainingTries(10 - playCount);
+                    showRemainingTries(5 - playCount);
                     
                     if (playCount >= 3) {
                         showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
@@ -1343,6 +1343,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
 
