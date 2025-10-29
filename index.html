@@ -992,7 +992,16 @@
             relaxAudio.currentTime = 0; 
            // === 修复：全面的域名迁移状态清理 ===
 const currentDomain = window.location.hostname;
-
+ if (currentDomain === 'daxiongkungfu.com') {
+        const keysToRemove = [
+            'daxiong_game_state', 
+            'daxiong_play_count',
+            'daxiong_pro_unlocked'
+        ];
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+        localStorage.setItem('domain_migrated', 'true');
+        console.log('✅ 重置游戏时清理所有状态');
+    }
         }
 
         // 开始游戏
@@ -1334,6 +1343,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
 
