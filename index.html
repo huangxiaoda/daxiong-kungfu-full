@@ -1262,17 +1262,17 @@ const currentDomain = window.location.hostname;
             relaxAudio.pause();
         });
 
-        relaxVolumeSlider.addEventListener('input', () => {
+        relaxVolumeSlider.addEventListener('input', function() {
     if(relaxAudio) {   
         relaxAudio.volume = relaxVolumeSlider.value;
-        console.log("放松音乐音量设置为:", relaxVolumeSlider.value);
+        console.log("放松音乐音量设置为:", this.value); // 用于调试，可删除
     }
 });
 
 // 可选：添加一个 'change' 事件监听器，确保拖动结束后也生效
-relaxVolumeSlider.addEventListener('change', () => {
+relaxVolumeSlider.addEventListener('change', function() {
     if(relaxAudio) {
-        relaxAudio.volume = relaxVolumeSlider.value;
+        relaxAudio.volume = this.value;
     }
 });
 
@@ -1353,6 +1353,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
 
