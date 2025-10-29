@@ -1263,8 +1263,18 @@ const currentDomain = window.location.hostname;
         });
 
         relaxVolumeSlider.addEventListener('input', () => {
-            relaxAudio.volume = relaxVolumeSlider.value;
-        });
+    if(relaxAudio) {   
+        relaxAudio.volume = relaxVolumeSlider.value;
+        console.log("放松音乐音量设置为:", relaxVolumeSlider.value);
+    }
+});
+
+// 可选：添加一个 'change' 事件监听器，确保拖动结束后也生效
+relaxVolumeSlider.addEventListener('change', () => {
+    if(relaxAudio) {
+        relaxAudio.volume = relaxVolumeSlider.value;
+    }
+});
 
         relaxMusicSelector.addEventListener('change', async (e) => {
             const newSrc = e.target.value;
@@ -1343,6 +1353,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
 
 
