@@ -1297,62 +1297,12 @@ if (currentDomain === 'daxiongkungfu.com') {
             relaxAudio.pause();
         });
 
-       // === 修复：音量控制 - 移动端兼容 ===
-// 检测移动端设备
-function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-// 更新音量显示
-function updateVolumeDisplay(volume) {
-    let display = document.getElementById('volumeDisplay');
-    if (!display) {
-        display = document.createElement('span');
-        display.id = 'volumeDisplay';
-        display.style.cssText = 'margin-left: 10px; font-size: 0.9em; color: #00838f; font-weight: bold;';
-        relaxVolumeSlider.parentNode.appendChild(display);
-    }
-    
-    const levels = ['静音', '低', '中', '高', '最大'];
-    const levelIndex = Math.floor(volume * 4);
-    display.textContent = `音量: ${levels[levelIndex]}`;
-}
-
-// 移动端提示
-function showMobileVolumeHint() {
-    let hint = document.getElementById('mobileVolumeHint');
-    if (!hint) {
-        hint = document.createElement('div');
-        hint.id = 'mobileVolumeHint';
-        hint.style.cssText = 'font-size: 0.8em; color: #666; margin-top: 5px; text-align: center; width: 100%;';
-        hint.innerHTML = '📱 手机端请使用侧边音量键调节';
-        relaxVolumeSlider.parentNode.appendChild(hint);
-    }
-    hint.style.display = 'block';
-}
-
-// 音量控制事件
+// 音量控制
 relaxVolumeSlider.addEventListener('input', function() {
     if(relaxAudio) {
         const volume = parseFloat(this.value);
-        const isMobile = isMobileDevice();
-        
-        if (isMobile) {
-            // 移动端：只更新显示，不控制实际音量
-            updateVolumeDisplay(volume);
-            console.log("移动端音量显示:", volume, "(请使用音量键调节)");
-            
-            // 显示移动端提示
-            showMobileVolumeHint();
-        } else {
-            // 电脑端：正常控制音量
-            relaxAudio.volume = volume;
-            console.log("电脑端音量设置为:", volume);
-            
-            // 隐藏移动端提示
-            const hint = document.getElementById('mobileVolumeHint');
-            if (hint) hint.style.display = 'none';
-        }
+        relaxAudio.volume = volume;
+        console.log("放松音乐音量设置为:", volume);
         
         // 保存音量偏好
         localStorage.setItem('relax_music_volume', volume.toString());
@@ -1364,23 +1314,8 @@ window.addEventListener('load', function() {
     const savedVolume = localStorage.getItem('relax_music_volume');
     if (savedVolume && relaxVolumeSlider && relaxAudio) {
         const volume = parseFloat(savedVolume);
-        const isMobile = isMobileDevice();
-        
         relaxVolumeSlider.value = volume;
-        
-        if (isMobile) {
-            // 移动端：只更新显示
-            updateVolumeDisplay(volume);
-            showMobileVolumeHint();
-        } else {
-            // 电脑端：设置实际音量
-            relaxAudio.volume = volume;
-        }
-    }
-    
-    // 初始化移动端检测
-    if (isMobileDevice()) {
-        showMobileVolumeHint();
+        relaxAudio.volume = volume;
     }
 });
         relaxMusicSelector.addEventListener('change', async (e) => {
@@ -1477,6 +1412,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
+
 
 
 
