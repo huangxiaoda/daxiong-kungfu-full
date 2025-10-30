@@ -876,8 +876,28 @@ function checkGameStatus() {
 function updateLayoutForLevel(levelName) {
     const remainingElement = document.getElementById('remainingTries');
     const masterMoveDisplay = document.getElementById('masterMoveDisplay');
+     const isMobile = window.innerWidth <= 768;
     
-    // 长文字等级时调整位置
+    if (isMobile) {
+        // 移动端：小幅调整像素值
+        if (levelName === '小熊武者' || levelName === '功夫大熊' || levelName === '宗师之徒' || levelName === '熊霸天下') {
+            if (remainingElement) {
+                remainingElement.style.top = '152px'; // 小幅增加2px
+            }
+            if (masterMoveDisplay) {
+                masterMoveDisplay.style.top = '182px'; // 小幅增加2px
+            }
+        } else {
+            // 学徒等级
+            if (remainingElement) {
+                remainingElement.style.top = '150px';
+            }
+            if (masterMoveDisplay) {
+                masterMoveDisplay.style.top = '180px';
+            }
+        }
+    } else {
+        // 电脑端：保持原来的调整逻辑
     if (levelName === '小熊武者' || levelName === '功夫大熊' || levelName === '宗师之徒' || levelName === '熊霸天下') {
         if (remainingElement) {
             remainingElement.style.top = '160px';
@@ -895,7 +915,8 @@ function updateLayoutForLevel(levelName) {
         }
     }
 }
-        // ===== 游戏数据 =====
+}
+    // ===== 游戏数据 =====
         const moves = [
             { id: 'left-punch', emoji: '👊', text: '左拳' },
             { id: 'right-punch', emoji: '🤜', text: '右拳' },
@@ -1450,6 +1471,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
+
 
 
 
