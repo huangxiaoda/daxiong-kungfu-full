@@ -1170,6 +1170,8 @@ if (currentDomain === 'daxiongkungfu.com') {
                 if (score >= nextLevelThreshold) {
                     level++;
                     levelElement.textContent = levels[level-1].name;
+                    // 在等级提升的代码中添加
+                    updateLayoutForLevel(levels[level-1].name);
                     startNewMoveSequence();
                     showFeedback(`等级提升！`, 'combo');
                 }
@@ -1423,6 +1425,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
+
 
 
 
