@@ -878,23 +878,13 @@ function updateLayoutForLevel(levelName) {
     const masterMoveDisplay = document.getElementById('masterMoveDisplay');
      const isMobile = window.innerWidth <= 768;
     
+    // 移动端：完全固定，不随等级变化
     if (isMobile) {
-        // 移动端：小幅调整像素值
-        if (levelName === '小熊武者' || levelName === '功夫大熊' || levelName === '宗师之徒' || levelName === '熊霸天下') {
-            if (remainingElement) {
-                remainingElement.style.top = '152px'; // 小幅增加2px
-            }
-            if (masterMoveDisplay) {
-                masterMoveDisplay.style.top = '182px'; // 小幅增加2px
-            }
-        } else {
-            // 学徒等级
-            if (remainingElement) {
-                remainingElement.style.top = '150px';
-            }
-            if (masterMoveDisplay) {
-                masterMoveDisplay.style.top = '180px';
-            }
+        if (remainingElement) {
+            remainingElement.style.top = '150px'; // 固定值
+        }
+        if (masterMoveDisplay) {
+            masterMoveDisplay.style.top = '20%'; // 固定值
         }
     } else {
         // 电脑端：保持原来的调整逻辑
@@ -914,7 +904,6 @@ function updateLayoutForLevel(levelName) {
             masterMoveDisplay.style.top = '25%';
         }
     }
-}
 }
     // ===== 游戏数据 =====
         const moves = [
@@ -1471,6 +1460,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
+
 
 
 
