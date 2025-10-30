@@ -180,7 +180,7 @@
             max-width: 250px;
         }
 
-       .action-button {
+    .action-button {
     width: 100px;
     height: 100px;
     background-color: #ffb300;
@@ -188,8 +188,8 @@
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     font-size: 3em;
     color: white;
     font-weight: bold;
@@ -197,12 +197,25 @@
     transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
     user-select: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}
+
+/* 修复：动作图标垂直居中 */
+.action-button span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    font-size: 2.5em;
+    line-height: 1;
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
 }
 
 .action-button .text {
-    font-size: 0.4em;
-    color: #333;
     margin-top: 5px;
+    font-size: 0.9em;
+    color: #333;
+    text-align: center;
 }
 
 /* 动作按钮的emoji */
@@ -494,8 +507,13 @@
 
 /* 动作按钮的emoji */
 .action-button span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    font-size: 2.5em;
+    line-height: 1;
     font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
-    font-size: 1.2em;
 }
 
 /* 师傅招式显示的emoji */
@@ -519,15 +537,19 @@
                 top: 5px;
                 font-size: 5em;
             }
-@media (max-width: 768px) {
-    .action-button {
+.action-button {
         width: 70px;
         height: 70px;
         font-size: 2.2em;
     }
     
+    .action-button span {
+        height: 40px;
+        font-size: 1.8em;
+    }
+    
     .action-button .text {
-        font-size: 0.3em;
+        font-size: 0.7em;
     }
 }
             #bear {
@@ -1408,6 +1430,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
+
 
 
 
