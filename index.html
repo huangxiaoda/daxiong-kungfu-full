@@ -511,23 +511,24 @@
     font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
 }
         /* 响应式调整 */
-        @media (max-width: 768px) {
-            .game-container {
-                height: 780px;
-                width: 98%;
-                border-radius: 20px;
-            }
+@media (max-width: 768px) {
+    .game-container {
+        height: 780px;
+        width: 98%;
+        border-radius: 20px;
+    }
 
-            .info-bar {
-                font-size: 1.2em;
-                padding: 10px 15px;
-            }
+    .info-bar {
+        font-size: 1.2em;
+        padding: 10px 15px;
+    }
 
-            #master {
-                top: -30px;
-                font-size: 5em;
-            }
-.action-button {
+    #master {
+        top: -30px;
+        font-size: 5em;
+    }
+
+    .action-button {
         width: 70px;
         height: 70px;
         font-size: 2.2em;
@@ -541,101 +542,91 @@
     .action-button .text {
         font-size: 0.7em;
     }
-   /* 在这里添加剩余试玩的移动端样式 */
-    .remaining-tries {
-        top: 120px; /* 移动端也相应调整 */
-     white-space: nowrap; /* 同样添加防止换行 */
-    }
-        #bear {
-                bottom: 100px;
-                font-size: 7em;
-            }
 
-     .master-move-display {
+    .remaining-tries {
+        top: 120px;
+        white-space: nowrap;
+    }
+
+    #bear {
+        bottom: 100px;
+        font-size: 7em;
+    }
+
+    .master-move-display {
         top: 20%;
         font-size: 3em;
         padding: 10px 15px;
         min-height: 60px;
     }
 
+    .player-controls {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 15px;
+        bottom: 10px;
+        max-width: 200px;
+    }
 
-            .player-controls {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-                padding: 15px;
-                bottom: 10px;
-                max-width: 200px;
-            }
+    .feedback {
+        font-size: 4em;
+    }
 
-            .action-button {
-                width: 70px;
-                height: 70px;
-                font-size: 2.2em;
-            }
-  }
-            .action-button .text {
-                font-size: 0.3em;
-            }
+    .feedback.combo {
+        font-size: 5em;
+    }
 
-            .feedback {
-                font-size: 4em;
-            }
+    .overlay {
+        font-size: 1.5em;
+    }
 
-            .feedback.combo {
-                font-size: 5em;
-            }
+    .overlay h2 {
+        font-size: 1.2em;
+    }
 
-            .overlay {
-                font-size: 1.5em;
-            }
+    .overlay p {
+        font-size: 0.7em;
+    }
 
-            .overlay h2 {
-                font-size: 1.2em;
-            }
+    .overlay button {
+        padding: 10px 20px;
+        font-size: 1.2em;
+    }
 
-            .overlay p {
-                font-size: 0.7em;
-            }
+    .relax-music-player {
+        padding: 10px 15px;
+        margin-top: 15px;
+    }
 
-            .overlay button {
-                padding: 10px 20px;
-                font-size: 1.2em;
-            }
+    .relax-music-player h3 {
+        font-size: 1.1em;
+    }
 
-            .relax-music-player {
-                padding: 10px 15px;
-                margin-top: 15px;
-            }
+    .relax-music-controls {
+        flex-direction: column;
+        gap: 8px;
+    }
 
-            .relax-music-player h3 {
-                font-size: 1.1em;
-            }
+    .relax-music-controls input[type="range"] {
+        width: 80%;
+    }
 
-            .relax-music-controls {
-                flex-direction: column;
-                gap: 8px;
-            }
+    .music-selector-row {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+        width: 100%;
+    }
 
-            .relax-music-controls input[type="range"] {
-                width: 80%;
-            }
+    .music-selector {
+        width: 100%;
+        justify-content: flex-start;
+    }
 
-            .music-selector-row {
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
-                width: 100%;
-            }
-
-            .music-selector {
-                width: 100%;
-                justify-content: flex-start;
-            }
-
-            .music-selector select {
-                width: 100%;
-            }
-        }
+    .music-selector select {
+        width: 100%;
+    }
+} /* 这里添加闭合括号 */
     </style>
 </head>
 <body>
@@ -1460,6 +1451,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
+
 
 
 
