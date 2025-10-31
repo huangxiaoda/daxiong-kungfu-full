@@ -865,37 +865,39 @@ function checkGameStatus() {
 
         // ===== 布局调整函数 =====
 function updateLayoutForLevel(levelName) {
-    const remainingElement = document.getElementById('remainingTries');
-    const masterMoveDisplay = document.getElementById('masterMoveDisplay');
-     const isMobile = window.innerWidth <= 768;
-    
-    // 移动端：完全固定，不随等级变化
-    if (isMobile) {
-        if (remainingElement) {
-            remainingElement.style.top = '150px'; // 固定值
-        }
-        if (masterMoveDisplay) {
-            masterMoveDisplay.style.top = '20%'; // 固定值
-        }
-    } else {
-        // 电脑端：保持原来的调整逻辑
-    if (levelName === '小熊武者' || levelName === '功夫大熊' || levelName === '宗师之徒' || levelName === '熊霸天下') {
-        if (remainingElement) {
-            remainingElement.style.top = '160px';
-        }
-        if (masterMoveDisplay) {
-            masterMoveDisplay.style.top = '32%';
-        }
-    } else {
-        // 短文字等级时恢复原位置
-        if (remainingElement) {
-            remainingElement.style.top = '140px';
-        }
-        if (masterMoveDisplay) {
-            masterMoveDisplay.style.top = '25%';
-        }
+  const remainingElement = document.getElementById('remainingTries');
+  const masterMoveDisplay = document.getElementById('masterMoveDisplay');
+  const isMobile = window.innerWidth <= 768;
+
+  // 移动端：完全固定，不随等级变化
+  if (isMobile) {
+    if (remainingElement) {
+      remainingElement.style.top = '150px';
     }
-}
+    if (masterMoveDisplay) {
+      masterMoveDisplay.style.top = '20%';
+    }
+  } else {
+    // 电脑端：保持原来的调整逻辑
+    if (levelName === '小熊武者' || levelName === '功夫大熊' || 
+        levelName === '宗师之徒' || levelName === '熊霸天下') {
+      if (remainingElement) {
+        remainingElement.style.top = '160px';
+      }
+      if (masterMoveDisplay) {
+        masterMoveDisplay.style.top = '32%';
+      }
+    } else {
+      // 短文字等级时恢复原位置
+      if (remainingElement) {
+        remainingElement.style.top = '140px';
+      }
+      if (masterMoveDisplay) {
+        masterMoveDisplay.style.top = '25%';
+      }
+    }
+  }
+} 
     // ===== 游戏数据 =====
         const moves = [
             { id: 'left-punch', emoji: '👊', text: '左拳' },
@@ -1451,6 +1453,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
+
 
 
 
