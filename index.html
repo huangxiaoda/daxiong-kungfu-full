@@ -507,14 +507,14 @@
 /* 音乐说明弹出框 */
 .music-description-popup {
     position: absolute;  /* 改为absolute定位 */
-    top: -80px;
+    top: -60px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #ffd54f, #ffb300); /* 改为金色渐变背景 */
     color: #5d4037;     /* 改为深棕色文字 */
     padding: 12px 20px;
     border-radius: 10px;
-    font-size: 1.0em;
+    font-size: 1em;
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -539,7 +539,7 @@
 /* 移动端适配 */
 @media (max-width: 768px) {
     .music-description-popup {
-        top: -70px;
+        top: -50px;
         max-width: 250px;
         font-size: 0.9em;
         padding: 10px 16px;
@@ -1523,6 +1523,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
