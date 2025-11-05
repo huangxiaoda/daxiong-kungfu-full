@@ -1315,8 +1315,7 @@ if (currentDomain === 'daxiongkungfu.com') {
             gameOverlay.querySelector('p').textContent = `你的最终分数是：${score} 分，大熊达到了 ${levelElement.textContent} 境界！`;
             gameOverlay.querySelector('button').textContent = '再来一局';
         }
-
-        // 显示音乐说明函数
+// 显示音乐说明函数
 function showMusicDescription(text, duration = 3000) {
     const popup = document.getElementById('musicDescription');
     const textElement = document.getElementById('descriptionText');
@@ -1331,6 +1330,7 @@ function showMusicDescription(text, duration = 3000) {
         }, duration);
     }
 }
+        
         // ===== 事件监听器 =====
         actionButtons.forEach(button => {
             button.addEventListener('click', handlePlayerAction);
@@ -1520,6 +1520,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
