@@ -1316,7 +1316,7 @@ if (currentDomain === 'daxiongkungfu.com') {
             gameOverlay.querySelector('button').textContent = '再来一局';
         }
 // 显示音乐说明函数
-function showMusicDescription(text, duration = 3000) {
+function showMusicDescription(text, duration = 5000) {
     const popup = document.getElementById('musicDescription');
     const textElement = document.getElementById('descriptionText');
     
@@ -1324,7 +1324,7 @@ function showMusicDescription(text, duration = 3000) {
         textElement.textContent = text;
         popup.classList.add('show');
         
-        // 3秒后自动隐藏
+        // 5秒后自动隐藏
         setTimeout(() => {
             popup.classList.remove('show');
         }, duration);
@@ -1418,7 +1418,7 @@ window.addEventListener('load', function() {
     // === 新增：显示歌曲说明 ===
     const selectedMusic = relaxMusicList.find(music => music.src === newSrc);
     if (selectedMusic && selectedMusic.description) {
-        showMusicDescription(selectedMusic.description, 3000);
+        showMusicDescription(selectedMusic.description, 5000);
     }
     
     const wasRelaxPlaying = !relaxAudio.paused;
@@ -1520,6 +1520,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
