@@ -504,6 +504,44 @@
 .master-move-display .emoji {
     font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
 }
+/* 音乐说明弹出框 */
+.music-description-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 15px;
+    font-size: 1.1em;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    max-width: 320px;
+    text-align: center;
+    border: 2px solid #ffb300;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.music-description-popup.show {
+    opacity: 1;
+}
+
+.description-content {
+    font-family: 'Zhi Mang Xing', cursive;
+    font-weight: bold;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .music-description-popup {
+        max-width: 280px;
+        font-size: 1em;
+        padding: 12px 20px;
+    }
+}        
         /* 响应式调整 */
 @media (max-width: 768px) {
     .game-container {
@@ -919,7 +957,7 @@ function updateLayoutForLevel(levelName) {
         ];
 
         const relaxMusicList = [
-            { name: "海浪柔情", src: "music/海浪柔情.mp3" },
+            { name: "海浪柔情", src: "music/海浪柔情.mp3",description:“温柔的海浪扑打着岸边，帮助放松心情" },
             { name: "催眠乐章", src: "music/催眠乐章.mp3" },
             { name: "林中鸟语", src: "music/林中鸟语.mp3" },
             { name: "大自然协奏曲", src: "music/大自然协奏曲.mp3" },
@@ -1278,6 +1316,21 @@ if (currentDomain === 'daxiongkungfu.com') {
             gameOverlay.querySelector('button').textContent = '再来一局';
         }
 
+        // 显示音乐说明函数
+function showMusicDescription(text, duration = 3000) {
+    const popup = document.getElementById('musicDescription');
+    const textElement = document.getElementById('descriptionText');
+    
+    if (popup && textElement) {
+        textElement.textContent = text;
+        popup.classList.add('show');
+        
+        // 3秒后自动隐藏
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, duration);
+    }
+}
         // ===== 事件监听器 =====
         actionButtons.forEach(button => {
             button.addEventListener('click', handlePlayerAction);
@@ -1359,21 +1412,28 @@ window.addEventListener('load', function() {
         relaxAudio.volume = volume;
     }
 });
-        relaxMusicSelector.addEventListener('change', async (e) => {
-            const newSrc = e.target.value;
-            const wasRelaxPlaying = !relaxAudio.paused;
-            relaxAudio.pause();
-            relaxAudio.currentTime = 0;
-            const success = await loadAndPlayMusic(relaxAudio, newSrc, wasRelaxPlaying);
-            if (success) {
-                if (!gameBgMusic.paused) {
-                    gameBgMusic.pause();
-                    isGameBgMusicPlaying = false;
-                    bgMusicIcon.classList.remove('fa-volume-up');
-                    bgMusicIcon.classList.add('fa-volume-mute');
-                }
-            }
-        });
+       relaxMusicSelector.addEventListener('change', async (e) => {
+    const newSrc = e.target.value;
+    
+    // === 新增：显示歌曲说明 ===
+    const selectedMusic = relaxMusicList.find(music => music.src === newSrc);
+    if (selectedMusic && selectedMusic.description) {
+        showMusicDescription(selectedMusic.description, 3000);
+    }
+    
+    const wasRelaxPlaying = !relaxAudio.paused;
+    relaxAudio.pause();
+    relaxAudio.currentTime = 0;
+    const success = await loadAndPlayMusic(relaxAudio, newSrc, wasRelaxPlaying);
+    if (success) {
+        if (!gameBgMusic.paused) {
+            gameBgMusic.pause();
+            isGameBgMusicPlaying = false;
+            bgMusicIcon.classList.remove('fa-volume-up');
+            bgMusicIcon.classList.add('fa-volume-mute');
+        }
+    }
+});
 
         // ===== Paddle 测试函数 =====
 function checkPaddleLoaded() {
@@ -1451,8 +1511,15 @@ document.addEventListener('DOMContentLoaded', () => {
     resetGame();
 });
     </script>
+    <!-- 音乐说明弹出框 -->
+<div id="musicDescription" class="music-description-popup">
+    <div class="description-content">
+        <span id="descriptionText"></span>
+    </div>
+</div>
 </body>
 </html>
+
 
 
 
