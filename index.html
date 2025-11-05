@@ -506,24 +506,26 @@
 }
 /* 音乐说明弹出框 */
 .music-description-popup {
-    position: fixed;
-    top: 50%;
+    position: absolute;  /* 改为absolute定位 */
+    top: -80%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%);
     background: linear-gradient(135deg, #ffd54f, #ffb300); /* 改为金色渐变背景 */
     color: #5d4037;     /* 改为深棕色文字 */
-    padding: 15px 25px;
-    border-radius: 15px;
-    font-size: 1.1em;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1.0em;
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
-    max-width: 320px;
+    max-width: 280px;
     text-align: center;
-    border: 2px solid #ffb300;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    border: 2px solid #ff8f00;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    white-space: nowrap; /* 防止文字换行 */
 }
+
 
 .music-description-popup.show {
     opacity: 1;
@@ -537,9 +539,10 @@
 /* 移动端适配 */
 @media (max-width: 768px) {
     .music-description-popup {
-        max-width: 280px;
-        font-size: 1em;
-        padding: 12px 20px;
+        top: -70px;
+        max-width: 250px;
+        font-size: 0.9em;
+        padding: 10px 16px;
     }
 }        
         /* 响应式调整 */
@@ -1520,6 +1523,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
