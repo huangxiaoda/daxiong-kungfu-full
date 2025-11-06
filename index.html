@@ -533,35 +533,6 @@
     font-family: 'Zhi Mang Xing', cursive;
     font-weight: bold;
 }
-
-/* 音乐选择器滚动样式 */
-.music-selector select {
-    max-height: 180px;
-    overflow-y: auto;
-    padding: 5px;
-    border: 2px solid #ffb300;
-    border-radius: 8px;
-    background: white;
-    font-family: inherit; /* 使用继承的字体 */
-}
-
-.music-selector option {
-    padding: 8px 5px;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 0.95em;
-}
-
-.music-selector option:hover {
-    background-color: #ffeb3b;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .music-selector select {
-        max-height: 150px;
-        font-size: 0.9em;
-    }
-}
         
 /* 下面是原有的移动端适配样式 */
 @media (max-width: 768px) {
@@ -748,11 +719,11 @@
             <div class="music-selector-row">
                 <div class="music-selector">
                     <label for="bgMusicSelector">游戏音乐:</label>
-                    <select id="bgMusicSelector" size="6"></select>
+                    <select id="bgMusicSelector"></select>
                 </div>
                 <div class="music-selector">
                     <label for="relaxMusicSelector">放松音乐:</label>
-                    <select id="relaxMusicSelector" size="6"></select> 
+                    <select id="relaxMusicSelector"></select> 
                 </div>
             </div>
 
@@ -1549,6 +1520,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
