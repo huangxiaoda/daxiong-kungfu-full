@@ -585,14 +585,24 @@
         font-size: 7em;
     }
 
+  @media (max-width: 768px) {  
     .master-move-display {
-        top: 35%;
+        top: 28%;
         font-size: 3em;
         padding: 8px 12px;
         min-height: 50px;
         min-width: 110px;
+          /* 确保transform正确 */
+        transform: translate(-50%, -50%) !important;
     }
-
+     /* 如果是特别小的屏幕，可以进一步调整 */
+    @media (max-height: 700px) {
+        .master-move-display {
+            top: 32% !important;
+        }
+    }
+}
+    
     .player-controls {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
@@ -1520,6 +1530,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
