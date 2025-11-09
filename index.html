@@ -414,6 +414,36 @@
             flex-grow: 1;
             min-width: 80px;
             max-width: 180px;
+          
+            /* 新增：固定高度，启用滚动 */
+            height: 35px;
+            max-height: 35px;
+        }
+
+        /* 🎯 新增动态高度展开样式 */
+        .music-selector select:focus {
+            height: auto;
+            max-height: 70vh;
+            position: relative;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 选项样式优化 */
+        .music-selector select option {
+            padding: 8px 12px;
+            font-size: 0.85em;
+            background-color: #e0f7fa;
+            border-bottom: 1px solid #b2ebf2;
+        }
+
+        .music-selector select option:checked {
+            background-color: #00bcd4;
+            color: white;
+        }
+
+        .music-selector select option:hover {
+            background-color: #b2ebf2;
         }
 
         /* ===== 购买功能样式 ===== */
@@ -658,6 +688,17 @@
 
     .music-selector select {
         width: 100%;
+        height: 32px;
+        max-height: 32px;
+    }
+    
+    /* 🎯 新增移动端动态高度 */
+    .music-selector select:focus {
+        height: auto;
+        max-height: 60vh;
+        position: relative;
+        z-index: 100;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 } /* 这里添加闭合括号 */
     </style>
@@ -1528,6 +1569,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
