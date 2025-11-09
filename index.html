@@ -560,7 +560,7 @@
 }
 
 .description-content {
-    font-family: 'Zhi Mang Xing', cursive;
+    font-family: inherit;
     font-weight: bold;
 }
         
@@ -571,6 +571,11 @@
         font-size: 1em;
         padding: 12px 20px;
     }
+     /* 新增：移动端音乐说明字体统一 */
+    .description-content {
+        font-family: inherit;
+    }
+
 }        
         /* 响应式调整 */
 @media (max-width: 768px) {
@@ -1571,6 +1576,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
