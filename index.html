@@ -563,6 +563,15 @@
     font-family: 'Zhi Mang Xing', cursive;
     font-weight: bold;
 }
+.music-description-popup,
+.music-description-popup * {
+    font-family: 'Zhi Mang Xing', cursive, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif !important;
+}
+
+.description-content {
+    font-family: inherit !important;
+    font-weight: bold;
+}
         
 /* 下面是原有的移动端适配样式 */
 @media (max-width: 768px) {
@@ -571,6 +580,11 @@
         font-size: 1em;
         padding: 12px 20px;
     }   
+
+     .music-description-popup,
+     .music-description-popup * {
+        font-family: 'Zhi Mang Xing', cursive, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif !important;
+    }
 }        
         /* 响应式调整 */
 @media (max-width: 768px) {
@@ -1571,6 +1585,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
