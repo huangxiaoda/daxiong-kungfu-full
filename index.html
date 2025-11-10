@@ -423,10 +423,17 @@
         /* 🎯 新增动态高度展开样式 */
         .music-selector select:focus {
             height: auto;
-            max-height: 70vh;
-            position: relative;
-            z-index: 100;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            max-height: 400px; /* 固定高度 */
+            overflow-y: auto; /* 启用滚动 */
+            position: absolute; /* 改为绝对定位 */
+            top: 100%; /* 在选择器下方展开 */
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* 提高层级 */
+            background: #e0f7fa;
+            border: 1px solid #00bcd4;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         /* 选项样式优化 */
@@ -698,13 +705,23 @@
     }
     
     /* 🎯 新增移动端动态高度 */
-    .music-selector select:focus {
-        height: auto;
-        max-height: 60vh;
-        position: relative;
-        z-index: 100;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    @media (max-width: 768px) {
+        .music-selector select:focus {
+            height: auto;
+            max-height: 300px; /* 移动端稍矮 */
+            overflow-y: auto; /* 启用滚动 */
+            position: absolute; /* 改为绝对定位 */
+            top: 100%; /* 在选择器下方展开 */
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* 提高层级 */
+            background: #e0f7fa;
+            border: 1px solid #00bcd4;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
     }
+        
 } /* 这里添加闭合括号 */
     </style>
 </head>
@@ -1576,6 +1593,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
