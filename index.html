@@ -1838,27 +1838,25 @@ window.addEventListener('beforeunload', function() {
     localStorage.setItem('daxiong_alarm_settings', JSON.stringify(alarmData));
 });
 
-// 页面加载时恢复闹钟设置
-document.addEventListener('DOMContentLoaded', function() {
-    const savedAlarm = localStorage.getItem('daxiong_alarm_settings');
-    if (savedAlarm) {
+
+        // ===== 初始设置 =====
+document.addEventListener('DOMContentLoaded', () => {
+          const savedAlarm = localStorage.getItem('daxiong_alarm_settings');
+        if (savedAlarm) {
         const alarmData = JSON.parse(savedAlarm);
         document.getElementById('alarmTime').value = alarmData.time;
         document.getElementById('alarmSound').value = alarmData.sound;
         document.getElementById('alarmRepeat').value = alarmData.repeat;
         
-        if (alarmData.time) {
-            setAlarm(alarmData.time, alarmData.sound, alarmData.repeat);
+           if (alarmData.time) {
+                setAlarm(alarmData.time, alarmData.sound, alarmData.repeat);
             
             // 恢复视觉状态
-            const alarmToggle = document.getElementById('alarmToggle');
+          const alarmToggle = document.getElementById('alarmToggle');
             alarmToggle.classList.add('set');
             alarmToggle.title = `闹钟设置: ${alarmData.time}`;
         }
     }
-});        
-        // ===== 初始设置 =====
-document.addEventListener('DOMContentLoaded', () => {
     // 检测emoji显示是否正常
     const testEmoji = document.createElement('div');
     testEmoji.style.fontFamily = 'Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji';
@@ -1898,6 +1896,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
