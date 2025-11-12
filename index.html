@@ -723,6 +723,148 @@
     }
         
 } /* 这里添加闭合括号 */
+/* 音乐控制头部布局 */
+.music-control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.music-control-header h3 {
+    margin: 0;
+    color: #00bcd4;
+    font-size: 1.2em;
+}
+
+/* 闹钟切换按钮 */
+.alarm-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.alarm-toggle:hover {
+    background-color: rgba(0, 188, 212, 0.1);
+    transform: scale(1.1);
+}
+
+.alarm-toggle.active {
+    background-color: #ffb300;
+    color: white;
+    animation: alarmPulse 2s infinite;
+}
+
+/* 闹钟脉冲动画 */
+@keyframes alarmPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 179, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 179, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 179, 0, 0);
+    }
+}
+
+/* 闹钟设置状态 */
+.alarm-toggle.set {
+    background-color: #4caf50;
+    animation: alarmPulseGreen 2s infinite;
+}
+
+@keyframes alarmPulseGreen {
+    0% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
+}
+
+/* 闹钟设置面板 */
+.alarm-panel {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    border: 2px solid #ffb300;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.alarm-panel h4 {
+    margin: 0 0 10px 0;
+    color: #5d4037;
+    text-align: center;
+}
+
+.alarm-setting {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.alarm-setting label {
+    min-width: 50px;
+    font-size: 0.9em;
+    color: #00838f;
+}
+
+.alarm-setting input,
+.alarm-setting select {
+    flex: 1;
+    padding: 5px 8px;
+    border: 1px solid #00bcd4;
+    border-radius: 5px;
+    background: #e0f7fa;
+    font-size: 0.9em;
+}
+
+.alarm-save {
+    width: 100%;
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.alarm-save:hover {
+    background: #45a049;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .music-control-header h3 {
+        font-size: 1.1em;
+    }
+    
+    .alarm-toggle {
+        font-size: 1.3em;
+        padding: 4px 6px;
+    }
+    
+    .alarm-panel {
+        padding: 12px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1623,6 +1765,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
