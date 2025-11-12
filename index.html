@@ -1724,7 +1724,119 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🔍 检查 Paddle 加载状态...');
     setTimeout(checkPaddleLoaded, 1000);
 });
-       // ===== 初始设置 =====
+
+// ===== 闹钟功能 =====
+
+let alarmTimeout = null;
+const alarmSound = new Audio();
+
+// 闹钟铃声列表
+const alarmSounds = {
+    'default': 'sounds/default-alarm.mp3',
+    'music1': 'music/晨间唤起_01_柔和闹钟.mp3',
+    'music2': 'music/晨间唤起_02_破晓鸟鸣.mp3'
+};
+
+// 切换闹钟面板
+document.getElementById('alarmToggle').addEventListener('click', function() {
+    const alarmPanel = document.getElementById('alarmPanel');
+    const isHidden = alarmPanel.classList.contains('hidden');
+    
+    alarmPanel.classList.toggle('hidden');
+    this.classList.toggle('active', !isHidden);
+});
+
+// 保存闹钟
+document.getElementById('saveAlarm').addEventListener('click', function() {
+    const alarmTime = document.getElementById('alarmTime').value;
+    const alarmSoundType = document.getElementById('alarmSound').value;
+    const alarmRepeat = document.getElementById('alarmRepeat').value;
+    
+    if (!alarmTime) {
+        alert('请设置闹钟时间');
+        return;
+    }
+    
+    setAlarm(alarmTime, alarmSoundType, alarmRepeat);
+    
+    // 更新闹钟视觉状态
+    const alarmToggle = document.getElementById('alarmToggle');
+    alarmToggle.classList.add('set');
+    alarmToggle.title = `闹钟设置: ${alarmTime}`;
+    
+    alert(`闹钟已设置为 ${alarmTime}`);
+});
+
+// 设置闹钟函数
+function setAlarm(time, soundType, repeatType) {
+    if (alarmTimeout) {
+        clearTimeout(alarmTimeout);
+    }
+    
+    const now = new Date();
+    const [hours, minutes] = time.split(':');
+    const alarmDate = new Date();
+    alarmDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+    
+    if (alarmDate <= now) {
+        alarmDate.setDate(alarmDate.getDate() + 1);
+    }
+    
+    const timeUntilAlarm = alarmDate.getTime() - now.getTime();
+    
+    alarmTimeout = setTimeout(() => {
+        playAlarmSound(soundType);
+        
+        if (repeatType !== 'once') {
+            setAlarm(time, soundType, repeatType);
+        }
+    }, timeUntilAlarm);
+    
+    console.log(`闹钟设置: ${time}, 还有 ${Math.round(timeUntilAlarm/1000/60)} 分钟`);
+}
+
+// 播放闹钟铃声
+function playAlarmSound(soundType) {
+    alarmSound.src = alarmSounds[soundType] || alarmSounds['default'];
+    alarmSound.loop = true;
+    alarmSound.play().catch(e => console.log('闹钟播放需要用户交互'));
+    
+    if (confirm('⏰ 闹钟响了！点击确定关闭')) {
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+    }
+}
+
+// 保存和恢复闹钟设置
+window.addEventListener('beforeunload', function() {
+    const alarmData = {
+        time: document.getElementById('alarmTime').value,
+        sound: document.getElementById('alarmSound').value,
+        repeat: document.getElementById('alarmRepeat').value
+    };
+    localStorage.setItem('daxiong_alarm_settings', JSON.stringify(alarmData));
+});
+
+// 页面加载时恢复闹钟设置
+document.addEventListener('DOMContentLoaded', function() {
+    const savedAlarm = localStorage.getItem('daxiong_alarm_settings');
+    if (savedAlarm) {
+        const alarmData = JSON.parse(savedAlarm);
+        document.getElementById('alarmTime').value = alarmData.time;
+        document.getElementById('alarmSound').value = alarmData.sound;
+        document.getElementById('alarmRepeat').value = alarmData.repeat;
+        
+        if (alarmData.time) {
+            setAlarm(alarmData.time, alarmData.sound, alarmData.repeat);
+            
+            // 恢复视觉状态
+            const alarmToggle = document.getElementById('alarmToggle');
+            alarmToggle.classList.add('set');
+            alarmToggle.title = `闹钟设置: ${alarmData.time}`;
+        }
+    }
+});        
+        // ===== 初始设置 =====
 document.addEventListener('DOMContentLoaded', () => {
     // 检测emoji显示是否正常
     const testEmoji = document.createElement('div');
@@ -1765,6 +1877,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
