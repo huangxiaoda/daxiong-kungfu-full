@@ -1795,7 +1795,7 @@ function setAlarm(time, soundType, repeatType) {
     console.log(`闹钟设置: ${time}, 还有 ${Math.round(timeUntilAlarm/1000/60)} 分钟`);
 }
 
-// 播放闹钟铃声 - 自动播放版
+// 播放闹钟铃声 - 完整自动版
 function playAlarmSound(soundType) {
     console.log('🔔 闹钟时间到！声音类型:', soundType);
     
@@ -1805,6 +1805,8 @@ function playAlarmSound(soundType) {
         audio.volume = 0.8;
         audio.loop = true;
         
+        console.log('🎵 尝试自动播放...');
+        
         // 先尝试自动播放
         audio.play().then(() => {
             console.log('✅ 自动播放成功！');
@@ -1812,10 +1814,11 @@ function playAlarmSound(soundType) {
             setTimeout(() => {
                 if (confirm('⏰ 闹钟响了！\n铃声正在播放...\n点击确定关闭铃声')) {
                     audio.pause();
+                    console.log('⏹️ 用户关闭铃声');
                 }
             }, 1000);
         }).catch(e => {
-            console.log('❌ 自动播放失败，使用备用方案:', e.message);
+            console.log('❌ 自动播放失败:', e.message);
             
             // 方法2：使用浏览器通知
             if ('Notification' in window && Notification.permission === 'granted') {
@@ -1824,31 +1827,16 @@ function playAlarmSound(soundType) {
                     icon: 'icon-192.png',
                     requireInteraction: true
                 });
+                console.log('📢 已发送浏览器通知');
             }
             
-            // 方法3：强制弹窗 + 用户交互后播放
-            if (confirm('⏰ 起床时间到了！\n点击确定播放唤醒铃声')) {
-                audio.play().then(() => {
-                    console.log('✅ 用户交互后播放成功');
-                    setTimeout(() => {
-                        if (confirm('🔔 铃声播放中...\n点击确定停止')) {
-                            audio.pause();
-                        }
-                    }, 3000);
-                });
-            }
+            // 方法3：强制弹窗
+            alert('⏰ 起床时间到了！该练功了！');
+            console.log('💡 已显示弹窗提醒');
         });
     } else {
-        // 默认提示音 - 使用系统通知
-        if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification('⏰ 大熊闹钟', {
-                body: '起床时间到了！该练功了！',
-                icon: 'icon-192.png',
-                requireInteraction: true
-            });
-        } else {
-            alert('⏰ 起床时间到了！该练功了！');
-        }
+        console.log('🔊 使用默认提示音');
+        alert('⏰ 起床时间到了！该练功了！');
     }
 }
    // 保存和恢复闹钟设置
@@ -1925,6 +1913,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
