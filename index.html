@@ -1795,49 +1795,210 @@ function setAlarm(time, soundType, repeatType) {
     console.log(`闹钟设置: ${time}, 还有 ${Math.round(timeUntilAlarm/1000/60)} 分钟`);
 }
 
-// 播放闹钟铃声 - 完整自动版
+// 播放闹钟铃声 - 智能设备检测版
 function playAlarmSound(soundType) {
     console.log('🔔 闹钟时间到！声音类型:', soundType);
     
-    // 方法1：先尝试自动播放（某些浏览器允许）
+    // 智能检测移动设备
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // 移动端：使用振动 + 全屏弹窗
+        mobileAlarmAlert(soundType);
+    } else {
+        // 电脑端：使用自动播放声音
+        desktopAlarmAlert(soundType);
+    }
+}
+
+// 桌面端提醒
+function desktopAlarmAlert(soundType) {
     if (soundType !== 'default') {
         const audio = new Audio(soundType);
         audio.volume = 0.8;
         audio.loop = true;
         
-        console.log('🎵 尝试自动播放...');
-        
-        // 先尝试自动播放
         audio.play().then(() => {
             console.log('✅ 自动播放成功！');
-            // 显示弹窗提醒
             setTimeout(() => {
-                if (confirm('⏰ 闹钟响了！\n铃声正在播放...\n点击确定关闭铃声')) {
+                if (confirm('⏰ 闹钟响了！\n点击确定关闭铃声')) {
                     audio.pause();
-                    console.log('⏹️ 用户关闭铃声');
                 }
             }, 1000);
         }).catch(e => {
             console.log('❌ 自动播放失败:', e.message);
-            
-            // 方法2：使用浏览器通知
-            if ('Notification' in window && Notification.permission === 'granted') {
-                new Notification('⏰ 大熊闹钟', {
-                    body: '起床时间到了！该练功了！',
-                    icon: 'icon-192.png',
-                    requireInteraction: true
-                });
-                console.log('📢 已发送浏览器通知');
-            }
-            
-            // 方法3：强制弹窗
             alert('⏰ 起床时间到了！该练功了！');
-            console.log('💡 已显示弹窗提醒');
         });
     } else {
-        console.log('🔊 使用默认提示音');
         alert('⏰ 起床时间到了！该练功了！');
     }
+}
+
+// 移动端提醒 - 增强振动版
+function mobileAlarmAlert(soundType) {
+    console.log('📱 移动端闹钟提醒');
+    
+    // 1. 强烈振动模式（更像真实闹钟）
+    if (navigator.vibrate) {
+        // 模式：长振动3秒 + 短停0.5秒 + 重复
+        const vibratePattern = [3000, 500, 3000, 500, 3000, 500, 3000, 500];
+        navigator.vibrate(vibratePattern);
+        console.log('📳 开始强烈振动提醒');
+    }
+    
+    // 2. 创建无法忽略的全屏界面
+    createMobileAlarmOverlay(soundType);
+    
+    // 3. 尝试在用户交互后播放声音
+    setTimeout(() => {
+        try {
+            // 创建音频但不立即播放
+            const audio = new Audio(soundType);
+            audio.volume = 0.6;
+            
+            // 当用户点击界面时尝试播放
+            const tryPlayAudio = () => {
+                audio.play().then(() => {
+                    console.log('🎵 移动端声音播放成功');
+                }).catch(e => {
+                    console.log('🔇 移动端声音播放失败');
+                });
+            };
+            
+            // 绑定到按钮点击事件
+            document.addEventListener('click', tryPlayAudio, { once: true });
+            
+        } catch (e) {
+            console.log('❌ 移动端音频初始化失败');
+        }
+    }, 1000);
+}
+
+// 创建移动端全屏闹钟界面
+function createMobileAlarmOverlay(soundType) {
+    // 移除可能存在的旧弹窗
+    const existingOverlay = document.getElementById('mobileAlarmOverlay');
+    if (existingOverlay) {
+        existingOverlay.remove();
+    }
+    
+    // 创建全屏遮罩
+    const overlay = document.createElement('div');
+    overlay.id = 'mobileAlarmOverlay';
+    overlay.innerHTML = `
+        <div class="mobile-alarm-container">
+            <div class="alarm-icon">⏰</div>
+            <h2>起床时间到了！</h2>
+            <p>大熊提醒您该练功了！</p >
+            <div class="alarm-buttons">
+                <button id="snoozeAlarm">贪睡5分钟</button>
+                <button id="stopAlarm">停止闹钟</button>
+            </div>
+        </div>
+    `;
+    
+    // 添加样式
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #ff6b6b, #ffa726);
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        color: white;
+    `;
+    
+    const container = overlay.querySelector('.mobile-alarm-container');
+    container.style.cssText = `
+        text-align: center;
+        background: rgba(255,255,255,0.95);
+        padding: 30px;
+        border-radius: 20px;
+        color: #333;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        max-width: 90%;
+        animation: pulse 0.8s infinite;
+    `;
+    
+    const alarmIcon = overlay.querySelector('.alarm-icon');
+    alarmIcon.style.cssText = `
+        font-size: 4em;
+        margin-bottom: 20px;
+    `;
+    
+    const buttons = overlay.querySelector('.alarm-buttons');
+    buttons.style.cssText = `
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    `;
+    
+    // 添加按钮样式
+    const buttonStyle = `
+        padding: 12px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+    `;
+    
+    const snoozeBtn = overlay.querySelector('#snoozeAlarm');
+    snoozeBtn.style.cssText = buttonStyle + 'background: #4CAF50; color: white;';
+    const stopBtn = overlay.querySelector('#stopAlarm');
+    stopBtn.style.cssText = buttonStyle + 'background: #f44336; color: white;';
+    
+    // 添加动画
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes flash {
+            0% { background: #ff6b6b; }
+            50% { background: #ffa726; }
+            100% { background: #ff6b6b; }
+        }
+        #mobileAlarmOverlay {
+            animation: flash 1s infinite;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // 添加到页面
+    document.body.appendChild(overlay);
+    
+    // 按钮事件
+    snoozeBtn.addEventListener('click', function() {
+        console.log('⏰ 贪睡5分钟');
+        overlay.remove();
+        // 停止振动
+        if (navigator.vibrate) {
+            navigator.vibrate(0);
+        }
+        // 5分钟后再次提醒
+        setTimeout(() => {
+            playAlarmSound(soundType);
+        }, 5 * 60 * 1000);
+    });
+    
+    stopBtn.addEventListener('click', function() {
+        console.log('⏹️ 停止闹钟');
+        overlay.remove();
+        // 停止振动
+        if (navigator.vibrate) {
+            navigator.vibrate(0);
+        }
+    });
 }
    // 保存和恢复闹钟设置
 window.addEventListener('beforeunload', function() { 
@@ -1913,6 +2074,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
