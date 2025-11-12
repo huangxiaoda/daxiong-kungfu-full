@@ -1795,38 +1795,61 @@ function setAlarm(time, soundType, repeatType) {
     console.log(`闹钟设置: ${time}, 还有 ${Math.round(timeUntilAlarm/1000/60)} 分钟`);
 }
 
-// 播放闹钟铃声
+// 播放闹钟铃声 - 自动播放版
 function playAlarmSound(soundType) {
-    console.log('🔔 闹钟时间到！');
+    console.log('🔔 闹钟时间到！声音类型:', soundType);
     
-    // 先显示弹窗（确保用户看到提醒）
-    const userConfirmed = confirm('⏰ 闹钟响了！\n点击确定关闭闹钟');
-    
-    // 用户交互后尝试播放声音
-    if (userConfirmed && soundType !== 'default') {
-        try {
-            // 创建新的audio元素
-            const audio = new Audio();
-            audio.src = alarmSounds[soundType] || alarmSounds['default'];
-            audio.volume = 0.5;
-            audio.play().then(() => {
-                console.log('🎵 铃声播放成功');
-                // 3秒后自动停止
-                setTimeout(() => {
+    // 方法1：先尝试自动播放（某些浏览器允许）
+    if (soundType !== 'default') {
+        const audio = new Audio(soundType);
+        audio.volume = 0.8;
+        audio.loop = true;
+        
+        // 先尝试自动播放
+        audio.play().then(() => {
+            console.log('✅ 自动播放成功！');
+            // 显示弹窗提醒
+            setTimeout(() => {
+                if (confirm('⏰ 闹钟响了！\n铃声正在播放...\n点击确定关闭铃声')) {
                     audio.pause();
-                }, 3000);
-            }).catch(e => {
-                console.log('🔇 铃声播放失败');
+                }
+            }, 1000);
+        }).catch(e => {
+            console.log('❌ 自动播放失败，使用备用方案:', e.message);
+            
+            // 方法2：使用浏览器通知
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('⏰ 大熊闹钟', {
+                    body: '起床时间到了！该练功了！',
+                    icon: 'icon-192.png',
+                    requireInteraction: true
+                });
+            }
+            
+            // 方法3：强制弹窗 + 用户交互后播放
+            if (confirm('⏰ 起床时间到了！\n点击确定播放唤醒铃声')) {
+                audio.play().then(() => {
+                    console.log('✅ 用户交互后播放成功');
+                    setTimeout(() => {
+                        if (confirm('🔔 铃声播放中...\n点击确定停止')) {
+                            audio.pause();
+                        }
+                    }, 3000);
+                });
+            }
+        });
+    } else {
+        // 默认提示音 - 使用系统通知
+        if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification('⏰ 大熊闹钟', {
+                body: '起床时间到了！该练功了！',
+                icon: 'icon-192.png',
+                requireInteraction: true
             });
-        } catch (e) {
-            console.log('❌ 音频播放异常');
+        } else {
+            alert('⏰ 起床时间到了！该练功了！');
         }
-    } else if (soundType === 'default') {
-        // 默认提示音
-        console.log('\u0007'); // 系统提示音
     }
-    
-    console.log('✅ 闹钟处理完成');
 }
    // 保存和恢复闹钟设置
 window.addEventListener('beforeunload', function() { 
@@ -1841,7 +1864,13 @@ window.addEventListener('beforeunload', function() {
 
         // ===== 初始设置 =====
 document.addEventListener('DOMContentLoaded', () => {
-          const savedAlarm = localStorage.getItem('daxiong_alarm_settings');
+        // 🎯 请求通知权限
+    if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().then(permission => {
+            console.log('通知权限:', permission);
+        });
+    }
+    const savedAlarm = localStorage.getItem('daxiong_alarm_settings');
         if (savedAlarm) {
         const alarmData = JSON.parse(savedAlarm);
         document.getElementById('alarmTime').value = alarmData.time;
@@ -1896,6 +1925,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
