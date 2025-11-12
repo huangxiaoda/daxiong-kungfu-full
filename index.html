@@ -1797,19 +1797,40 @@ function setAlarm(time, soundType, repeatType) {
 
 // 播放闹钟铃声
 function playAlarmSound(soundType) {
-    alarmSound.src = alarmSounds[soundType] || alarmSounds['default'];
-    alarmSound.loop = true;
-    alarmSound.play().catch(e => console.log('闹钟播放需要用户交互'));
+    console.log('🔔 闹钟时间到！');
     
-    if (confirm('⏰ 闹钟响了！点击确定关闭')) {
-        alarmSound.pause();
-        alarmSound.currentTime = 0;
+    // 先显示弹窗（确保用户看到提醒）
+    const userConfirmed = confirm('⏰ 闹钟响了！\n点击确定关闭闹钟');
+    
+    // 用户交互后尝试播放声音
+    if (userConfirmed && soundType !== 'default') {
+        try {
+            // 创建新的audio元素
+            const audio = new Audio();
+            audio.src = alarmSounds[soundType] || alarmSounds['default'];
+            audio.volume = 0.5;
+            audio.play().then(() => {
+                console.log('🎵 铃声播放成功');
+                // 3秒后自动停止
+                setTimeout(() => {
+                    audio.pause();
+                }, 3000);
+            }).catch(e => {
+                console.log('🔇 铃声播放失败');
+            });
+        } catch (e) {
+            console.log('❌ 音频播放异常');
+        }
+    } else if (soundType === 'default') {
+        // 默认提示音
+        console.log('\u0007'); // 系统提示音
     }
+    
+    console.log('✅ 闹钟处理完成');
 }
-
-// 保存和恢复闹钟设置
-window.addEventListener('beforeunload', function() {
-    const alarmData = {
+   // 保存和恢复闹钟设置
+window.addEventListener('beforeunload', function() { 
+        const alarmData = {
         time: document.getElementById('alarmTime').value,
         sound: document.getElementById('alarmSound').value,
         repeat: document.getElementById('alarmRepeat').value
@@ -1877,6 +1898,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
