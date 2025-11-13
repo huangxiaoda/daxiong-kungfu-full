@@ -1250,7 +1250,6 @@ function updateLayoutForLevel(levelName) {
                         }, 7000);
                     });
                     await audioElement.play();
-                    console.log(`音乐 ${src} 成功播放。`);
                     return true;
                 } catch (e) {
                     console.warn(`音乐播放失败 (URL: ${src})，可能需要用户交互或链接失效/格式错误:`, e);
@@ -1766,7 +1765,6 @@ function desktopAlarmAlert(soundType) {
         audio.loop = true;
         
         audio.play().then(() => {
-            console.log('✅ 自动播放成功！');
             setTimeout(() => {
                 if (confirm('⏰ 闹钟响了！\n点击确定关闭铃声')) {
                     audio.pause();
@@ -1805,7 +1803,6 @@ function desktopAlarmAlert(soundType) {
         audio.loop = true;
         
         audio.play().then(() => {
-            console.log('✅ 自动播放成功！');
             setTimeout(() => {
                 if (confirm('⏰ 闹钟响了！\n点击确定关闭铃声')) {
                     audio.pause();
@@ -2062,6 +2059,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
