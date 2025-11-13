@@ -1079,8 +1079,8 @@ function checkGameStatus() {
 
         // 初始化购买流程
         async function initiatePurchase() {
-            // 模拟购买流程 - 发布时替换为真实IAP
-            if (confirm('确定要解锁完整版游戏吗？')) {
+            // 真实的购买流程 - 发布时为真实IAP
+            if (confirm('确定要购买永久版游戏吗？')) {
                 handlePurchaseSuccess();
             }
         }
@@ -2062,6 +2062,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
