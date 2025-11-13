@@ -1916,12 +1916,7 @@ function createMobileAlarmOverlay(soundType, alarmAudio) {
     const stopBtn = overlay.querySelector('#stopAlarm');
     
     snoozeBtn.addEventListener('click', function() {
-        console.log('⏰ 贪睡5分钟');
-        // 停止当前声音
-        if (alarmAudio) {
-            alarmAudio.pause();
-            alarmAudio.currentTime = 0;
-        }
+        console.log('⏰ 太阳出来了');
         overlay.remove();
         // 停止振动
         if (navigator.vibrate) {
@@ -2148,6 +2143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
