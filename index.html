@@ -1993,7 +1993,69 @@ function createMobileAlarmOverlay(soundType) {
     snoozeBtn.style.cssText = buttonStyle + 'background: #4CAF50; color: white;';
     const stopBtn = overlay.querySelector('#stopAlarm');
     stopBtn.style.cssText = buttonStyle + 'background: #f44336; color: white;';
+
+    // 添加暂停按钮样式
+const pauseBtn = overlay.querySelector('#pauseAlarm');
+pauseBtn.style.cssText = buttonStyle + 'background: #2196F3; color: white;';
+
+// 暂停按钮事件处理
+let isPaused = false;
+pauseBtn.addEventListener('click', function() {
+    if (alarmAudio && !isPaused) {
+        // 暂停铃声
+        alarmAudio.pause();
+        isPaused = true;
+        pauseBtn.textContent = '继续铃声';
+        pauseBtn.style.background = '#4CAF50';
+        console.log('⏸️ 铃声已暂停');
+    } else if (alarmAudio && isPaused) {
+        // 继续播放
+        alarmAudio.play().then(() => {
+            isPaused = false;
+            pauseBtn.textContent = '暂停铃声';
+            pauseBtn.style.background = '#2196F3';
+            console.log('▶️ 铃声继续播放');
+        }).catch(e => {
+            console.log('❌ 继续播放失败:', e.message);
+        });
+    }
+});
+
+// 修复贪睡按钮 - 立即停止声音
+snoozeBtn.addEventListener('click', function() {
+    console.log('⏰ 贪睡5分钟');
     
+    // 立即停止当前声音和振动
+    if (alarmAudio) {
+        alarmAudio.pause();
+        alarmAudio.currentTime = 0;
+    }
+    if (navigator.vibrate) {
+        navigator.vibrate(0);
+    }
+    
+    overlay.remove();
+    
+    // 5分钟后再响铃
+    setTimeout(() => {
+        console.log('🔔 贪睡时间到，重新响铃');
+        playAlarmSound(soundType);
+    }, 5 * 60 * 1000);
+});
+
+// 停止按钮
+stopBtn.addEventListener('click', function() {
+    console.log('⏹️ 停止闹钟');
+    if (alarmAudio) {
+        alarmAudio.pause();
+        alarmAudio.currentTime = 0;
+    }
+    overlay.remove();
+    if (navigator.vibrate) {
+        navigator.vibrate(0);
+    }
+});
+   
     // 添加动画
     const style = document.createElement('style');
     style.textContent = `
@@ -2118,6 +2180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
