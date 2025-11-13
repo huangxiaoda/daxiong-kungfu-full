@@ -1834,44 +1834,118 @@ function desktopAlarmAlert(soundType) {
     }
 }
 
-// 移动端提醒 - 增强振动版
+// 移动端提醒 - 修复自动播放版
 function mobileAlarmAlert(soundType) {
     console.log('📱 移动端闹钟提醒');
     
-    // 1. 强烈振动模式（更像真实闹钟）
+    // 1. 强烈振动模式
     if (navigator.vibrate) {
-        // 模式：长振动3秒 + 短停0.5秒 + 重复
         const vibratePattern = [3000, 500, 3000, 500, 3000, 500, 3000, 500];
         navigator.vibrate(vibratePattern);
         console.log('📳 开始强烈振动提醒');
     }
     
-    // 2. 创建无法忽略的全屏界面
-    createMobileAlarmOverlay(soundType);
-    
-    // 3. 尝试在用户交互后播放声音
-    setTimeout(() => {
+    // 2. 创建音频对象（在用户交互前准备好）
+    let alarmAudio = null;
+    if (soundType !== 'default') {
         try {
-            // 创建音频但不立即播放
-            const audio = new Audio(soundType);
-            audio.volume = 0.6;
-            
-            // 当用户点击界面时尝试播放
-            const tryPlayAudio = () => {
-                audio.play().then(() => {
-                    console.log('🎵 移动端声音播放成功');
-                }).catch(e => {
-                    console.log('🔇 移动端声音播放失败');
-                });
-            };
-            
-            // 绑定到按钮点击事件
-            document.addEventListener('click', tryPlayAudio, { once: true });
-            
+            alarmAudio = new Audio(soundType);
+            alarmAudio.volume = 0.7;
+            alarmAudio.loop = true;
+            console.log('🎵 音频对象已创建');
         } catch (e) {
-            console.log('❌ 移动端音频初始化失败');
+            console.log('❌ 音频创建失败:', e);
         }
-    }, 1000);
+    }
+    
+    // 3. 创建全屏界面并立即绑定声音播放
+    createMobileAlarmOverlay(soundType, alarmAudio);
+}
+
+// 修改创建界面函数，接收音频对象
+function createMobileAlarmOverlay(soundType, alarmAudio) {
+    // 移除可能存在的旧弹窗
+    const existingOverlay = document.getElementById('mobileAlarmOverlay');
+    if (existingOverlay) {
+        existingOverlay.remove();
+    }
+    
+    // 创建全屏遮罩
+    const overlay = document.createElement('div');
+    overlay.id = 'mobileAlarmOverlay';
+    overlay.innerHTML = `
+        <div class="mobile-alarm-container">
+            <div class="alarm-icon">⏰</div>
+            <h2>起床时间到了！</h2>
+            <p>大熊提醒您该练功了！</p >
+            <div class="alarm-buttons">
+                <button id="snoozeAlarm">贪睡5分钟</button>
+                <button id="stopAlarm">停止闹钟</button>
+            </div>
+        </div>
+    `;
+    
+    // ... 样式代码保持不变 ...
+    
+    // 添加到页面
+    document.body.appendChild(overlay);
+    
+    // 🎯 关键修复：界面显示后立即尝试播放声音
+    setTimeout(() => {
+        if (alarmAudio) {
+            console.log('🎵 尝试自动播放声音...');
+            alarmAudio.play().then(() => {
+                console.log('✅ 移动端自动播放成功！');
+            }).catch(e => {
+                console.log('🔇 自动播放失败，等待用户交互:', e.message);
+                // 绑定到界面点击事件
+                overlay.addEventListener('click', function tryPlayOnClick() {
+                    alarmAudio.play().then(() => {
+                        console.log('✅ 用户交互后播放成功');
+                        overlay.removeEventListener('click', tryPlayOnClick);
+                    }).catch(e => {
+                        console.log('🔇 用户交互后也播放失败');
+                    });
+                }, { once: true });
+            });
+        }
+    }, 100);
+    
+    // 按钮事件
+    const snoozeBtn = overlay.querySelector('#snoozeAlarm');
+    const stopBtn = overlay.querySelector('#stopAlarm');
+    
+    snoozeBtn.addEventListener('click', function() {
+        console.log('⏰ 贪睡5分钟');
+        // 停止当前声音
+        if (alarmAudio) {
+            alarmAudio.pause();
+            alarmAudio.currentTime = 0;
+        }
+        overlay.remove();
+        // 停止振动
+        if (navigator.vibrate) {
+            navigator.vibrate(0);
+        }
+        // 5分钟后再次提醒
+        setTimeout(() => {
+            playAlarmSound(soundType);
+        }, 5 * 60 * 1000);
+    });
+    
+    stopBtn.addEventListener('click', function() {
+        console.log('⏹️ 停止闹钟');
+        // 停止声音
+        if (alarmAudio) {
+            alarmAudio.pause();
+            alarmAudio.currentTime = 0;
+        }
+        overlay.remove();
+        // 停止振动
+        if (navigator.vibrate) {
+            navigator.vibrate(0);
+        }
+    });
 }
 
 // 创建移动端全屏闹钟界面
@@ -2074,6 +2148,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
