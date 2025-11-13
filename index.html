@@ -1019,7 +1019,6 @@ function checkGameStatus() {
         return true;
     } else {
         let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
-        console.log(`当前试玩次数: ${playCount}`); // 调试信息
         
         // 只在游戏开始时显示剩余次数，不增加次数
         showRemainingTries(5 - playCount);
@@ -1347,9 +1346,8 @@ if (currentDomain === 'daxiongkungfu.com') {
 
         // 开始游戏
         async function startGame() {
-            console.log("startGame called.");
-            
-            // 添加的游戏状态检查
+
+             // 添加的游戏状态检查
             if (!checkGameStatus()) {
                 return;
             }
@@ -1370,8 +1368,7 @@ if (currentDomain === 'daxiongkungfu.com') {
 
             isGameRunning = true;
             try {
-                gameInterval = setInterval(updateTimer, 1000);
-                console.log("Game interval set with ID:", gameInterval);
+                gameInterval = setInterval(updateTimer, 1000);      
             } catch (error) {
                 console.error("Failed to set gameInterval:", error);
                 isGameRunning = false;
@@ -1404,7 +1401,6 @@ if (currentDomain === 'daxiongkungfu.com') {
 
             timeLeft--;
             timerElement.textContent = timeLeft;
-            console.log("Time left:", timeLeft, " (isGameRunning:", isGameRunning, ")");
 
             if (timeLeft <= 0) {
                 endGame();
@@ -1455,7 +1451,6 @@ if (currentDomain === 'daxiongkungfu.com') {
 
         // 处理玩家动作
         function handlePlayerAction(event) {
-            console.log("Player action clicked. Expected:", expectedMoveId, "Clicked:", event.currentTarget.dataset.action);
             if (!isGameRunning || expectedMoveId === null) {
                 console.log("Action ignored: Not running or no expected move.");
                 return;
@@ -2115,6 +2110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
