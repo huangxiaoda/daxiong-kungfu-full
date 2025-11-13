@@ -1317,15 +1317,6 @@ function updateLayoutForLevel(levelName) {
 
             relaxAudio.pause();
             relaxAudio.currentTime = 0; 
-          // === 修复：重置时不要清除播放次数 ===
-// 只清理游戏状态，保留试玩次数
-const currentDomain = window.location.hostname;
-if (currentDomain === 'daxiongkungfu.com') {
-    // 只清除游戏状态，不清除试玩次数
-    localStorage.removeItem('daxiong_game_state');
-    localStorage.setItem('domain_migrated', 'true');
-    console.log('✅ 重置游戏状态，保留试玩次数');
-}
         }
 
         // 开始游戏
@@ -2032,6 +2023,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
