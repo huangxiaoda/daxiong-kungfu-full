@@ -1060,7 +1060,7 @@ function checkGameStatus() {
             hidePurchaseOverlay();
             hideRemainingTries();
             isGameRunning = true;
-            showFeedback('已购买永久版！', 'combo');
+            showFeedback('已购买永久版!','combo');
             startNewMoveSequence();
         }
 
@@ -1320,8 +1320,9 @@ function updateLayoutForLevel(levelName) {
 
         // 开始游戏
         async function startGame() {
-
-             // 添加的游戏状态检查
+             console.log("startGame called.");
+           
+            // 添加的游戏状态检查
             if (!checkGameStatus()) {
                 return;
             }
@@ -1501,7 +1502,7 @@ function updateLayoutForLevel(levelName) {
             clearTimeout(moveTimeout);
             isGameRunning = false;
             enableActionButtons(false);
-        masterMoveDisplay.classList.remove('show');
+            masterMoveDisplay.classList.remove('show');
             expectedMoveId = null;
             gameBgMusic.pause();
             gameBgMusic.currentTime = 0;
@@ -1515,7 +1516,7 @@ function updateLayoutForLevel(levelName) {
             // 确保播放次数正确增加
                 if (playCount < 5) {
                     playCount++;
-        localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
+                    localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
                     console.log(`游戏结束，播放次数更新为: ${playCount}`);
             
                 // 显示剩余次数提示
@@ -1524,11 +1525,11 @@ function updateLayoutForLevel(levelName) {
                     }
                 }
             }
-        gameOverlay.classList.remove('hidden');
-        gameOverlay.querySelector('h2').textContent = '练功结束！';
-        gameOverlay.querySelector('p').textContent = `你的最终分数是：${score} 分，大熊达到了 ${levelElement.textContent} 境界！`;
-        gameOverlay.querySelector('button').textContent = '再来一局';
-        }
+                    gameOverlay.classList.remove('hidden');
+                    gameOverlay.querySelector('h2').textContent = '练功结束！';
+                    gameOverlay.querySelector('p').textContent = `你的最终分数是：${score} 分，大熊达到了 ${levelElement.textContent} 境界！`;
+                    gameOverlay.querySelector('button').textContent = '再来一局';
+                }
 // 显示音乐说明函数
 function showMusicDescription(text, duration = 10000) {
     const popup = document.getElementById('musicDescription');
@@ -2022,6 +2023,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
