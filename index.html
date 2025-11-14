@@ -1501,7 +1501,7 @@ function updateLayoutForLevel(levelName) {
             clearTimeout(moveTimeout);
             isGameRunning = false;
             enableActionButtons(false);
-            masterMoveDisplay.classList.remove('show');
+        masterMoveDisplay.classList.remove('show');
             expectedMoveId = null;
             gameBgMusic.pause();
             gameBgMusic.currentTime = 0;
@@ -1509,25 +1509,25 @@ function updateLayoutForLevel(levelName) {
             bgMusicIcon.classList.remove('fa-volume-mute');
             bgMusicIcon.classList.add('fa-volume-up');
              // === 修复：游戏结束时保存播放次数 ===
-    const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
-    if (!isUnlocked) {
-        let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
-        // 确保播放次数正确增加
-        if (playCount < 5) {
-            playCount++;
-            localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
-            console.log(`游戏结束，播放次数更新为: ${playCount}`);
+            const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
+            if (!isUnlocked) {
+                let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
+            // 确保播放次数正确增加
+                if (playCount < 5) {
+                    playCount++;
+        localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
+                    console.log(`游戏结束，播放次数更新为: ${playCount}`);
             
-            // 显示剩余次数提示
-            if (playCount >= 3) {
-                showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
+                // 显示剩余次数提示
+                    if (playCount >= 3) {
+                        showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
+                    }
+                }
             }
-        }
-    }
-            gameOverlay.classList.remove('hidden');
-            gameOverlay.querySelector('h2').textContent = '练功结束！';
-            gameOverlay.querySelector('p').textContent = `你的最终分数是：${score} 分，大熊达到了 ${levelElement.textContent} 境界！`;
-            gameOverlay.querySelector('button').textContent = '再来一局';
+        gameOverlay.classList.remove('hidden');
+        gameOverlay.querySelector('h2').textContent = '练功结束！';
+        gameOverlay.querySelector('p').textContent = `你的最终分数是：${score} 分，大熊达到了 ${levelElement.textContent} 境界！`;
+        gameOverlay.querySelector('button').textContent = '再来一局';
         }
 // 显示音乐说明函数
 function showMusicDescription(text, duration = 10000) {
@@ -2022,6 +2022,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
