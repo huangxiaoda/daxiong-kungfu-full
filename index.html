@@ -1827,11 +1827,8 @@ function mobileAlarmAlert(soundType) {
                 });
             };
             
-            // 🎯 修复：只绑定到闹钟界面，而不是整个文档
-            const alarmOverlay = document.getElementById('mobileAlarmOverlay');
-            if (alarmOverlay) {
-            alarmOverlay.addEventListener('click', tryPlayAudio, { once: true });
-            }
+           // 绑定到按钮点击事件
+            document.addEventListener('click', tryPlayAudio, { once: true });   
         } catch (e) {
             console.log('❌ 移动端音频初始化失败');
         }
@@ -2023,6 +2020,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
