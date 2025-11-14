@@ -1004,7 +1004,7 @@ function checkGameStatus() {
         return true;
     } else {
         let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
-        
+        console.log(`当前试玩次数: ${playCount}`); // 调试信息
         // 只在游戏开始时显示剩余次数，不增加次数
         showRemainingTries(5 - playCount);
         
@@ -2023,6 +2023,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
