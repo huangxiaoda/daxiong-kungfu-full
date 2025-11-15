@@ -1845,6 +1845,8 @@ function createMobileAlarmOverlay(soundType) {
     }
     
     // 创建全屏遮罩
+    const overlay = document.createElement('div');
+    overlay.id = 'mobileAlarmOverlay';
     overlay.innerHTML = `
         <div class="mobile-alarm-container">
             <div class="alarm-icon">⏰</div>
@@ -2064,6 +2066,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
