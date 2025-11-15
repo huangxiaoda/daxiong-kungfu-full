@@ -1956,6 +1956,7 @@ function createMobileAlarmOverlay(soundType) {
     });
     
     stopBtn.addEventListener('click', function() {
+        e.stopPropagation();
         console.log('⏹️ 停止闹钟');
         overlay.remove();
         // 停止振动
@@ -2023,6 +2024,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
