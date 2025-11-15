@@ -1941,6 +1941,7 @@ function createMobileAlarmOverlay(soundType) {
     // 按钮事件
     snoozeBtn.addEventListener('click', function() {
         console.log('⏰ 贪睡5分钟');
+        stopAlarm(); // 先停止当前闹钟
         overlay.remove();
         // 停止振动
         if (navigator.vibrate) {
@@ -1953,6 +1954,7 @@ function createMobileAlarmOverlay(soundType) {
     });
     stopBtn.addEventListener('click', function() {
         console.log('⏹️ 停止闹钟');
+        stopAlarm(); // 先停止当前闹钟
         // 停止声音
         overlay.remove();
         // 停止振动
@@ -2024,6 +2026,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
