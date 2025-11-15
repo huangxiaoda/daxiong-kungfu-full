@@ -1860,7 +1860,7 @@ function createMobileAlarmOverlay(soundType) {
             </div>
         </div>
     `;
-    / 添加暂停按钮样式
+    // 添加暂停按钮样式
     const pauseBtn = overlay.querySelector('#pauseAlarm');
     pauseBtn.style.cssText = buttonStyle + 'background: #2196F3; color: white;';
 
@@ -1969,7 +1969,7 @@ function createMobileAlarmOverlay(soundType) {
     
     // 修复贪睡按钮 - 立即停止声音
     snoozeBtn.addEventListener('click', function() {
-      console.log('⏰ 贪睡5分钟');
+        console.log('⏰ 贪睡5分钟');
     
         // 立即停止当前声音和振动
         if (alarmAudio) {
@@ -2000,7 +2000,8 @@ function createMobileAlarmOverlay(soundType) {
         if (navigator.vibrate) {
             navigator.vibrate(0);
         }
-    });  
+    });
+    
 }
    // 保存和恢复闹钟设置
 window.addEventListener('beforeunload', function() { 
@@ -2061,6 +2062,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
