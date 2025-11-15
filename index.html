@@ -1967,7 +1967,7 @@ function createMobileAlarmOverlay(soundType) {
     // 添加到页面
     document.body.appendChild(overlay);
     
-    // 按钮事件
+    // 修复贪睡按钮 - 立即停止声音
     snoozeBtn.addEventListener('click', function() {
       console.log('⏰ 贪睡5分钟');
     
@@ -2061,6 +2061,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
