@@ -1797,6 +1797,7 @@ function desktopAlarmAlert(soundType) {
 }
 
 // 移动端提醒 - 增强振动版
+let currentAlarmAudio = null; // 全局变量跟踪当前播放的音频
 function mobileAlarmAlert(soundType) {
     console.log('📱 移动端闹钟提醒');
     
@@ -1817,6 +1818,7 @@ function mobileAlarmAlert(soundType) {
             // 创建音频但不立即播放
             const audio = new Audio(soundType);
             audio.volume = 0.6;
+            currentAlarmAudio = audio; // 保存到全局变量
             
             // 当用户点击界面时尝试播放
             const tryPlayAudio = () => {
@@ -1959,9 +1961,11 @@ function createMobileAlarmOverlay(soundType) {
         if (navigator.vibrate) {
             navigator.vibrate(0);
         }
-        if (alarmAudio) {
-            alarmAudio.pause();
-            alarmAudio.currentTime = 0;
+        // 停止声音 - 使用全局变量
+        if (currentAlarmAudio) {
+            currentAlarmAudio.pause();
+            currentAlarmAudio.currentTime = 0;
+            currentAlarmAudio = null;
         }
     }); 
 }
@@ -2024,6 +2028,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
