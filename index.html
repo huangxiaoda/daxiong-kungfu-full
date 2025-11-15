@@ -1951,18 +1951,17 @@ function createMobileAlarmOverlay(soundType) {
             playAlarmSound(soundType);
         }, 5 * 60 * 1000);
     });
-    
     stopBtn.addEventListener('click', function() {
         console.log('⏹️ 停止闹钟');
         // 停止声音
-        if (alarmAudio) {
-            alarmAudio.pause();
-            alarmAudio.currentTime = 0;
-        }
         overlay.remove();
         // 停止振动
         if (navigator.vibrate) {
             navigator.vibrate(0);
+        }
+        if (alarmAudio) {
+            alarmAudio.pause();
+            alarmAudio.currentTime = 0;
         }
     }); 
 }
@@ -2025,6 +2024,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
