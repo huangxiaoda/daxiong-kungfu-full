@@ -1947,10 +1947,9 @@ function createMobileAlarmOverlay(soundType) {
             navigator.vibrate(0);
         }
         // 5分钟后再次提醒
-        setTimeout(() => {
-            playAlarmSound(soundType);
-        }, 5 * 60 * 1000);
-    });
+        mobileAlarmAlert
+    }, 5 * 60 * 1000);
+});
     stopBtn.addEventListener('click', function() {
         console.log('⏹️ 停止闹钟');
         // 停止声音
@@ -2024,6 +2023,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
