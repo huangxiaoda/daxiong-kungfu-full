@@ -1858,29 +1858,31 @@ function createMobileAlarmOverlay(soundType) {
             </div>
         </div>
     `;
-    // 添加暂停按钮样式
+     // 添加暂停按钮事件
     const pauseBtn = overlay.querySelector('#pauseAlarm');
     pauseBtn.style.cssText = buttonStyle + 'background: #2196F3; color: white;';
 
-    // 暂停按钮事件处理
-    let isPaused = false;
+    let isPaused = false; // 🎯 添加状态变量
+
     pauseBtn.addEventListener('click', function() {
-        if (alarmAudio && !isPaused) {
+        if (!alarmAudio) return;
+    
+        if (!isPaused) {
             // 暂停铃声
             alarmAudio.pause();
-            isPaused = true;
+            console.log('⏸️ 暂停铃声');
             pauseBtn.textContent = '继续铃声';
             pauseBtn.style.background = '#4CAF50';
-            console.log('⏸️ 铃声已暂停');
-        } else if (alarmAudio && isPaused) {
-            // 继续播放
+            isPaused = true;
+        } else {
+            // 继续铃声
             alarmAudio.play().then(() => {
-                isPaused = false;
+                console.log('▶️ 继续播放');
                 pauseBtn.textContent = '暂停铃声';
                 pauseBtn.style.background = '#2196F3';
-                console.log('▶️ 铃声继续播放');
+                isPaused = false;
             }).catch(e => {
-                console.log('❌ 继续播放失败:', e.message);
+                console.log('🔇 继续播放失败:', e);
             });
         }
     });
@@ -2066,6 +2068,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
