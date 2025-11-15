@@ -1,7 +1,7 @@
 {
-  "name": "大熊学武功完整版",
+  "name": "大熊学武功永久版",
   "short_name": "大熊学武功Pro",
-  "description": "功夫节奏挑战 - 完整版",
+  "description": "功夫节奏挑战 - 永久版",
   "version": "2.0",
   "manifest_version": 3,
   "start_url": "/",
@@ -23,3 +23,4 @@
   ],
   "categories": ["games", "education"]
 }
+
