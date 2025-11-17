@@ -1917,6 +1917,10 @@ function createMobileAlarmOverlay(soundType) {
         console.log('⏹️ 停止闹钟');
         // 停止声音
         overlay.remove();        
+        // 停止振动
+        if (navigator.vibrate) {
+            navigator.vibrate(0);
+        }
         if (alarmAudio) {
             alarmAudio.pause();
             alarmAudio.currentTime = 0;
@@ -1987,6 +1991,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
