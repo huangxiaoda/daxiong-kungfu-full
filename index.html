@@ -1758,44 +1758,6 @@ function desktopAlarmAlert(soundType) {
     }
 }
 
-// 播放闹钟铃声 - 智能设备检测版
-function playAlarmSound(soundType) {
-    console.log('🔔 闹钟时间到！声音类型:', soundType);
-    
-    // 智能检测移动设备
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-        // 移动端：使用振动 + 全屏弹窗
-        mobileAlarmAlert(soundType);
-    } else {
-        // 电脑端：使用自动播放声音
-        desktopAlarmAlert(soundType);
-    }
-}
-
-// 桌面端提醒
-function desktopAlarmAlert(soundType) {
-    if (soundType !== 'default') {
-        const audio = new Audio(soundType);
-        audio.volume = 0.8;
-        audio.loop = true;
-        
-        audio.play().then(() => {
-            setTimeout(() => {
-                if (confirm('⏰ 闹钟响了！\n点击确定关闭铃声')) {
-                    audio.pause();
-                }
-            }, 1000);
-        }).catch(e => {
-            console.log('❌ 自动播放失败:', e.message);
-            alert('⏰ 起床时间到了！该练功了！');
-        });
-    } else {
-        alert('⏰ 起床时间到了！该练功了！');
-    }
-}
-
 // 移动端提醒 - 增强振动版
 function mobileAlarmAlert(soundType) {
     console.log('📱 移动端闹钟提醒');
@@ -2029,6 +1991,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
