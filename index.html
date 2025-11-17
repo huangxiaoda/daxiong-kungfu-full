@@ -1914,7 +1914,9 @@ function createMobileAlarmOverlay(soundType) {
         }, 5 * 60 * 1000);
     });
     stopBtn.addEventListener('click', function() {
-        console.log('⏹️ 停止闹钟');
+        if (confirm('⏰ 闹钟响了！\n点击确定关闭铃声')) {
+                    audio.pause();
+                }
         // 停止声音
         overlay.remove();
         // 停止振动
@@ -1991,6 +1993,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
