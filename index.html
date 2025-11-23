@@ -989,8 +989,22 @@
             </div>
         </div>
     </div>
-
+    
     <script>
+         const currentDomain = window.location.hostname;
+        if (currentDomain === 'daxiongkungfu.com') {
+    // 清理所有可能的状态键（包括新发现的 daxiong_play_count）
+    const keysToRemove = [
+        'daxiong_game_state', 
+        'daxiong_play_count',      // ← 新增这个
+        'daxiong_pro_unlocked'     // ← 新增这个
+    ];
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+    localStorage.setItem('domain_migrated', 'true');
+    console.log('✅ 已清理所有游戏状态');
+}
+
+        
         // ===== 购买功能核心逻辑 =====
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
@@ -1993,6 +2007,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
