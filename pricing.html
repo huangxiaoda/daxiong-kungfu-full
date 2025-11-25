@@ -40,6 +40,7 @@
             text-decoration: underline;
         }
     </style>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
 </head>
 <body>
     <h1>大熊学武功 - 永久版定价</h1>
@@ -83,7 +84,30 @@
         <p><strong>联系我们：</strong> lord_huang@nobalead.com</p >
         <p><strong>服务条款：</strong> 查看永久版条款</p >
     </div>
-    
+     <script>
+        // 页面加载完成后初始化Paddle
+        document.addEventListener('DOMContentLoaded', function() {
+            // 使用您LIVE环境的Client-side Token替换下面的内容
+            Paddle.Initialize({
+                token: "YOUR_LIVE_CLIENT_SIDE_TOKEN_HERE" // ★ 记得替换!
+            });
+        });
+
+        // 定义购买函数
+        function initiatePurchase() {
+            Paddle.Checkout.open({
+                product: "YOUR_LIVE_PRODUCT_ID_HERE", // ★ 记得替换!
+                successCallback: function(data) {
+                    console.log("支付成功!", data);
+                    alert("感谢您的购买！您已成功解锁永久版。");
+                    // 成功后可以跳转到游戏页面或显示解锁信息
+                },
+                closeCallback: function(data) {
+                    console.log("用户关闭了支付窗口", data);
+                }
+            });
+        }
+    </script>
     <p></p >
 </body>
 </html>
