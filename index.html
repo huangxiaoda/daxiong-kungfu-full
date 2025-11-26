@@ -13,7 +13,7 @@
     <!-- 添加emoji字体支持 -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Apple+Color+Emoji&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script>
     </script>
     <style>
@@ -1078,34 +1078,23 @@ function checkGameStatus() {
             startNewMoveSequence();
         }
 
-        // 初始化购买流程
+                / 初始化购买流程 - Paddle Billing 版本
         function initiatePurchase() {
-            console.log('🔄 开始真实支付流程...');
+            console.log('🔄 启动 Paddle Billing 支付流程...');
     
-            // 1. 检查Paddle是否加载
-            if (typeof Paddle === 'undefined') {
+            // 1. 检查 paddle 对象是否加载（注意：现在检查的是 paddle，不是 Paddle）
+            if (typeof paddle === 'undefined') {
                 alert('支付系统暂不可用，请刷新页面重试。');
                 return;
             }
     
-            // 2. 打开真实的Paddle支付窗口
-            Paddle.Checkout.open({
-                price: "pri_01kawrmv7vcpnxwhsbn3tyf80q", // 🔴 确保这里替换成了真实的Product ID
-                successCallback: function(data) {
-                    console.log('✅ 支付成功:', data);
-                    // 支付成功，调用您的处理函数
-                    handlePurchaseSuccess();
-            
-                    // 可以给用户成功提示
-                    alert('感谢您的购买！永久版已成功激活。');
-                },
-                closeCallback: function(data) {
-                    console.log('ℹ️ 用户关闭支付窗口:', data);
-                    // 用户主动关闭支付窗口，不需要任何操作
-                },
-                loadCallback: function() {
-                    console.log('✅ Paddle支付窗口加载完成');
-                }
+            // 2. 使用新版 Paddle Billing 语法打开支付窗口
+            paddle.Checkout.open({
+                items: [
+                    {
+                        priceId: "pri_01kawrmv7vcpnxwhsbn3tyf80q" // 您的 Price ID
+                    }
+                ]
             });
         }
 
@@ -2037,6 +2026,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
