@@ -1009,21 +1009,35 @@
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
-       // ===== Paddle Billing 初始化 =====
-        const paddle = Paddle.Initialize({
-            token: "live_5f9b4d8b6f9009e460043ae527a" // 您的client-side token
-        });
+      // ===== Paddle Billing 初始化 =====
+        let paddle; // 先声明变量
 
-        // 支付成功事件监听
-        paddle.Checkout.on('checkout.completed', function(event) {
-            console.log('✅ 支付成功事件:', event);
-            handlePurchaseSuccess(); // 调用您的解锁函数
-            alert('感谢您的购买！永久版已成功激活。');
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            // 延迟初始化，确保Paddle SDK完全加载
+            setTimeout(function() {
+                try {
+                    paddle = Paddle.Initialize({
+                        token: "live_5f9b4d8b6f9009e460043ae527a"
+                    });
+            
+                    console.log("✅ Paddle初始化成功:", paddle);
+            
+                    // 支付成功事件监听
+                    paddle.Checkout.on('checkout.completed', function(event) {
+                        console.log('✅ 支付成功事件:', event);
+                        handlePurchaseSuccess();
+                        alert('感谢您的购买！永久版已成功激活。');
+                    });
 
-        paddle.Checkout.on('checkout.closed', function(event) {
-            console.log('ℹ️ 用户关闭支付窗口:', event);
-        }); 
+                    paddle.Checkout.on('checkout.closed', function(event) {
+                        console.log('ℹ️ 用户关闭支付窗口:', event);
+                    });
+            
+                } catch (error) {
+                    console.error("❌ Paddle初始化失败:", error);
+                }
+            }, 1000); // 延迟1秒确保SDK加载完成
+        });
 
         // 检查游戏状态
 function checkGameStatus() {
@@ -1094,26 +1108,27 @@ function checkGameStatus() {
             startNewMoveSequence();
         }
 
-                //初始化购买流程 - Paddle Billing 版本
+               // 初始化购买流程
         function initiatePurchase() {
-            console.log('🔄 启动 Paddle Billing 支付流程...');
+            console.log('🔄 启动支付流程...');
+            console.log('📊 paddle对象状态:', paddle);
     
-            // 1. 检查 paddle 对象是否加载（注意：现在检查的是 paddle，不是 Paddle）
-            if (typeof paddle === 'undefined') {
-                alert('支付系统暂不可用，请刷新页面重试。');
+            // 检查paddle对象
+            if (!paddle || typeof paddle.Checkout === 'undefined') {
+                alert('支付系统初始化中，请稍后重试或刷新页面。');
+                console.error("paddle对象未就绪:", paddle);
                 return;
             }
     
-            // 2. 使用新版 Paddle Billing 语法打开支付窗口
+            // 使用新版 Paddle Billing 语法打开支付窗口
             paddle.Checkout.open({
                 items: [
                     {
-                        priceId: "pri_01kawrmv7vcpnxwhsbn3tyf80q" // 您的 Price ID
+                        priceId: "pri_01kawrmv7vcpnxwhsbn3tyf80q"
                     }
                 ]
             });
-        }
-
+        } 
         // ===== 元素获取 =====
         const timerElement = document.getElementById('timer');
         const scoreElement = document.getElementById('score');
@@ -2042,6 +2057,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
