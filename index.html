@@ -1009,7 +1009,23 @@
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
-       // 检查游戏状态
+       // ===== Paddle Billing 初始化 =====
+        const paddle = Paddle.Initialize({
+            token: "live_5f9b4d8b6f9009e460043ae527a" // 您的client-side token
+        });
+
+        // 支付成功事件监听
+        paddle.Checkout.on('checkout.completed', function(event) {
+            console.log('✅ 支付成功事件:', event);
+            handlePurchaseSuccess(); // 调用您的解锁函数
+            alert('感谢您的购买！永久版已成功激活。');
+        });
+
+        paddle.Checkout.on('checkout.closed', function(event) {
+            console.log('ℹ️ 用户关闭支付窗口:', event);
+        }); 
+
+        // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
     
@@ -2026,6 +2042,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
