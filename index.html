@@ -1090,7 +1090,7 @@ function checkGameStatus() {
     
             // 2. 打开真实的Paddle支付窗口
             Paddle.Checkout.open({
-                product: "pro_01kawh5e7vyxffthrykkjk9p42", // 🔴 确保这里替换成了真实的Product ID
+                price: "pri_01kawrmv7vcpnxwhsbn3tyf80q", // 🔴 确保这里替换成了真实的Product ID
                 successCallback: function(data) {
                     console.log('✅ 支付成功:', data);
                     // 支付成功，调用您的处理函数
@@ -2037,6 +2037,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
