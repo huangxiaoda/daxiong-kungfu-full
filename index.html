@@ -1116,7 +1116,7 @@ function checkGameStatus() {
             startNewMoveSequence();
         }
 
-                // 初始化购买流程
+          // 初始化购买流程
         function initiatePurchase() {
             console.log('🔄 启动支付流程...');
             console.log('📊 Paddle状态:', {
@@ -1126,13 +1126,30 @@ function checkGameStatus() {
             });
     
             if (!isPaddleReady || !paddle) {
-                alert('支付系统正在准备中，请等待几秒钟后重试。');
-                console.log('⏳ Paddle未就绪，自动重试初始化...');
-                initializePaddle(); // 尝试重新初始化
+                // 显示更友好的提示，并提供重试按钮
+                if (confirm('支付系统正在初始化中，可能需要几秒钟。\n\n点击"确定"立即重试，或等待片刻后再次点击购买。')) {
+                    console.log('🔄 用户手动重试初始化...');
+                    initializePaddle();
+            
+                    // 2秒后自动重试购买
+                    setTimeout(function() {
+                        if (isPaddleReady && paddle) {
+                            console.log('🔄 自动重试购买...');
+                            openPaddleCheckout();
+                        } else {
+                            alert('支付系统仍在准备中，请稍后再试。');
+                        }
+                    }, 2000);
+                }
                 return;
             }
     
-            // 使用新版 Paddle Billing 语法打开支付窗口
+            openPaddleCheckout();
+        }
+
+        // 独立的支付窗口打开函数
+        function openPaddleCheckout() {
+            console.log('🎯 打开Paddle支付窗口...');
             paddle.Checkout.open({
                 items: [
                     {
@@ -1140,7 +1157,7 @@ function checkGameStatus() {
                     }
                 ]
             });
-        }
+        }     
         // ===== 元素获取 =====
         const timerElement = document.getElementById('timer');
         const scoreElement = document.getElementById('score');
@@ -2069,6 +2086,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
