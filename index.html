@@ -1009,7 +1009,7 @@
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
-        // ===== Paddle Billing 初始化 =====
+        // ===== Paddle Billing 正确初始化 =====
         let paddle = null;
         let isPaddleReady = false;
 
@@ -1025,17 +1025,18 @@
             console.log('✅ Paddle SDK已加载');
     
             try {
-                // 🔴 使用您的新Token替换这一行
-                const paddleInstance = Paddle.Initialize({
-                    token: "live_c96499fff8cbcb5eb8eab6964c6" // ← 新Token
+                // 🔴 关键步骤1：先设置环境
+                Paddle.Environment.set('production'); // 使用生产环境
+        
+                // 🔴 关键步骤2：立即初始化（使用您的新Token）
+                paddle = Paddle.Initialize({
+                    token: "live_c96499fff8cbcb5eb8eab6964c6" // 您的新Token
                 });
         
-                console.log('📊 Paddle初始化返回值:', paddleInstance);
+                console.log('📊 Paddle初始化返回值:', paddle);
         
-                if (paddleInstance && paddleInstance.Checkout) {
-                    paddle = paddleInstance;
+                if (paddle && paddle.Checkout) {
                     isPaddleReady = true;
-            
                     console.log('✅ Paddle初始化成功!');
             
                     // 设置事件监听
@@ -1045,12 +1046,8 @@
                         alert('感谢购买！永久版已激活。');
                     });
             
-                    paddle.Checkout.on('checkout.closed', function(event) {
-                        console.log('ℹ️ 用户关闭支付窗口');
-                    });
-            
                 } else {
-                    console.error('❌ Paddle初始化失败 - Token可能无效');
+                    console.error('❌ Paddle初始化失败');
                 }
         
             } catch (error) {
@@ -2086,6 +2083,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
