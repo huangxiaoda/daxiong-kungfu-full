@@ -1009,20 +1009,21 @@
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
-         // ===== 最终支付函数 =====
+       // ===== 最终支付函数 =====
         function initiatePurchase() {
             console.log('🎯 打开支付页面...');
     
-            // 使用您生成的支付链接
-            const paddlePayUrl = "https://daxiongkungfu.com?_ptxn=txn_01kb1xpccfcb06qsm7gpy8w2wm";
+            // 方法一：使用Price ID构建标准支付链接
+            const priceId = "pri_01kawrmv7vcpnxwhsbn3tyf80q";
+            const paddlePayUrl = `https://buy.paddle.com/checkout/?price=${priceId}`;
     
             console.log('💰 支付链接:', paddlePayUrl);
     
-            // 直接打开支付页面（不需要检查任何状态）
+            // 直接打开支付页面
             window.open(paddlePayUrl, '_blank');
     
             console.log('✅ 支付页面已打开');
-        }   
+        }
         // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
@@ -2020,6 +2021,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
