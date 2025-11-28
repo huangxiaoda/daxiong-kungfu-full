@@ -94,18 +94,15 @@
         });
 
         // 定义购买函数
-        function initiatePurchase() {
-            Paddle.Checkout.open({
-                price:"pri_01kawrmv7vcpnxwhsbn3tyf80q", // ★ 记得替换!
-                successCallback: function(data) {
-                    console.log("支付成功!", data);
-                    alert("感谢您的购买！您已成功解锁永久版。");
-                    // 成功后可以跳转到游戏页面或显示解锁信息
-                },
-                closeCallback: function(data) {
-                    console.log("用户关闭了支付窗口", data);
-                }
-            });
+       function initiatePurchase() {
+            console.log('🎯 打开支付页面...');
+    
+            const priceId="pri_01kawrmv7vcpnxwhsbn3tyf80q";
+            const paddlePayUrl=`https://buy.paddle.com/checkout/?priceId=${priceId}`;
+    
+            console.log('💰 支付链接:', paddlePayUrl);
+            window.open(paddlePayUrl, '_blank');
+            console.log('✅ 支付页面已打开');
         }
     </script>
     <p></p >
