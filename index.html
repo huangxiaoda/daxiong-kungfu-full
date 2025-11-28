@@ -1009,20 +1009,22 @@
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
-       // ===== 最终支付函数 =====
-        function initiatePurchase() {
-            console.log('🎯 打开支付页面...');
+     function initiatePurchase() {
+            if (typeof Paddle === 'undefined') {
+                alert('支付系统加载中，请稍后重试');
+                return;
+            }
     
-            // 方法一：使用Price ID构建标准支付链接
-            const priceId="pri_01kawrmv7vcpnxwhsbn3tyf80q";
-            const paddlePayUrl=`https://buy.paddle.com/checkout/?priceId=${priceId}`;
+            // 设置生产环境，而不是沙盒
+            Paddle.Environment.set('production');
     
-            console.log('💰 支付链接:', paddlePayUrl);
-    
-            // 直接打开支付页面
-            window.open(paddlePayUrl, '_blank');
-    
-            console.log('✅ 支付页面已打开');
+            Paddle.Checkout.open({
+                price: "pri_01kawrmv7vcpnxwhsbn3tyf80q", // 使用price而不是product
+                successCallback: function(data) {
+                    console.log('✅ 支付成功:', data);
+                    alert('感谢购买！永久版已激活。');
+                }
+            });
         }
         // 检查游戏状态
 function checkGameStatus() {
@@ -2021,6 +2023,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
