@@ -1009,95 +1009,6 @@
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
-        // ===== 最终防重置方案 ===== 
-const DEVICE_KEY = 'daxiong_device_id';
-const BACKUP_KEY = 'daxiong_backup';
-
-// 1. 设备指纹 + 多重存储
-function getDeviceId() {
-    let deviceId = localStorage.getItem(DEVICE_KEY);
-    if (!deviceId) {
-        deviceId = 'device_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
-        localStorage.setItem(DEVICE_KEY, deviceId);
-        sessionStorage.setItem(DEVICE_KEY, deviceId);
-    }
-    return deviceId;
-}
-
-// 2. 强化存储函数
-function setPlayCount(count) {
-    const deviceId = getDeviceId();
-    
-    // 多重存储
-    localStorage.setItem(PLAY_COUNT_KEY, count.toString());
-    sessionStorage.setItem(PLAY_COUNT_KEY, count.toString());
-    
-    // Cookie备份（30天）
-    document.cookie = `play_count=${count}; path=/; max-age=2592000`;
-    
-    // 设备关联存储
-    localStorage.setItem(BACKUP_KEY + deviceId, count.toString());
-    
-    console.log(`🔒 强化存储: 次数=${count}, 设备=${deviceId}`);
-}
-
-// 3. 强化读取函数  
-function getPlayCount() {
-    // 优先从localStorage读取
-    let count = localStorage.getItem(PLAY_COUNT_KEY);
-    
-    // 如果localStorage被清空，尝试恢复
-    if (!count) {
-        // 尝试从Cookie恢复
-        const cookieMatch = document.cookie.match(/play_count=(\d+)/);
-        if (cookieMatch) {
-            count = cookieMatch[1];
-            localStorage.setItem(PLAY_COUNT_KEY, count); // 恢复回去
-        }
-        
-        // 尝试从设备备份恢复
-        if (!count) {
-            const deviceId = getDeviceId();
-            count = localStorage.getItem(BACKUP_KEY + deviceId);
-            if (count) {
-                localStorage.setItem(PLAY_COUNT_KEY, count);
-            }
-        }
-    }
-    
-    return parseInt(count) || 0;
-}
-
-// 4. 低次数强提示（软拦截）
-function showRemainingTries(count) {
-    let remainingElement = document.getElementById('remainingTries');
-    if (!remainingElement) {
-        remainingElement = document.createElement('div');
-        remainingElement.id = 'remainingTries';
-        document.querySelector('.play-area').appendChild(remainingElement);
-    }
-
-    if (count <= 2) {
-        // 低次数强干扰提示
-        remainingElement.innerHTML = `
-            <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999;"></div>
-            <div style="position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#ff6b6b; color:white; padding:30px; border-radius:15px; z-index:10000; text-align:center; border:3px solid #ffeb3b;">
-                <h3>🛑 试玩次数即将用尽！</h3>
-                <p>剩余次数: <strong style="font-size:24px;">${count}</strong></p >
-                <p>购买永久版，无限畅玩！</p >
-                <button onclick="this.parentElement.parentElement.remove()" 
-                        style="background: #ffeb3b; color: #000; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 15px; cursor: pointer;">
-                    知道了
-                </button>
-            </div>
-        `;
-    } else {
-        // 正常提示
-        remainingElement.textContent = `剩余试玩: ${count}次`;
-        remainingElement.className = 'remaining-tries';
-        remainingElement.style.display = 'block';
-    }
-}
        // ===== 最终支付函数 =====
         function initiatePurchase() {
             console.log('🎯 打开支付页面...');
@@ -2110,6 +2021,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
