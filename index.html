@@ -1010,18 +1010,14 @@
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
      // ===== 最终支付函数 =====
-        function initiatePurchase() {
+      function initiatePurchase() {
             console.log('🎯 打开支付页面...');
     
-            // 使用Price ID构建标准支付链接
-            const priceId="pri_01kawrmv7vcpnxwhsbn3tyf80q";
-            const paddlePayUrl="https://buy.paddle.com/checkout/?priceId=${priceId}";
+            // 使用Paddle客服确认的正确参数名：price
+            const paddlePayUrl = "https://buy.paddle.com/checkout/?price=pri_01kawrmv7vcpnxwhsbn3tyf80q";
     
-            console.log('💰 支付链接:', paddlePayUrl);
-    
-            // 直接打开支付页面
+            console.log('💰 修正后的支付链接:', paddlePayUrl);
             window.open(paddlePayUrl, '_blank');
-    
             console.log('✅ 支付页面已打开');
         }
         // 检查游戏状态
@@ -2021,6 +2017,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
