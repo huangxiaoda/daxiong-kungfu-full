@@ -1039,9 +1039,21 @@ function openPaymentWindow() {
             if (USE_PRODUCTION) {
                 // 生产环境：解锁游戏
                 localStorage.setItem('daxiong_pro_unlocked', 'true');
-                if (typeof hidePurchaseOverlay === 'function') hidePurchaseOverlay();
-                if (typeof hideRemainingTries === 'function') hideRemainingTries();
+                
+                // 调用您现有的函数
+                if (typeof hidePurchaseOverlay === 'function') {
+                    hidePurchaseOverlay();
+                }
+                if (typeof hideRemainingTries === 'function') {
+                    hideRemainingTries();
+                }
+                
                 alert('🎉 购买成功！游戏已解锁');
+                
+                // 重新开始游戏
+                if (typeof startNewMoveSequence === 'function') {
+                    setTimeout(startNewMoveSequence, 1000);
+                }
             } else {
                 // 沙盒环境：仅提示
                 alert('🧪 沙盒测试成功（不会真实扣款）');
@@ -1049,6 +1061,9 @@ function openPaymentWindow() {
         },
         closeCallback: function() {
             console.log('用户关闭支付窗口');
+        },
+        loadCallback: function() {
+            console.log('支付窗口加载完成');
         }
     };
     
@@ -2039,7 +2054,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 添加购买按钮事件监听
     const purchaseButton = document.getElementById('purchaseButton');
     if (purchaseButton) {
-      purchaseButton.addEventListener('click', openPaymentWindow);
+     purchaseButton.addEventListener('click', openPaymentWindow);
+        console.log('✅ 购买按钮绑定到支付系统');
     }
     
     resetGame();
@@ -2059,6 +2075,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
