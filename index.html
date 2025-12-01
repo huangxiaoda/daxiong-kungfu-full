@@ -1008,76 +1008,18 @@
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
-// ===== Paddle支付系统（沙盒/生产自动切换）=====
-const USE_PRODUCTION = window.location.hostname.includes('daxiongkungfu.com');
-
-const PADDLE_TOKEN = USE_PRODUCTION 
-    ? 'live_c96499fff8cbcb5eb8eab6964c6'   // 生产token
-    : 'test_8d9365c8d0e6a7e0cbc5f6f0d39d8d'; // 沙盒token
-
-const PRODUCT_ID = USE_PRODUCTION
-    ? 'pri_01kawrmv7vcpnxwhsbn3tyf80q'     // 生产价格ID
-    : 12345;                                // 沙盒示例ID
-
-// ===== 核心支付函数 =====
-function openPaymentWindow() {
-    if (typeof Paddle === 'undefined') {
-        alert('支付系统加载失败，请刷新页面重试');
-        console.error('Paddle SDK未加载');
-        return;
-    }
+ // ===== 最终支付函数 =====
+      function initiatePurchase() {
+            console.log('🎯 打开支付页面...');
     
-    // 设置环境
-    Paddle.Environment.set(USE_PRODUCTION ? 'production' : 'sandbox');
+            // 使用Paddle客服确认的正确参数名：price
+            const paddlePayUrl = "https://buy.paddle.com/checkout/?price=pri_01kawrmv7vcpnxwhsbn3tyf80q";
     
-    console.log('打开支付，环境:', USE_PRODUCTION ? 'production' : 'sandbox');
-    
-    // 支付配置
-    const checkoutConfig = {
-        successCallback: function(data) {
-            console.log('支付成功:', data);
-            if (USE_PRODUCTION) {
-                // 生产环境：解锁游戏
-                localStorage.setItem('daxiong_pro_unlocked', 'true');
-                
-                // 调用您现有的函数
-                if (typeof hidePurchaseOverlay === 'function') {
-                    hidePurchaseOverlay();
-                }
-                if (typeof hideRemainingTries === 'function') {
-                    hideRemainingTries();
-                }
-                
-                alert('🎉 购买成功！游戏已解锁');
-                
-                // 重新开始游戏
-                if (typeof startNewMoveSequence === 'function') {
-                    setTimeout(startNewMoveSequence, 1000);
-                }
-            } else {
-                // 沙盒环境：仅提示
-                alert('🧪 沙盒测试成功（不会真实扣款）');
-            }
-        },
-        closeCallback: function() {
-            console.log('用户关闭支付窗口');
-        },
-        loadCallback: function() {
-            console.log('支付窗口加载完成');
+            console.log('💰 修正后的支付链接:', paddlePayUrl);
+            window.open(paddlePayUrl, '_blank');
+            console.log('✅ 支付页面已打开');
         }
-    };
-    
-    // 根据环境使用不同参数格式
-    if (USE_PRODUCTION) {
-        checkoutConfig.items = [{ priceId: PRODUCT_ID, quantity: 1 }];
-    } else {
-        checkoutConfig.product = PRODUCT_ID;
-    }
-    
-    // 打开支付
-    Paddle.Checkout.open(checkoutConfig);
-}
-        
+   
         // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
@@ -2075,6 +2017,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
