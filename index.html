@@ -1996,8 +1996,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 添加购买按钮事件监听
     const purchaseButton = document.getElementById('purchaseButton');
     if (purchaseButton) {
-     purchaseButton.addEventListener('click', openPaymentWindow);
-        console.log('✅ 购买按钮绑定到支付系统');
+         purchaseButton.addEventListener('click', initiatePurchase);
     }
     
     resetGame();
@@ -2017,6 +2016,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
