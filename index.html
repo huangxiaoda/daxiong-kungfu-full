@@ -1010,6 +1010,16 @@
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
 
+        // ===== 新增的Paddle支付函数 =====
+        function launchPaddleCheckout(priceId) {
+            Paddle.Checkout.open({
+                items: [{ priceId:"pri_01kawrmv7vcpnxwhsbn3tyf80q", quantity: 1 }]
+            });
+            Paddle.Checkout.on('completed', function(data) {
+                handlePurchaseSuccess(); // 支付成功后解锁游戏
+            });
+        }
+
         // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
@@ -1986,7 +1996,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 添加购买按钮事件监听
     const purchaseButton = document.getElementById('purchaseButton');
     if (purchaseButton) {
-         purchaseButton.addEventListener('click', initiatePurchase);
+        purchaseButton.addEventListener('click', function() {
+            // 调用新的支付函数，传入你产品的真实价格ID
+            launchPaddleCheckout('pri_01kawrmv7vcpnxwhsbn3tyf80q'); 
+        });
     }
     
     resetGame();
@@ -2006,6 +2019,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
