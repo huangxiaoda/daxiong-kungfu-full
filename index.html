@@ -16,8 +16,14 @@
     <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script type="text/javascript">
     Paddle.Environment.set("production"); 
-         Paddle.Initialize({token: "live_c96499fff8cbcb5eb8eab6964c6"});
-</script>
+         Paddle.Initialize({token: "live_c96499fff8cbcb5eb8eab6964c6",
+  eventCallback: function(eventData) {
+      if (eventData.name === 'checkout.completed') {
+        handlePurchaseSuccess(); // 支付成功后解锁游戏
+      }
+    }
+  });
+    </script>
     <style>
         /* 页面整体样式 */
         body {
@@ -1009,22 +1015,22 @@
         // ===== 购买功能核心逻辑 =====
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
-        
-        // define items
-         let itemsList = [
+       
+        // --- 新增：购买商品定义
+         const PURCHASE_ITEM = [
         {
           priceId: "pri_01kawrmv7vcpnxwhsbn3tyf80q",
           quantity: 1
         }
       ];
              
-      // open checkout
-      function launchPaddleCheckout(){
-        Paddle.Checkout.open({
-          items: items,
-        });
-      }
-      
+      // --- 修改后的支付函数 ---
+  function launchPaddleCheckout() {
+    Paddle.Checkout.open({
+      items: PURCHASE_ITEM // 使用上面定义的常量
+    });
+  }
+  
         // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
@@ -2022,6 +2028,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
