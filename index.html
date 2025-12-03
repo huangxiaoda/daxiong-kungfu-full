@@ -1009,17 +1009,19 @@
         // ===== 购买功能核心逻辑 =====
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
-
-      const PURCHASE_ITEM = [
-    {
+        
+        // define items
+         let itemsList = [
+        {
           priceId: "pri_01kawrmv7vcpnxwhsbn3tyf80q",
           quantity: 1
         }
       ];
              
-       function launchPaddleCheckout() {
-         Paddle.Checkout.open({
-          items: PURCHASE_ITEM
+      // open checkout
+      function openCheckout(items){
+        Paddle.Checkout.open({
+          items: items,
         });
       }
       
@@ -2020,6 +2022,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
