@@ -19,6 +19,7 @@
     Paddle.Initialize({
         token: "live_c96499fff8cbcb5eb8eab6964c6",
         eventCallback: function(data) {
+            console.log('Paddle完整事件数据:', data); 
             if (data.name === 'checkout.completed') {
                 if (typeof handlePurchaseSuccess === 'function') {
                     handlePurchaseSuccess();
@@ -2031,6 +2032,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
