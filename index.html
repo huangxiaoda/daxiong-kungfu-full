@@ -1056,12 +1056,12 @@ function checkGameStatus() {
     } else {
         let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
         // 只在游戏开始时显示剩余次数，不增加次数
-        showRemainingTries(5 - playCount);
+        showRemainingTries(3 - playCount);
         
-        if (playCount < 5) {
+        if (playCount < 3) {
             // 注意：这里不再增加次数，次数在游戏结束时增加
-            if (playCount >= 3) {
-                showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
+            if (playCount >= 1) {
+                showFeedback(`剩余试玩次数: ${3 - playCount}`, 'combo');
             }
             return true;
         } else {
@@ -1565,14 +1565,14 @@ function updateLayoutForLevel(levelName) {
             if (!isUnlocked) {
                 let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
             // 确保播放次数正确增加
-                if (playCount < 5) {
+                if (playCount < 3) {
                     playCount++;
                     localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
                     console.log(`游戏结束，播放次数更新为: ${playCount}`);
             
                 // 显示剩余次数提示
-                    if (playCount >= 3) {
-                        showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
+                    if (playCount >= 1) {
+                        showFeedback(`剩余试玩次数: ${3 - playCount}`, 'combo');
                     }
                 }
             }
@@ -2043,6 +2043,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
