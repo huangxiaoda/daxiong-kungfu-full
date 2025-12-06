@@ -15,19 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script type="text/javascript"> 
-    // ===== Paddle初始化=====
-    Paddle.Environment.set('sandbox');
-    Paddle.Initialize({
-        token: "live_c96499fff8cbcb5eb8eab6964c6",
-        eventCallback: function(data) {
-            console.log('Paddle完整事件数据:', data); 
-            if (data.name === 'checkout.completed') {
-                if (typeof handlePurchaseSuccess === 'function') {
-                    handlePurchaseSuccess();
-                }
-            }
-        }
-    }); 
     </script>
     <style>
         /* 页面整体样式 */
@@ -1045,7 +1032,20 @@
       items: PURCHASE_ITEM // 使用上面定义的常量
     });
   }
-    
+
+     // ===== Paddle初始化=====
+    Paddle.Environment.set('production');
+    Paddle.Initialize({
+        token: "live_c96499fff8cbcb5eb8eab6964c6",
+        eventCallback: function(data) {
+            console.log('Paddle完整事件数据:', data); 
+            if (data.name === 'checkout.completed') {
+                if (typeof handlePurchaseSuccess === 'function') {
+                    handlePurchaseSuccess();
+                }
+            }
+        }
+    });     
         // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
@@ -2034,6 +2034,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
