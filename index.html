@@ -1019,20 +1019,16 @@
             startNewMoveSequence();
         }
         
-        // --- 新增：购买商品定义
-         const PURCHASE_ITEM = [
-        {
-          priceId: "pri_01h1vjfevh5etwq3rb416a23h2",
-          quantity: 1
+              // 支付函数 
+        function launchPaddleCheckout() {
+            const PURCHASE_ITEM = [{
+                priceId: "pri_01h1vjfevh5etwq3rb416a23h2",
+                quantity: 1
+            }];
+            Paddle.Checkout.open({
+                items: PURCHASE_ITEM
+            });
         }
-      ];
-             
-      // --- 修改后的支付函数 ---
-  function launchPaddleCheckout() {
-    Paddle.Checkout.open({
-      items: PURCHASE_ITEM // 使用上面定义的常量
-    });
-  }
 
      // ===== Paddle初始化=====
     Paddle.Environment.set('sandbox');
@@ -2045,6 +2041,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
