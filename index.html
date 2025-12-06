@@ -1010,6 +1010,7 @@
        
      // 处理购买成功
         function handlePurchaseSuccess() {
+            console.log('🎯 handlePurchaseSuccess被调用');
             localStorage.setItem(UNLOCK_KEY, 'true');
             hidePurchaseOverlay();
             hideRemainingTries();
@@ -1040,12 +1041,17 @@
         eventCallback: function(data) {
             console.log('Paddle完整事件数据:', data); 
             if (data.name === 'checkout.completed') {
+               console.log('✅ 支付成功，准备解锁游戏...');
                 if (typeof handlePurchaseSuccess === 'function') {
                     handlePurchaseSuccess();
+                } else {
+                console.error('❌ handlePurchaseSuccess函数未找到！');
                 }
             }
         }
     });     
+     console.log('Paddle初始化完成，环境：', Paddle.Environment.current);  
+        
         // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
@@ -1074,14 +1080,16 @@ function checkGameStatus() {
           // 显示购买弹窗
         function showPurchaseOverlay() {
             const overlay = document.getElementById('purchaseOverlay');
-            overlay.classList.remove('hidden');
-            isGameRunning = false;
-        }
+            if (overlay) {
+          overlay.classList.remove('hidden');
+              isGameRunning = false;
+             }
+            }
         // 隐藏购买弹窗
         function hidePurchaseOverlay() {
             const overlay = document.getElementById('purchaseOverlay');
-            overlay.classList.add('hidden');
-        }
+            if (overlay) overlay.classList.add('hidden');
+         }
 
         // 显示剩余次数
         function showRemainingTries(count) {
@@ -2015,7 +2023,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (purchaseButton) {
         purchaseButton.addEventListener('click', 
         launchPaddleCheckout); 
-        }
+        console.log('✅ 购买按钮绑定成功');
+    } else {
+        console.warn('⚠️ 未找到购买按钮');
+    }
     
     resetGame();
 });
@@ -2034,6 +2045,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
