@@ -1372,18 +1372,7 @@ function updateLayoutForLevel(levelName) {
         async function startGame() {
              console.log("startGame called.");
            
-            // 添加的游戏状态检查
-           const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
-          if (isUnlocked) {
-            // 已购买永久版，直接开始游戏
-            console.log("✅ 永久版用户，直接开始游戏");
-            resetGame();
-            gameOverlay.classList.add('hidden');
-            isGameRunning = true;
-            startNewMoveSequence();
-            return;
-          }
-            
+            // 添加的游戏状态检查     
             if (!checkGameStatus()) {
                 return;
             }
@@ -1395,10 +1384,6 @@ function updateLayoutForLevel(levelName) {
             }
 
             resetGame();
-            gameOverlay.classList.add('hidden');
-            isGameRunning = true;
-            startNewMoveSequence();
-        }
             
             // 关键：在设置isGameRunning=true之前先隐藏overlay，防止竞争条件
             gameOverlay.classList.add('hidden');
@@ -2060,6 +2045,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
