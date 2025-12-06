@@ -1021,7 +1021,7 @@
         // --- 新增：购买商品定义
          const PURCHASE_ITEM = [
         {
-          priceId: "pri_01kawrmv7vcpnxwhsbn3tyf80q",
+          priceId: "pri_01h1vjfevh5etwq3rb416a23h2",
           quantity: 1
         }
       ];
@@ -1034,9 +1034,9 @@
   }
 
      // ===== Paddle初始化=====
-    Paddle.Environment.set('production');
+    Paddle.Environment.set('sandbox');
     Paddle.Initialize({
-        token: "live_c96499fff8cbcb5eb8eab6964c6",
+        token: "test_7d279f61a3499fed520f7cd8c08",
         eventCallback: function(data) {
             console.log('Paddle完整事件数据:', data); 
             if (data.name === 'checkout.completed') {
@@ -2034,6 +2034,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
