@@ -1016,6 +1016,10 @@
             hideRemainingTries();
             isGameRunning = true;
             showFeedback('已购买永久版!','combo');
+            const startButton = document.getElementById('startButton');
+          if (startButton) {
+            startButton.textContent = '开始练功';
+          }
             startNewMoveSequence();
         }
         
@@ -1373,6 +1377,17 @@ function updateLayoutForLevel(levelName) {
              console.log("startGame called.");
            
             // 添加的游戏状态检查
+           const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
+          if (isUnlocked) {
+            // 已购买永久版，直接开始游戏
+            console.log("✅ 永久版用户，直接开始游戏");
+            resetGame();
+            gameOverlay.classList.add('hidden');
+            isGameRunning = true;
+            startNewMoveSequence();
+            return;
+          }
+            
             if (!checkGameStatus()) {
                 return;
             }
@@ -1384,7 +1399,11 @@ function updateLayoutForLevel(levelName) {
             }
 
             resetGame();
-
+            gameOverlay.classList.add('hidden');
+            isGameRunning = true;
+            startNewMoveSequence();
+        }
+            
             // 关键：在设置isGameRunning=true之前先隐藏overlay，防止竞争条件
             gameOverlay.classList.add('hidden');
 
@@ -2045,6 +2064,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
