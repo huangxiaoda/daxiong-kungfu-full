@@ -22,12 +22,12 @@
     
     try {
         // 1. 设置环境
-        Paddle.Environment.set('sandbox');
-        console.log('🔄 环境设置为sandbox');
+        Paddle.Environment.set('production');
+        console.log('🔄 环境设置为production');
         
         // 2. 初始化
         Paddle.Initialize({
-            token: "test_7d279f61a3499fed520f7cd8c08",
+            token: "live_c96499fff8cbcb5eb8eab6964c6",
             eventCallback: function(data) {
                 console.log('🔍 Paddle事件:', data.name);
                 
@@ -1134,7 +1134,7 @@ if (currentDomain === 'daxiongkungfu.com') {
          // 支付函数 
         function launchPaddleCheckout() {
             const PURCHASE_ITEM = [{
-                priceId: "pri_01h1vjfevh5etwq3rb416a23h2",
+                priceId: "pri_01kawrmv7vcpnxwhsbn3tyf80q",
                 quantity: 1
             }];
             Paddle.Checkout.open({
@@ -2136,6 +2136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
