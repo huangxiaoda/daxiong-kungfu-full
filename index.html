@@ -94,30 +94,29 @@ if (typeof Paddle === 'undefined') {
     }, 500);
     
     // 3. 初始化
-    Paddle.Initialize({
-        token: "test_7d279f61a3499fed520f7cd8c08",
-        eventCallback: function(data) {
-            console.log('🔍 Paddle事件:', data.name, '环境:', Paddle.Environment?.current);
-            
-            if (data.name === 'checkout.completed') {
-                console.log('💰 支付成功！执行终极方案...');
-                
-                // 终极方案：强制保存 + 刷新
-                localStorage.setItem('daxiong_pro_unlocked', 'true');
-                console.log('✅ 解锁状态已保存');
-                
-                // 立即隐藏购买弹窗
-                document.getElementById('purchaseOverlay')?.classList.add('hidden');
-                
-                // 3秒后自动刷新
-                setTimeout(() => {
-                    alert('🎉 购买成功！页面即将刷新以解锁全部功能。');
-                    window.location.reload();
-                }, 3000);
-            }
+  Paddle.Initialize({
+    token: "test_7d279f61a3499fed520f7cd8c08",
+    eventCallback: function(data) {
+        console.log('🔍 Paddle事件:', data.name);
+        // ... 你的代码
+    }
+});
+
+// 添加环境验证
+setTimeout(() => {
+    if (!Paddle.Environment?.current) {
+        console.warn('⚠️ 环境未设置，尝试重新设置...');
+        try {
+            Paddle.Environment.set('sandbox');
+            console.log('✅ 环境重新设置为:', Paddle.Environment.current);
+        } catch(e) {
+            console.error('❌ 环境设置失败:', e);
+            // 即使环境是undefined，Paddle可能仍能工作
         }
-    });
-} 
+    } else {
+        console.log('✅ 环境确认:', Paddle.Environment.current);
+    }
+}, 1000);
     </script>
     <style>
         /* 页面整体样式 */
@@ -1094,6 +1093,8 @@ if (typeof Paddle === 'undefined') {
     </div>
     
     <script>
+
+        // 🚨 游戏状态强制修复
 console.log('=== 游戏状态初始化 ===');
 
 // 检查是否已购买
@@ -1118,13 +1119,43 @@ if (isPurchased) {
     }
     
     // 确保游戏可以运行
-    window.isGameRunning = true;
-    console.log('✅ 设置isGameRunning = true');
+    window._isGameRunning = true; // 先设置内部变量
+    console.log('✅ 设置_isGameRunning = true');
+    
+    // 🚨 关键：标记状态已修复，防止后续代码覆盖
+    window.gameStateFixed = true;
+    console.log('🚫 已标记状态已修复，防止覆盖');
 } else {
     console.log('🔄 未购买，按试玩逻辑运行');
-    window.isGameRunning = false;
+    window._isGameRunning = false;
+    window.gameStateFixed = false;
 }
-      
+
+// 🛡️ 保护：防止其他代码修改isGameRunning
+Object.defineProperty(window, 'isGameRunning', {
+    get() { 
+        console.log('📥 读取isGameRunning:', this._isGameRunning);
+        return this._isGameRunning; 
+    },
+    set(value) {
+        if (this.gameStateFixed && value === false) {
+            console.warn('⚠️ 阻止isGameRunning被设为false！当前应为true');
+            return; // 阻止修改
+        }
+        this._isGameRunning = value;
+        console.log('📤 设置isGameRunning为:', value);
+    }
+});
+
+// 初始化属性
+if (typeof window._isGameRunning === 'undefined') {
+    window._isGameRunning = false;
+}
+if (typeof window.gameStateFixed === 'undefined') {
+    window.gameStateFixed = false;
+}
+
+console.log('状态修复完成，isGameRunning:', window.isGameRunning);
         const currentDomain = window.location.hostname;
         if (currentDomain === 'daxiongkungfu.com') {
     // 清理所有可能的状态键（包括新发现的 daxiong_play_count）
@@ -1469,15 +1500,6 @@ function updateLayoutForLevel(levelName) {
 
             relaxAudio.pause();
             relaxAudio.currentTime = 0; 
-                // 只清理游戏状态，保留试玩次数
-        const currentDomain = window.location.hostname;
-        if (currentDomain === 'daxiongkungfu.com') {
-            // 只清除游戏状态，不清除试玩次数
-            localStorage.removeItem('daxiong_game_state');
-            localStorage.setItem('domain_migrated', 'true');
-            console.log('✅ 重置游戏状态，保留试玩次数');
-            }
-        }
 
         // 开始游戏
         async function startGame() {
@@ -2156,6 +2178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
