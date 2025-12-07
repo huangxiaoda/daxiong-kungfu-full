@@ -1007,46 +1007,6 @@
         // ===== 购买功能核心逻辑 =====
         const UNLOCK_KEY = 'daxiong_pro_unlocked';
         const PLAY_COUNT_KEY = 'daxiong_play_count';
-       
-     // 处理购买成功
-        function handlePurchaseSuccess() {
-            console.log('🎯 handlePurchaseSuccess被调用');
-            localStorage.setItem(UNLOCK_KEY, 'true');
-            hidePurchaseOverlay();
-            hideRemainingTries();
-            isGameRunning = true;
-            showFeedback('已购买永久版!','combo');
-            startNewMoveSequence();
-        }
-        
-              // 支付函数 
-        function launchPaddleCheckout() {
-            const PURCHASE_ITEM = [{
-                priceId: "pri_01h1vjfevh5etwq3rb416a23h2",
-                quantity: 1
-            }];
-            Paddle.Checkout.open({
-                items: PURCHASE_ITEM
-            });
-        }
-
-     // ===== Paddle初始化=====
-    Paddle.Environment.set('sandbox');
-    Paddle.Initialize({
-        token: "test_7d279f61a3499fed520f7cd8c08",
-        eventCallback: function(data) {
-            console.log('Paddle完整事件数据:', data); 
-            if (data.name === 'checkout.completed') {
-               console.log('✅ 支付成功，准备解锁游戏...');
-                if (typeof handlePurchaseSuccess === 'function') {
-                    handlePurchaseSuccess();
-                } else {
-                console.error('❌ handlePurchaseSuccess函数未找到！');
-                }
-            }
-        }
-    });     
-     console.log('Paddle初始化完成，环境：', Paddle.Environment.current);  
         
         // 检查游戏状态
 function checkGameStatus() {
@@ -1108,7 +1068,46 @@ function checkGameStatus() {
             }
         }
 
+ // 处理购买成功
+        function handlePurchaseSuccess() {
+            console.log('🎯 handlePurchaseSuccess被调用');
+            localStorage.setItem(UNLOCK_KEY, 'true');
+            hidePurchaseOverlay();
+            hideRemainingTries();
+            isGameRunning = true;
+            showFeedback('已购买永久版!','combo');
+            startNewMoveSequence();
+        }
+        
+              // 支付函数 
+        function launchPaddleCheckout() {
+            const PURCHASE_ITEM = [{
+                priceId: "pri_01h1vjfevh5etwq3rb416a23h2",
+                quantity: 1
+            }];
+            Paddle.Checkout.open({
+                items: PURCHASE_ITEM
+            });
+        }
 
+     // ===== Paddle初始化=====
+    Paddle.Environment.set('sandbox');
+    Paddle.Initialize({
+        token: "test_7d279f61a3499fed520f7cd8c08",
+        eventCallback: function(data) {
+            console.log('Paddle完整事件数据:', data); 
+            if (data.name === 'checkout.completed') {
+               console.log('✅ 支付成功，准备解锁游戏...');
+                if (typeof handlePurchaseSuccess === 'function') {
+                    handlePurchaseSuccess();
+                } else {
+                console.error('❌ handlePurchaseSuccess函数未找到！');
+                }
+            }
+        }
+    });     
+     console.log('Paddle初始化完成，环境：', Paddle.Environment.current);  
+        
         // ===== 元素获取 =====
         const timerElement = document.getElementById('timer');
         const scoreElement = document.getElementById('score');
@@ -2041,6 +2040,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
