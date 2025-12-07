@@ -94,29 +94,34 @@ if (typeof Paddle === 'undefined') {
     }, 500);
     
     // 3. 初始化
-  Paddle.Initialize({
-    token: "test_7d279f61a3499fed520f7cd8c08",
-    eventCallback: function(data) {
-        console.log('🔍 Paddle事件:', data.name);
-        // ... 你的代码
-    }
-});
-
-// 添加环境验证
-setTimeout(() => {
-    if (!Paddle.Environment?.current) {
-        console.warn('⚠️ 环境未设置，尝试重新设置...');
-        try {
-            Paddle.Environment.set('sandbox');
-            console.log('✅ 环境重新设置为:', Paddle.Environment.current);
-        } catch(e) {
-            console.error('❌ 环境设置失败:', e);
-            // 即使环境是undefined，Paddle可能仍能工作
+   Paddle.Initialize({
+        token: "test_7d279f61a3499fed520f7cd8c08",
+        eventCallback: function(data) {
+            console.log('🔍 Paddle事件:', data.name);
+            
+            if (data.name === 'checkout.completed') {
+                console.log('💰 支付成功！');
+                localStorage.setItem('daxiong_pro_unlocked', 'true');
+                
+                // 3秒后刷新
+                setTimeout(() => {
+                    alert('🎉 购买成功！页面即将刷新。');
+                    window.location.reload();
+                }, 3000);
+            }
         }
-    } else {
-        console.log('✅ 环境确认:', Paddle.Environment.current);
-    }
-}, 1000);
+    });
+    
+    // 环境验证（保留）
+    setTimeout(() => {
+        if (!Paddle.Environment?.current) {
+            console.warn('⚠️ 环境未设置，尝试重新设置...');
+            try {
+                Paddle.Environment.set('sandbox');
+            } catch(e) {}
+        }
+    }, 1000);
+}
     </script>
     <style>
         /* 页面整体样式 */
@@ -2178,6 +2183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
