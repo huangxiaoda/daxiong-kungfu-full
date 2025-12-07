@@ -71,45 +71,53 @@
     }, 500);
 }
 
- // ===== Paddle初始化 =====
-Paddle.Environment.set('sandbox');
-Paddle.Initialize({
-    token: "test_7d279f61a3499fed520f7cd8c08",
-    eventCallback: function(data) {
-        console.log('🔍 Paddle事件:', data.name);
-        
-        // 🎯 核心：支付成功处理
-        if (data.name === 'checkout.completed') {
-            console.log('💰 支付成功！开始处理...');
-            console.log('检查handlePurchaseSuccess:', typeof handlePurchaseSuccess);
-            
-            // 等待1秒确保页面稳定
-            setTimeout(() => {
-                // 方案A：尝试调用原有函数
-                if (typeof handlePurchaseSuccess === 'function') {
-                    console.log('✅ 找到handlePurchaseSuccess，开始调用');
-                    try {
-                        handlePurchaseSuccess();
-                    } catch (err) {
-                        console.error('❌ handlePurchaseSuccess出错:', err);
-                        console.log('切换到备用方案...');
-                        fallbackUnlock();
-                    }
-                } else {
-                    console.warn('⚠️ handlePurchaseSuccess未定义，直接使用备用方案');
-                    fallbackUnlock();
-                }
-            }, 1000);
-        }
-        
-        // 用户手动关闭支付窗口的处理
-        if (data.name === 'checkout.closed') {
-            console.log('用户关闭了支付窗口');
-            // 可以添加一些清理逻辑
-        }
+  // ===== 确保Paddle.js加载完成 =====
+if (typeof Paddle === 'undefined') {
+    console.error('❌ Paddle.js未加载！');
+} else {
+    console.log('✅ Paddle.js已加载，版本:', Paddle?.VERSION);
+    
+    // 1. 强制设置环境
+    try {
+        Paddle.Environment.set('sandbox');
+        console.log('🔄 环境设置为sandbox');
+    } catch (err) {
+        console.error('❌ 环境设置失败:', err);
     }
-});
-    console.log('Paddle初始化完成，环境:', Paddle.Environment.current);       
+    
+    // 2. 检查环境是否真的设置成功
+    setTimeout(() => {
+        console.log('📊 环境检查:', {
+            当前环境: Paddle.Environment?.current,
+            环境对象: Paddle.Environment
+        });
+    }, 500);
+    
+    // 3. 初始化
+    Paddle.Initialize({
+        token: "test_7d279f61a3499fed520f7cd8c08",
+        eventCallback: function(data) {
+            console.log('🔍 Paddle事件:', data.name, '环境:', Paddle.Environment?.current);
+            
+            if (data.name === 'checkout.completed') {
+                console.log('💰 支付成功！执行终极方案...');
+                
+                // 终极方案：强制保存 + 刷新
+                localStorage.setItem('daxiong_pro_unlocked', 'true');
+                console.log('✅ 解锁状态已保存');
+                
+                // 立即隐藏购买弹窗
+                document.getElementById('purchaseOverlay')?.classList.add('hidden');
+                
+                // 3秒后自动刷新
+                setTimeout(() => {
+                    alert('🎉 购买成功！页面即将刷新以解锁全部功能。');
+                    window.location.reload();
+                }, 3000);
+            }
+        }
+    });
+} 
     </script>
     <style>
         /* 页面整体样式 */
@@ -1086,7 +1094,38 @@ Paddle.Initialize({
     </div>
     
     <script>
-      const currentDomain = window.location.hostname;
+console.log('=== 游戏状态初始化 ===');
+
+// 检查是否已购买
+const isPurchased = localStorage.getItem('daxiong_pro_unlocked') === 'true';
+console.log('购买状态:', isPurchased);
+
+if (isPurchased) {
+    // 如果已购买，跳过所有限制逻辑
+    console.log('🔄 检测到已购买，跳过试玩限制');
+    
+    // 强制隐藏购买相关元素
+    const overlay = document.getElementById('purchaseOverlay');
+    if (overlay) {
+        overlay.classList.add('hidden');
+        console.log('✅ 隐藏购买弹窗');
+    }
+    
+    const remaining = document.getElementById('remainingTries');
+    if (remaining) {
+        remaining.style.display = 'none';
+        console.log('✅ 隐藏剩余次数');
+    }
+    
+    // 确保游戏可以运行
+    window.isGameRunning = true;
+    console.log('✅ 设置isGameRunning = true');
+} else {
+    console.log('🔄 未购买，按试玩逻辑运行');
+    window.isGameRunning = false;
+}
+      
+        const currentDomain = window.location.hostname;
         if (currentDomain === 'daxiongkungfu.com') {
     // 清理所有可能的状态键（包括新发现的 daxiong_play_count）
     const keysToRemove = [
@@ -1124,6 +1163,7 @@ Paddle.Initialize({
                 items: PURCHASE_ITEM
             });
         }
+        
         // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
@@ -2116,6 +2156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
