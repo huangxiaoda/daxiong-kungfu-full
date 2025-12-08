@@ -1086,12 +1086,6 @@ function togglePurchase() {
 function closeCheck() {
   document.getElementById('installCheck').style.display = 'none';
 }
-
-// 验证通过，执行真实购买
-function proceedToPay() {
-  document.getElementById('installCheck').style.display = 'none';
-  launchPaddleCheckout(); // 调用你原有的支付函数
-}
   
     // 🚨 游戏状态强制修复
 console.log('=== 游戏状态初始化 ===');
@@ -2195,6 +2189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
