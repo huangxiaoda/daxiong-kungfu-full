@@ -569,7 +569,7 @@
             color: #5d4037;
             z-index: 25;
             font-family: 'Press Start 2P', cursive;
-         white-space: nowrap; /* 添加这行，防止文字换行 */
+         white-space: nowrap; /* 防止文字换行 */
         }
 /* 确保emoji正确显示 */
 .character, .action-button span, .master-move-display .emoji {
@@ -615,7 +615,7 @@
     font-weight: bold;
 }
         
-/* 下面是原有的移动端适配样式 */
+/* 原有的移动端适配样式 */
 @media (max-width: 768px) {
     .music-description-popup {
         max-width: 280px;
@@ -754,7 +754,7 @@
             height: auto;
             max-height: 300px; /* 移动端稍矮 */
             overflow-y: auto; /* 启用滚动 */
-            position: absolute; /* 改为绝对定位 */
+            position: absolute; /* 绝对定位 */
             top: 100%; /* 在选择器下方展开 */
             left: 0;
             width: 100%;
@@ -766,7 +766,7 @@
         }
     }
         
-} /* 这里添加闭合括号 */
+} /* 添加闭合括号 */
 /* 音乐控制头部布局 */
 .music-control-header {
     display: flex;
@@ -2137,6 +2137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
