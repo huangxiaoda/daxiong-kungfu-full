@@ -1068,24 +1068,6 @@
   </div>
 </div> 
 <script>
-     // 拦截原购买按钮点击，改为弹出验证窗
-document.getElementById('purchaseButton').onclick = function(e) {
-  e.preventDefault(); // 阻止原行为
-  document.getElementById('installCheck').style.display = 'flex';
-};
-
-// 勾选复选框时激活购买按钮
-function togglePurchase() {
-  const isChecked = document.getElementById('installConfirmed').checked;
-  const payBtn = document.getElementById('payBtn');
-  payBtn.disabled = !isChecked;
-  payBtn.style.background = isChecked ? '#007bff' : 'gray';
-}
-
-// 关闭弹窗
-function closeCheck() {
-  document.getElementById('installCheck').style.display = 'none';
-}
   
     // 🚨 游戏状态强制修复
 console.log('=== 游戏状态初始化 ===');
@@ -2189,6 +2171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
