@@ -1070,26 +1070,20 @@ window.addEventListener('load', function() {
 });
 
 function closeFirstPopup() {
-    // 关闭弹窗
     document.getElementById('firstPopup').style.display = 'none';
     
-    // 恢复游戏运行状态
-    if (typeof isGameRunning !== 'undefined') {
-        isGameRunning = true;
-    }
-    
-    // 🎯 关键修改：调用startGame()函数
-    console.log('弹窗关闭，调用startGame...');
-    
-    // 确保DOM更新后再调用
+    // 找到并点击开始按钮
     setTimeout(function() {
-        if (typeof startGame === 'function') {
-            startGame();
-            console.log('✅ startGame函数已调用');
-        } else {
-            console.error('❌ startGame函数未找到');
+        // 根据你的按钮ID或类名修改
+        const startBtn = document.getElementById('startButton') || 
+                        document.querySelector('.start-game-btn') ||
+                        document.querySelector('button[onclick*="startGame"]');
+        
+        if (startBtn) {
+            startBtn.click();
+            console.log('已自动点击开始按钮');
         }
-    }, 100);
+    }, 500);
 }
     // 🚨 游戏状态强制修复
 console.log('=== 游戏状态初始化 ===');
@@ -2189,6 +2183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
