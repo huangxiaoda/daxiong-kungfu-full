@@ -912,6 +912,20 @@
     </style>
 </head>
 <body>
+    <div id="firstPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:99999; justify-content:center; align-items:center; font-family:宋体;">
+  <div style="background:white; padding:30px; border-radius:12px; max-width:400px; margin:20px; text-align:center;">
+    <h3 style="color:#d32f2f; margin-top:0;">🎯 功夫之旅温馨提示</h3>
+    <p style="font-size:16px; line-height:1.6;">为保障您的购买权益，请先<b style="color:#d32f2f;">添加到手机主屏幕</b>或<b style="color:#d32f2f;">电脑桌面</b>，再开始试玩。</p >
+    <p style="background:#f9f9f9; padding:12px; border-radius:6px; margin:20px 0;">
+      📱 <b>手机</b>：点击浏览器菜单 → "添加到主屏幕"<br>
+      💻 <b>电脑</b>：点击地址栏右侧的安装图标
+    </p >
+    <button onclick="closeFirstPopup()" style="background:#4CAF50; color:white; border:none; padding:14px 28px; font-size:16px; border-radius:8px; cursor:pointer; font-weight:bold;">
+      知道了，开始试玩
+    </button>
+    <p style="font-size:13px; color:#666; margin-top:15px;">（下次不会再提示）</p >
+  </div>
+</div>
     <div class="game-container">
         <!-- 游戏背景音乐 -->
         <audio id="game-bg-music" loop>
@@ -1038,6 +1052,37 @@
     </div>
 
 <script>
+  // 游戏启动弹窗控制（放在JS文件最前面）
+window.addEventListener('load', function() {
+    // 检查是否已提示过
+    if (!localStorage.getItem('first_popup_shown')) {
+        // 显示弹窗
+        document.getElementById('firstPopup').style.display = 'flex';
+        
+        // 标记为已显示
+        localStorage.setItem('first_popup_shown', 'true');
+        
+        // 暂停游戏直到用户关闭弹窗
+        if (typeof isGameRunning !== 'undefined') {
+            isGameRunning = false;
+        }
+    }
+});
+
+function closeFirstPopup() {
+    // 关闭弹窗
+    document.getElementById('firstPopup').style.display = 'none';
+    
+    // 恢复游戏运行
+    if (typeof isGameRunning !== 'undefined') {
+        isGameRunning = true;
+    }
+    
+    // 如果有游戏初始化函数，可以调用
+    if (typeof startGame === 'function') {
+        startGame();
+    }
+}
     // 🚨 游戏状态强制修复
 console.log('=== 游戏状态初始化 ===');
 
@@ -2136,6 +2181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
