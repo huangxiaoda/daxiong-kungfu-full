@@ -85,18 +85,19 @@
         <p><strong>服务条款：</strong> 查看永久版条款</p >
     </div>
      <script>
-       
-        // 定义购买函数
-       function initiatePurchase() {
-            console.log('🎯 打开支付页面...');
-    
-            const priceId="pri_01kawrmv7vcpnxwhsbn3tyf80q";
-            const paddlePayUrl=`https://buy.paddle.com/checkout/?priceId=${priceId}`;
-    
-            console.log('💰 支付链接:', paddlePayUrl);
-            window.open(paddlePayUrl, '_blank');
-            console.log('✅ 支付页面已打开');
+       <button onclick="startPurchase()">购买永久版 $6.99</button>
+
+<script>
+function startPurchase() {
+    Paddle.Checkout.open({
+        items: [{ priceId: 'pri_01kawrmv7vcpnxwhsbn3tyf80q', quantity: 1 }],
+        settings: {
+            // 关键：支付成功后跳回游戏页面
+            successUrl: 'https://daxiongkungfu.com/game.html?payment=success&from=pricing'
         }
+    });
+}
+       
     </script>
     <p></p >
 </body>
