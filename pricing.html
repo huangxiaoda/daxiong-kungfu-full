@@ -74,8 +74,7 @@
             onmouseover="this.style.transform='scale(1.05)';"
             onmouseout="this.style.transform='scale(1)';"
         >
-            🐻 立即购买永久版 - $6.99
-        </button>
+       <button onclick="startPurchase()">购买永久版 $6.99</button>
     </div>
 
     <div class="business-info">
@@ -84,9 +83,7 @@
         <p><strong>联系我们：</strong> lord_huang@nobalead.com</p >
         <p><strong>服务条款：</strong> 查看永久版条款</p >
     </div>
-     <script>
-       <button onclick="startPurchase()">购买永久版 $6.99</button>
-
+      
 <script>
 function startPurchase() {
     Paddle.Checkout.open({
