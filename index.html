@@ -1153,24 +1153,24 @@ function detectLanguage() {
 function applyTranslations(lang) {
     const t = i18nConfig.translations[lang];
     
-    // 找到所有需要翻译的元素
     const elements = document.querySelectorAll('[data-i18n]');
     
     elements.forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (t[key]) {
-            // 如果是innerHTML内容（包含HTML标签）
-            if (element.hasAttribute('data-i18n-html')) {
-                element.innerHTML = t[key];
+            // 判断哪些元素需要HTML内容
+            const elementId = element.id || '';
+            const needsHTML = key.includes('_text') || key.includes('_guide') || 
+                             elementId.includes('text') || elementId.includes('install');
+            
+            if (needsHTML) {
+                element.innerHTML = t[key];  // 使用innerHTML保留<b>标签
             } else {
-                // 普通文本内容
-                element.textContent = t[key];
+                element.textContent = t[key]; // 普通文本
             }
         }
     });
     
-    // 更新语言标志
-    document.documentElement.lang = lang;
     console.log(`🌐 语言已切换为: ${lang}`);
 }
 
@@ -2327,6 +2327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
