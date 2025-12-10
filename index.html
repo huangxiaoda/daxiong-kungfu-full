@@ -1160,25 +1160,22 @@ function detectLanguage() {
 function applyTranslations(lang) {
     const t = i18nConfig.translations[lang];
     
+    // 找到所有需要翻译的元素（包括隐藏的）
     const elements = document.querySelectorAll('[data-i18n]');
     
     elements.forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (t[key]) {
-            // 判断哪些元素需要HTML内容
-            const elementId = element.id || '';
-            const needsHTML = key.includes('_text') || key.includes('_guide') || 
-                             elementId.includes('text') || elementId.includes('install');
-            
-            if (needsHTML) {
-                element.innerHTML = t[key];  // 使用innerHTML保留<b>标签
+            // 特殊处理包含HTML的元素
+            if (key.includes('_text') || key.includes('_guide')) {
+                element.innerHTML = t[key];
             } else {
-                element.textContent = t[key]; // 普通文本
+                element.textContent = t[key];
             }
         }
     });
     
-    console.log(`🌐 语言已切换为: ${lang}`);
+    console.log(`🌐 语言已切换为: ${lang}, 翻译了 ${elements.length} 个元素`);
 }
 
 // 4. 初始化语言系统
@@ -2344,6 +2341,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
