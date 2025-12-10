@@ -1215,13 +1215,15 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     // 检查是否已提示过
     if (!localStorage.getItem('first_popup_shown')) {
-        // 显示弹窗
+        // 🚨 关键：先翻译，再显示
+        const currentLang = localStorage.getItem('preferred_lang') || detectLanguage();
+        applyTranslations(currentLang);
+        
+        // 然后显示弹窗
         document.getElementById('firstPopup').style.display = 'flex';
         
-        // 标记为已显示
         localStorage.setItem('first_popup_shown', 'true');
         
-        // 暂停游戏直到用户关闭弹窗
         if (typeof isGameRunning !== 'undefined') {
             isGameRunning = false;
         }
@@ -2352,6 +2354,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
