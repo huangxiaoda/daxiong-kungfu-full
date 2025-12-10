@@ -1160,25 +1160,34 @@ function detectLanguage() {
 function applyTranslations(lang) {
     const t = i18nConfig.translations[lang];
     
+    console.log('开始翻译，语言:', lang);
+    console.log('可用翻译键:', Object.keys(t));
+    
     const elements = document.querySelectorAll('[data-i18n]');
+    console.log(`找到 ${elements.length} 个需要翻译的元素`);
     
     elements.forEach(element => {
         const key = element.getAttribute('data-i18n');
+        console.log(`处理元素: ${key}, 父元素: ${element.parentElement?.id || '无'}`);
+        
         if (t[key]) {
-            // 判断哪些元素需要HTML内容
-            const elementId = element.id || '';
-            const needsHTML = key.includes('_text') || key.includes('_guide') || 
-                             elementId.includes('text') || elementId.includes('install');
+            // 🚨 简化判断逻辑：所有包含HTML标签的都需要innerHTML
+            const translationText = t[key];
+            const containsHtml = /<[a-z][\s\S]*>/i.test(translationText);
             
-            if (needsHTML) {
-                element.innerHTML = t[key];  // 使用innerHTML保留<b>标签
+            if (containsHtml) {
+                element.innerHTML = translationText;
+                console.log(`✓ HTML翻译: ${key}`);
             } else {
-                element.textContent = t[key]; // 普通文本
+                element.textContent = translationText;
+                console.log(`✓ 文本翻译: ${key}`);
             }
+        } else {
+            console.warn(`⚠ 缺少翻译: ${key}`);
         }
     });
     
-    console.log(`🌐 语言已切换为: ${lang}`);
+    console.log(`🌐 翻译完成，语言: ${lang}`);
 }
 // 4. 初始化语言系统
 function initI18n() {
@@ -2343,6 +2352,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
