@@ -1190,7 +1190,7 @@ function applyTranslations(lang) {
 // 4. 初始化语言系统
 function initI18n() {
     const currentLang = detectLanguage();
-    
+    applyTranslations(currentLang);
     // 暴露切换函数到全局
     window.switchLanguage = function(lang) {
         if (i18nConfig.languages.includes(lang)) {
@@ -1211,12 +1211,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // 游戏启动弹窗控制
 window.addEventListener('load', function() {
     if (!localStorage.getItem('first_popup_shown')) {
-        // 直接显示弹窗（翻译已经在DOMContentLoaded时完成）
+         // 🚨 关键：先翻译，再显示
+        const currentLang = localStorage.getItem('preferred_lang') || detectLanguage();
+        applyTranslations(currentLang);
+        
+        // 然后显示弹窗
         document.getElementById('firstPopup').style.display = 'flex';
+        
         localStorage.setItem('first_popup_shown', 'true');
         
         if (typeof isGameRunning !== 'undefined') {
             isGameRunning = false;
+
         }
     }
 });
@@ -2345,6 +2351,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
