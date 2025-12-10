@@ -1160,34 +1160,32 @@ function detectLanguage() {
 function applyTranslations(lang) {
     const t = i18nConfig.translations[lang];
     
-    console.log('开始翻译，语言:', lang);
-    console.log('可用翻译键:', Object.keys(t));
-    
+    // 1. 先翻译所有常规元素
     const elements = document.querySelectorAll('[data-i18n]');
-    console.log(`找到 ${elements.length} 个需要翻译的元素`);
-    
     elements.forEach(element => {
         const key = element.getAttribute('data-i18n');
-        console.log(`处理元素: ${key}, 父元素: ${element.parentElement?.id || '无'}`);
-        
         if (t[key]) {
-            // 🚨 简化判断逻辑：所有包含HTML标签的都需要innerHTML
-            const translationText = t[key];
-            const containsHtml = /<[a-z][\s\S]*>/i.test(translationText);
-            
-            if (containsHtml) {
-                element.innerHTML = translationText;
-                console.log(`✓ HTML翻译: ${key}`);
-            } else {
-                element.textContent = translationText;
-                console.log(`✓ 文本翻译: ${key}`);
-            }
-        } else {
-            console.warn(`⚠ 缺少翻译: ${key}`);
+            element.innerHTML = t[key]; // 统一用innerHTML
         }
     });
     
-    console.log(`🌐 翻译完成，语言: ${lang}`);
+    // 2. 🚨 专门处理启动弹窗（即使它是display:none）
+    const firstPopup = document.getElementById('firstPopup');
+    if (firstPopup) {
+        console.log('专门处理启动弹窗翻译...');
+        
+        // 翻译弹窗内的所有元素
+        const popupElements = firstPopup.querySelectorAll('[data-i18n]');
+        popupElements.forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (t[key]) {
+                element.innerHTML = t[key];
+                console.log(`弹窗翻译: ${key}`);
+            }
+        });
+    }
+    
+    console.log(`🌐 语言: ${lang}, 翻译了 ${elements.length} 个元素`);
 }
 // 4. 初始化语言系统
 function initI18n() {
@@ -2354,6 +2352,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
