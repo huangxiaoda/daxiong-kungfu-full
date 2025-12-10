@@ -1209,7 +1209,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initI18n();
 });
 
-    // 游戏启动弹窗控制（放在JS文件最前面）
+    // 游戏启动弹窗控制
 window.addEventListener('load', function() {
     // 检查是否已提示过
     if (!localStorage.getItem('first_popup_shown')) {
@@ -1233,7 +1233,7 @@ function closeFirstPopup() {
     
     // 找到并点击开始按钮
     setTimeout(function() {
-        // 根据你的按钮ID或类名修改
+        // 根据按钮ID或类名修改
         const startBtn = document.getElementById('startButton') || 
                         document.querySelector('.start-game-btn') ||
                         document.querySelector('button[onclick*="startGame"]');
@@ -2352,6 +2352,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
