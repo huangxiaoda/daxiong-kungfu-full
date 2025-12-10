@@ -1072,7 +1072,131 @@
     </div>
 
 <script>
-  // 游戏启动弹窗控制（放在JS文件最前面）
+ // 1. 语言配置
+const i18nConfig = {
+    // 支持的语种（可扩展）
+    languages: ['zh', 'en'],
+    
+    // 默认语言（中文）
+    defaultLang: 'zh',
+    
+    // 翻译词典
+    translations: {
+        'zh': {
+            // 启动弹窗
+            'install_title': '🎯 功夫之旅温馨提示',
+            'install_text': '为保障您的购买权益，请先<b style="color:#d32f2f;">添加到手机主屏幕</b>或<b style="color:#d32f2f;">电脑桌面</b>，再开始试玩。',
+            'install_guide': '📱 <b>手机</b>：点击浏览器菜单 → "添加到主屏幕"<br>💻 <b>电脑</b>：点击地址栏右侧的安装图标',
+            'install_button': '知道了，开始试玩',
+            'install_note': '（下次不会再提示）',
+            
+            // 购买弹窗
+             'purchase_title': '试练收官！',
+            'purchase_subtitle': '少侠已体验5次功夫试练',
+            'purchase_calltoaction': '解锁永久版，挑战功夫节奏反应，冲击「熊霸天下」最高境界！',
+            'purchase_button': '解锁永久版',
+            'purchase_features': '畅享专属助眠放松音乐+桌面午休智能闹钟唤醒',
+            
+            // 游戏界面（可根据需要添加）
+            'start_button': '开始练功',
+            'retry_button': '重新挑战'
+        },
+        
+        'en': {
+            // 启动弹窗
+            'install_title': '🎯 Important Before Playing',
+            'install_text': 'For the best experience and to secure your purchase, please <b style="color:#d32f2f;">add to home screen</b> (mobile) or <b style="color:#d32f2f;">desktop</b> before playing.',
+            'install_guide': '📱 <b>Mobile</b>: Tap browser menu → "Add to Home Screen"<br>💻 <b>Desktop</b>: Click install icon in address bar',
+            'install_button': 'Got it, Start Training',
+            'install_note': '(Will not show again)',
+            
+            // 购买弹窗
+            'purchase_title': 'Training Complete!',
+            'purchase_subtitle': 'You have mastered 5 kung fu trials',
+            'purchase_calltoaction': 'Unlock permanent version, challenge kung fu rhythm, achieve the "Bear Dominates World" ultimate realm!',
+            'purchase_button': 'Unlock Permanent Version',
+            'purchase_features': 'Enjoy exclusive sleep-relax music + smart desktop nap alarm',
+            
+            // 游戏界面
+            'start_button': 'Start Training',
+            'retry_button': 'Try Again'
+        }
+    }
+};
+
+// 2. 语言检测函数
+function detectLanguage() {
+    // 从URL参数获取（优先级最高）?lang=en
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang');
+    if (urlLang && i18nConfig.languages.includes(urlLang)) {
+        localStorage.setItem('preferred_lang', urlLang);
+        return urlLang;
+    }
+    
+    // 从本地存储获取
+    const savedLang = localStorage.getItem('preferred_lang');
+    if (savedLang && i18nConfig.languages.includes(savedLang)) {
+        return savedLang;
+    }
+    
+    // 从浏览器设置检测
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang.startsWith('zh')) {
+        return 'zh';
+    } else {
+        return 'en'; // 其他所有语言默认为英文
+    }
+}
+
+// 3. 应用翻译
+function applyTranslations(lang) {
+    const t = i18nConfig.translations[lang];
+    
+    // 找到所有需要翻译的元素
+    const elements = document.querySelectorAll('[data-i18n]');
+    
+    elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (t[key]) {
+            // 如果是innerHTML内容（包含HTML标签）
+            if (element.hasAttribute('data-i18n-html')) {
+                element.innerHTML = t[key];
+            } else {
+                // 普通文本内容
+                element.textContent = t[key];
+            }
+        }
+    });
+    
+    // 更新语言标志
+    document.documentElement.lang = lang;
+    console.log(`🌐 语言已切换为: ${lang}`);
+}
+
+// 4. 初始化语言系统
+function initI18n() {
+    const currentLang = detectLanguage();
+    applyTranslations(currentLang);
+    
+    // 暴露切换函数到全局
+    window.switchLanguage = function(lang) {
+        if (i18nConfig.languages.includes(lang)) {
+            localStorage.setItem('preferred_lang', lang);
+            applyTranslations(lang);
+            location.reload(); // 重新加载以应用所有更改
+        }
+    };
+    
+    return currentLang;
+}
+
+// 5. 页面加载时初始化
+document.addEventListener('DOMContentLoaded', function() {
+    initI18n();
+});
+
+    // 游戏启动弹窗控制（放在JS文件最前面）
 window.addEventListener('load', function() {
     // 检查是否已提示过
     if (!localStorage.getItem('first_popup_shown')) {
@@ -2203,6 +2327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
