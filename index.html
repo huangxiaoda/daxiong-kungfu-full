@@ -1104,9 +1104,6 @@ const i18nConfig = {
             'purchase_button': '解锁永久版',
             'purchase_features': '畅享专属助眠放松音乐+桌面午休智能闹钟唤醒',
             
-            // 游戏界面（可根据需要添加）
-            'start_button': '开始练功',
-            'retry_button': '重新挑战'
         },
         
         'en': {
@@ -1120,13 +1117,10 @@ const i18nConfig = {
             // 购买弹窗
             'purchase_title': 'Training Complete!',
             'purchase_subtitle': 'You have mastered 5 kung fu trials',
-            'purchase_calltoaction': 'Unlock permanent version, challenge kung fu rhythm, achieve the "Bear Dominates World" ultimate realm!',
+            'purchase_calltoaction': 'To secure your purchase, please add to home screen or desktop to continue trial.Unlock permanent version, challenge kung fu rhythm, achieve the "Bear Dominates World" ultimate realm!',
             'purchase_button': 'Unlock Permanent Version',
             'purchase_features': 'Enjoy exclusive sleep-relax music + smart desktop nap alarm',
             
-            // 游戏界面
-            'start_button': 'Start Training',
-            'retry_button': 'Try Again'
         }
     }
 };
@@ -1190,7 +1184,6 @@ function applyTranslations(lang) {
 // 4. 初始化语言系统
 function initI18n() {
     const currentLang = detectLanguage();
-    applyTranslations(currentLang);
     
     // 暴露切换函数到全局
     window.switchLanguage = function(lang) {
@@ -1211,15 +1204,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 游戏启动弹窗控制
 window.addEventListener('load', function() {
-    // 检查是否已提示过
     if (!localStorage.getItem('first_popup_shown')) {
-        // 🚨 关键：先翻译，再显示
-        const currentLang = localStorage.getItem('preferred_lang') || detectLanguage();
-        applyTranslations(currentLang);
-        
-        // 然后显示弹窗
+        // 直接显示弹窗（翻译已经在DOMContentLoaded时完成）
         document.getElementById('firstPopup').style.display = 'flex';
-        
         localStorage.setItem('first_popup_shown', 'true');
         
         if (typeof isGameRunning !== 'undefined') {
@@ -2352,6 +2339,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
