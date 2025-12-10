@@ -914,32 +914,19 @@
 <body>
     <div id="firstPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:99999; justify-content:center; align-items:center; font-family:宋体;">
   <div style="background:white; padding:30px; border-radius:12px; max-width:400px; margin:20px; text-align:center;">
-  <h3 data-lang="zh:🎯 功夫之旅温馨提示|en:🎯 Important Before Playing" 
-        style="color:#d32f2f; margin-top:0;">
-      🎯 功夫之旅温馨提示
-    </h3>
-    
-    <!-- 主要说明 -->
-    <p data-lang="zh:为保障您的购买权益，请先<b style='color:#d32f2f;'>添加到手机主屏幕</b>或<b style='color:#d32f2f;'>电脑桌面</b>，再开始试玩订购。|en:To secure your purchase, please <b style='color:#d32f2f;'>add to home screen</b> (mobile) or <b style='color:#d32f2f;'>desktop</b> before playing."
-       style="font-size:16px; line-height:1.6;">
-      为保障您的购买权益，请先<b style="color:#d32f2f;">添加到手机主屏幕</b>或<b style="color:#d32f2f;">电脑桌面</b>，再开始试玩订购。
+  <!-- 添加data-i18n属性 -->
+    <h3 data-i18n="install_title" style="color:#d32f2f; margin-top:0;">🎯 功夫之旅温馨提示</h3>
+    <p data-i18n="install_text" style="font-size:16px; line-height:1.6;">
+      为保障您的购买权益，请先<b style="color:#d32f2f;">添加到手机主屏幕</b>或<b style="color:#d32f2f;">电脑桌面</b>，再开始试玩。
     </p >
-    
-    <!-- 操作指南 -->
-    <p data-lang="zh:📱 <b>手机</b>：点击浏览器菜单 → '添加到主屏幕'<br>💻 <b>电脑</b>：点击地址栏右侧的安装图标|en:📱 <b>Mobile</b>: Tap browser menu → 'Add to Home Screen'<br>💻 <b>Desktop</b>: Click install icon in address bar"
-       style="background:#f9f9f9; padding:12px; border-radius:6px; margin:20px 0;">
+    <div data-i18n="install_guide" style="background:#f9f9f9; padding:12px; border-radius:6px; margin:20px 0;">
       📱 <b>手机</b>：点击浏览器菜单 → "添加到主屏幕"<br>
       💻 <b>电脑</b>：点击地址栏右侧的安装图标
-    </p >
-     <button onclick="closeFirstPopup()" 
-            data-lang="zh:知道了，开始试玩|en:Got it, Start Training"
-            style="background:#4CAF50; color:white; border:none; padding:14px 28px; font-size:16px; border-radius:8px; cursor:pointer; font-weight:bold;">
+    </div>
+    <button onclick="closeFirstPopup()" data-i18n="install_button" style="background:#4CAF50; color:white; border:none; padding:14px 28px; font-size:16px; border-radius:8px; cursor:pointer; font-weight:bold;">
       知道了，开始试玩
     </button>
-    
-    <!-- 底部提示 -->
-    <p data-lang="zh:（下次不会再提示）|en:(Will not show again)"
-       style="font-size:13px; color:#666; margin-top:15px;">
+    <p data-i18n="install_note" style="font-size:13px; color:#666; margin-top:15px;">
       （下次不会再提示）
     </p >
   </div>
@@ -1064,7 +1051,7 @@
                 <p>少侠已体验5次功夫试练</p>
                 <p>解锁永久版，挑战功夫节奏反应,冲击「熊霸天下」最高境界！</p>
                 <button id="purchaseButton">解锁永久版</button>
-                <p class="price">畅享专属助眠放松音乐与桌面午休智能闹钟唤醒</p>
+                <p class="price">畅享专属助眠放松音乐+桌面午休智能闹钟唤醒</p>
             </div>
         </div>
     </div>
@@ -2201,6 +2188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
