@@ -931,6 +931,13 @@
     </p>
   </div>
 </div>
+   <div style="position:fixed; top:10px; right:10px; z-index:99998; background:white; padding:5px 10px; border-radius:5px; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
+    <select id="languageSwitch" onchange="switchLanguage(this.value)" style="border:none; outline:none; font-size:14px;">
+        <option value="zh">中文</option>
+        <option value="en">English</option>
+    </select>
+</div>
+    
     <div class="game-container">
         <!-- 游戏背景音乐 -->
         <audio id="game-bg-music" loop>
@@ -2312,6 +2319,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     resetGame();
 });
+
+  // 设置语言选择器的初始值
+document.addEventListener('DOMContentLoaded', function() {
+    // 设置语言选择器
+    const savedLang = localStorage.getItem('preferred_lang') || detectLanguage();
+    const selector = document.getElementById('languageSwitch');
+    if (selector) {
+        selector.value = savedLang;
+    }
+});  
     </script>
  <!-- 音乐说明弹出框 -->
     <div id="musicDescription" class="music-description-popup">
@@ -2327,6 +2344,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 </body>
 </html>
+
 
 
 
