@@ -506,17 +506,21 @@
             border: 5px solid #ff8f00;
             max-width: 400px;
             width: 90%;
-            font-family: 'Zhi Mang Xing', cursive;
-            font-size: 18px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             max-height: 80vh;
             overflow-y: auto;
         }
-        @media (max-width: 767px) {
-            .purchase-modal {
-                font-size: 14px; /* 手机字体大小 */
+            /* 中文版 */
+        .purchase-modal.chinese {
+            font-family: 'Zhi Mang Xing', cursive;
+            font-size: 18px; 
         }
-     }
+
+            /* 英文版 */
+        .purchase-modal.english {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px; 
+        }
         
         .purchase-modal h2 {
             color: #d84315;
@@ -1061,7 +1065,7 @@
 
         <!-- 购买功能弹窗 -->
         <div id="purchaseOverlay" class="overlay hidden">
-            <div class="purchase-modal">
+            <div class="purchase-modal chinese">
                   <!-- 标题 -->
         <h2 data-i18n="purchase_title">试练收官！</h2>
         
@@ -2359,6 +2363,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
