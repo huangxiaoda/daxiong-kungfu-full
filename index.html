@@ -1372,7 +1372,7 @@ function checkGameStatus() {
         // 只在游戏开始时显示剩余次数，不增加次数
         showRemainingTries(3 - playCount);
         
-        if (playCount < 3) {
+        if (playCount <3) {
             // 注意：这里不再增加次数，次数在游戏结束时增加
             if (playCount >= 1) {
                 showFeedback(`剩余试玩次数: ${3 - playCount}`, 'combo');
@@ -1873,7 +1873,7 @@ function updateLayoutForLevel(levelName) {
             if (!isUnlocked) {
                 let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
             // 确保播放次数正确增加
-                if (playCount < 3) {
+                if (playCount <3) {
                     playCount++;
                     localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
                     console.log(`游戏结束，播放次数更新为: ${playCount}`);
@@ -1898,7 +1898,7 @@ function showMusicDescription(text, duration = 7000) {
         textElement.textContent = text;
         popup.classList.add('show');
         
-        // 10秒后自动隐藏
+        // 7秒后自动隐藏
         setTimeout(() => {
             popup.classList.remove('show');
         }, duration);
@@ -2364,6 +2364,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
