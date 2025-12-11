@@ -1374,7 +1374,7 @@ function checkGameStatus() {
         
         if (playCount <3) {
             // 注意：这里不再增加次数，次数在游戏结束时增加
-            if (playCount >= 1) {
+            if (playCount >=1) {
                 showFeedback(`剩余试玩次数: ${3 - playCount}`, 'combo');
             }
             return true;
@@ -1890,7 +1890,7 @@ function updateLayoutForLevel(levelName) {
                     gameOverlay.querySelector('button').textContent = '再来一局';
                 }
 // 显示音乐说明函数
-function showMusicDescription(text, duration = 7000) {
+function showMusicDescription(text, duration = 10000) {
     const popup = document.getElementById('musicDescription');
     const textElement = document.getElementById('descriptionText');
     
@@ -1898,7 +1898,7 @@ function showMusicDescription(text, duration = 7000) {
         textElement.textContent = text;
         popup.classList.add('show');
         
-        // 7秒后自动隐藏
+        // 10秒后自动隐藏
         setTimeout(() => {
             popup.classList.remove('show');
         }, duration);
@@ -1992,7 +1992,7 @@ window.addEventListener('load', function() {
     // === 新增：显示歌曲说明 ===
     const selectedMusic = relaxMusicList.find(music => music.src === newSrc);
     if (selectedMusic && selectedMusic.description) {
-        showMusicDescription(selectedMusic.description, 7000);
+        showMusicDescription(selectedMusic.description, 10000);
     }
     
     const wasRelaxPlaying = !relaxAudio.paused;
@@ -2174,7 +2174,7 @@ function createMobileAlarmOverlay(soundType) {
             <h2>起床时间到了！</h2>
             <p>大熊提醒您该练功了！</p >
             <div class="alarm-buttons">
-                <button id="snoozeAlarm">起床练功了</button>
+                <button id="snoozeAlarm">别贪睡了</button>
                 <button id="stopAlarm">快起床</button>
             </div>
         </div>
@@ -2261,7 +2261,7 @@ function createMobileAlarmOverlay(soundType) {
     
     // 按钮事件
     snoozeBtn.addEventListener('click', function() {
-        console.log('⏰ 起床练功了');
+        console.log('⏰ 别贪睡了');
         overlay.remove();
         // 停止振动
         if (navigator.vibrate) {
@@ -2364,6 +2364,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
