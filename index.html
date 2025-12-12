@@ -1074,7 +1074,7 @@
         
         <!-- 号召文案 -->
         <p data-i18n="purchase_calltoaction">
-           为了保障您的购买权益，请添加到手机主屏幕或电脑桌面继续试玩，解锁永久版游戏，无限挑战功夫节奏快速反应,冲击「熊霸天下」最高境界！
+           为保障您的购买权益，请添加到手机主屏幕或电脑桌面继续试玩，解锁永久版游戏，无限挑战功夫节奏快速反应,冲击「熊霸天下」最高境界！
         </p>
         
         <!-- 购买按钮 -->
@@ -1112,7 +1112,7 @@ const i18nConfig = {
             // 购买弹窗
              'purchase_title': '试练收官！',
             'purchase_subtitle': '少侠已体验3次功夫试练',
-            'purchase_calltoaction': '为了保障您的购买权益，请添加到手机主屏幕或电脑桌面继续试玩，解锁永久版游戏，无限挑战功夫节奏快速反应，冲击「熊霸天下」最高境界！',
+            'purchase_calltoaction': '为保障您的购买权益，请添加到手机主屏幕或电脑桌面继续试玩，解锁永久版游戏，无限挑战功夫节奏快速反应，冲击「熊霸天下」最高境界！',
             'purchase_button': '解锁永久版',
             'purchase_features': '畅享专属助眠放松音乐+桌面午休智能闹钟唤醒',
         },
@@ -1204,7 +1204,7 @@ function initI18n() {
         if (i18nConfig.languages.includes(lang)) {
             localStorage.setItem('preferred_lang', lang);
             applyTranslations(lang);
-            location.reload(); // 重新加载以应用所有更改
+            // location.reload(); // 重新加载以应用所有更改
         }
     };
     
@@ -2359,6 +2359,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
