@@ -1243,8 +1243,8 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     if (!localStorage.getItem('first_popup_shown')) {
          // 🚨 关键：先翻译，再显示
-        const currentLang = localStorage.getItem('preferred_lang') || detectLanguage();
-        applyTranslations(currentLang);
+        //const currentLang = localStorage.getItem('preferred_lang') || detectLanguage();
+       // applyTranslations(currentLang);
         
         // 然后显示弹窗
        
@@ -2383,6 +2383,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
