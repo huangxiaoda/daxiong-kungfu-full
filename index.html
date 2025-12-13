@@ -506,22 +506,11 @@
             border: 5px solid #ff8f00;
             max-width: 400px;
             width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-            /* 中文版 */
-        .purchase-modal.chinese {
-            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
-            font-size: 20px; 
-        }
-
-            /* 英文版 */
-        .purchase-modal.english {
             font-family: 'Press Start 2P', cursive;
-            font-size: 18px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            
         }
-        
+           
         .purchase-modal h2 {
             color: #d84315;
             margin-bottom: 15px;
@@ -1088,7 +1077,7 @@
 
         <!-- 购买功能弹窗 -->
         <div id="purchaseOverlay" class="overlay hidden">
-            <div class="purchase-modal english">
+            <div class="purchase-modal">
                   <!-- 标题 -->
         <h2 data-i18n="purchase_title">试练收官！</h2>
         
@@ -1139,9 +1128,6 @@ const i18nConfig = {
             'purchase_button': '解锁永久版',
             'purchase_features': '畅享专属助眠放松音乐+桌面午休智能闹钟唤醒',
           
-            // 游戏界面（可根据需要添加）
-            'start_button': '开始练功',
-            'retry_button': '重新挑战'
         },
 
         'en': {
@@ -1195,21 +1181,12 @@ function detectLanguage() {
 function applyTranslations(lang) {
     const t = i18nConfig.translations[lang];
     
+    // 1. 先翻译所有常规元素
     const elements = document.querySelectorAll('[data-i18n]');
-    
     elements.forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (t[key]) {
-            // 判断哪些元素需要HTML内容
-            const elementId = element.id || '';
-            const needsHTML = key.includes('_text') || key.includes('_guide') || 
-                             elementId.includes('text') || elementId.includes('install');
-            
-            if (needsHTML) {
-                element.innerHTML = t[key];  // 使用innerHTML保留<b>标签
-            } else {
-                element.textContent = t[key]; // 普通文本
-            }
+            element.innerHTML = t[key]; // 统一用innerHTML
         }
     });
     
@@ -2381,6 +2358,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
