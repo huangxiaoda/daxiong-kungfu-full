@@ -1004,23 +1004,23 @@
             <div id="feedback" class="feedback"></div>
 
             <div class="player-controls">
-                <button class="action-button" data-action="left-punch" data-i18n="left_punch">
-                    <span>👊</span><div class="text">左拳</div>
+                <button class="action-button" data-action="left-punch">
+                    <span>👊</span><div class="text" data-i18n="left_punch_text">左拳</div>
                 </button>
-                <button class="action-button" data-action="right-punch" data-i18n="right_punch">
-                    <span>🤜</span><div class="text">右拳</div>
+                <button class="action-button" data-action="right-punch">
+                    <span>🤜</span><div class="text" data-i18n="right_punch_text">右拳</div>
                 </button>
-                <button class="action-button" data-action="up-kick" data-i18n="up_kick">
-                    <span>🤸</span><div class="text">上踢</div>
+                <button class="action-button" data-action="up-kick">
+                    <span>🤸</span><div class="text" data-i18n="up_kick_text">上踢</div>
                 </button>
-                <button class="action-button" data-action="down-block" data-i18n="down_block">
-                    <span>🛡️</span><div class="text">下挡</div>
+                <button class="action-button" data-action="down-block">
+                    <span>🛡️</span><div class="text" data-i18n="down_block_text">下挡</div>
                 </button>
-                <button class="action-button" data-action="jump" data-i18n="jump">
-                    <span>⬆️</span><div class="text">跳跃</div>
+                <button class="action-button" data-action="jump">
+                    <span>⬆️</span><div class="text" data-i18n="jump_text">跳跃</div>
                 </button>
-                <button class="action-button" data-action="crouch" data-i18n="crouch">
-                    <span>⤵️</span><div class="text">蹲伏</div>
+                <button class="action-button" data-action="crouch">
+                    <span>⤵️</span><div class="text" data-i18n="crouch_text">蹲伏</div>
                 </button>
             </div>
         </div>
@@ -1140,14 +1140,14 @@ const i18nConfig = {
             'purchase_features': '畅享专属助眠放松音乐+桌面午休智能闹钟唤醒',
             
             // 动作按钮
-            'left_punch': '左拳',
-            'right_punch': '右拳', 
-            'up_kick': '上踢',
-            'down_block': '下挡',
-            'jump': '跳跃',
-            'crouch': '蹲伏'       
+            'left_punch_text': '左拳',
+            'right_punch_text': '右拳',
+            'up_kick_text': '上踢',
+            'down_block_text': '下挡',
+            'jump_text': '跳跃',
+            'crouch_text': '蹲伏'       
            // 游戏界面 
-            'start_button': '开始训练',
+            'start_button': '开始练功',
             'retry_button': '再试一次'
         },    
         
@@ -1167,12 +1167,12 @@ const i18nConfig = {
             'purchase_features': 'Enjoy exclusive sleep-relax music + smart desktop nap alarm',
 
             //动作按钮
-           'left_punch': 'Left Punch',
-           'right_punch': 'Right Punch',
-           'up_kick': 'Up Kick',
-           'down_block': 'Down Block', 
-           'jump': 'Jump',
-           'crouch': 'Crouch'
+           'left_punch_text': 'Left Punch',
+           'right_punch_text': 'Right Punch',
+           'up_kick_text': 'Up Kick',
+           'down_block_text': 'Down Block', 
+           'jump_text': 'Jump',
+           'crouch_text': 'Crouch'
          
              // 游戏界面
             'start_button': 'Start Training',
@@ -2380,6 +2380,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
