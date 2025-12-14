@@ -1219,8 +1219,8 @@ function applyTranslations(lang) {
             element.innerHTML = t[key]; // 统一用innerHTML
         }
     });
-    // 2. 新增：更新游戏动作数组
-  window.i18nMoves = movesByLang[lang] || movesByLang['zh'];
+    // 2. 更新游戏动作数组
+     window.langMoves = movesByLang[lang] || movesByLang['zh'];
     
     console.log(`🌐 语言: ${lang}, 翻译了 ${elements.length} 个元素`);
 }
@@ -1575,9 +1575,7 @@ const movesByLang = {
         { id: 'crouch', emoji: '⤵', text: 'Crouch' }
     ]
 };
-   // 当前使用的动作数组
-let moves = movesByLang['zh']; // 默认中文   
-  
+    
     // 音乐列表
         const gameMusicList = [
             { name: "功夫节奏", src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3" },
@@ -2429,6 +2427,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
