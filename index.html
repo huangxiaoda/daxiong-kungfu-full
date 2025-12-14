@@ -980,10 +980,22 @@
         </audio>
 
         <div class="info-bar">
-            <span>时间: <span id="timer">60</span>s</span>
-            <span>分数: <span id="score">0</span></span>
-            <span>连击: <span id="combo">0</span></span>
-            <span class="level">等级: <span id="level">学徒</span></span>
+            <span>
+        <span data-i18n="time_label">时间: </span>
+        <span id="timer">60</span>s
+    </span>
+    <span>
+        <span data-i18n="score_label">分数: </span>
+        <span id="score">0</span>
+    </span>
+    <span>
+        <span data-i18n="combo_label">连击: </span>
+        <span id="combo">0</span>
+    </span>
+    <span class="level">
+        <span data-i18n="level_label">等级: </span>
+        <span id="level" data-i18n="level_apprentice">学徒</span>
+    </span>
             <button id="bgMusicToggle" title="切换背景音乐">
                 <i class="fas fa-volume-up"></i>
             </button>
@@ -1146,6 +1158,19 @@ const i18nConfig = {
             'down-block': '下挡',
             'jump': '跳跃',
             'crouch': '蹲伏',    
+
+             // 信息栏标签
+            'time_label': '时间: ',
+            'score_label': '分数: ',
+            'combo_label': '连击: ',
+            'level_label': '等级: ',
+        
+            // 等级名称
+            'level_apprentice': '学徒',
+            'level_bear_warrior': '小熊武者',
+            'level_kungfu_bear': '功夫大熊',
+            'level_master_disciple': '宗师之徒',
+            'level_bear_dominates': '熊霸天下',
           
             // 游戏界面 
              'start_button': '开始练练',
@@ -1174,8 +1199,21 @@ const i18nConfig = {
            'down-block': 'Down Block', 
            'jump': 'Jump',
            'crouch': 'Crouch',
-         
-             // 游戏界面
+
+             // 信息栏标签
+            'time_label': 'Time: ',
+            'score_label': 'Score: ',
+            'combo_label': 'Combo: ',
+            'level_label': 'Level: ',
+        
+            // 等级名称
+            'level_apprentice': 'Apprentice',
+            'level_bear_warrior': 'Bear Warrior',
+            'level_kungfu_bear': 'Kung Fu Bear',
+            'level_master_disciple': 'Master Disciple',
+            'level_bear_dominates': 'Bear Dominates',
+            
+            // 游戏界面
             'start_button': 'Start Training',
             'retry_button': 'Try Again'
         }
@@ -2381,6 +2419,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
