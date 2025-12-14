@@ -1220,7 +1220,7 @@ function applyTranslations(lang) {
         }
     });
     // 2. 新增：更新游戏动作数组
-    moves = movesByLang[lang] || movesByLang['zh'];
+  window.i18nMoves = movesByLang[lang] || movesByLang['zh'];
     
     console.log(`🌐 语言: ${lang}, 翻译了 ${elements.length} 个元素`);
 }
@@ -1254,6 +1254,10 @@ function initI18n() {
         if (i18nConfig.languages.includes(lang)) {
             localStorage.setItem('preferred_lang', lang);
             applyTranslations(lang);
+             // 新增：如果游戏正在进行中，刷新师傅提示
+            if (typeof window.refreshMasterMove === 'function') {
+                window.refreshMasterMove();
+            }
             // location.reload(); // 重新加载以应用所有更改
         }
     };
@@ -2425,6 +2429,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
