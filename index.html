@@ -1219,31 +1219,9 @@ function applyTranslations(lang) {
             element.innerHTML = t[key]; // 统一用innerHTML
         }
     });
-    // 2. 更新游戏动作数组
-     window.langMoves = movesByLang[lang] || movesByLang['zh'];
     
     console.log(`🌐 语言: ${lang}, 翻译了 ${elements.length} 个元素`);
 }
-
-   // ===== 修改部分 2：扩展 switchLanguage 函数 =====
-window.switchLanguage = function(lang) {
-    if (i18nConfig.languages.includes(lang)) {
-        localStorage.setItem('preferred_lang', lang);
-        
-        // 1. 应用页面翻译
-        applyTranslations(lang);
-        
-        // 2. 新增：如果游戏正在进行中，刷新师傅提示
-        if (typeof window.refreshMasterMove === 'function') {
-            window.refreshMasterMove();
-        }
-        
-        // 3. 新增：刷新任何其他游戏文本
-        if (typeof window.updateGameTexts === 'function') {
-            window.updateGameTexts();
-        }
-    }
-}; 
    
     // 4. 初始化语言系统
 function initI18n() {
@@ -1258,7 +1236,6 @@ function initI18n() {
             if (typeof window.refreshMasterMove === 'function') {
                 window.refreshMasterMove();
             }
-            // location.reload(); // 重新加载以应用所有更改
         }
     };
     
@@ -1556,26 +1533,6 @@ function updateLayoutForLevel(levelName) {
             { scoreThreshold: 1000, name: '熊霸天下', moveSpeed: 600 }
         ];
 
-           // 师傅出招提示的多语言配置
-const movesByLang = {
-    'zh': [
-        { id: 'left-punch', emoji: '👊', text: '左拳' },
-        { id: 'right-punch', emoji: '🤜', text: '右拳' },
-        { id: 'up-kick', emoji: '🤸', text: '上踢' },
-        { id: 'down-block', emoji: '🛡', text: '下挡' },
-        { id: 'jump', emoji: '⬆', text: '跳跃' },
-        { id: 'crouch', emoji: '⤵', text: '蹲伏' }
-    ],
-    'en': [
-        { id: 'left-punch', emoji: '👊', text: 'Left Punch' },
-        { id: 'right-punch', emoji: '🤜', text: 'Right Punch' },
-        { id: 'up-kick', emoji: '🤸', text: 'Up Kick' },
-        { id: 'down-block', emoji: '🛡', text: 'Down Block' },
-        { id: 'jump', emoji: '⬆', text: 'Jump' },
-        { id: 'crouch', emoji: '⤵', text: 'Crouch' }
-    ]
-};
-    
     // 音乐列表
         const gameMusicList = [
             { name: "功夫节奏", src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3" },
@@ -2427,6 +2384,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
