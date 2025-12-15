@@ -2194,7 +2194,7 @@ function createMobileAlarmOverlay(soundType) {
             <h2>起床时间到了！</h2>
             <p>大熊提醒您该练功了！</p >
             <div class="alarm-buttons">
-                <button id="snoozeAlarm">别贪睡了</button>
+                <button id="snoozeAlarm">起床练功了</button>
                 <button id="stopAlarm">快起床</button>
             </div>
         </div>
@@ -2281,7 +2281,7 @@ function createMobileAlarmOverlay(soundType) {
     
     // 按钮事件
     snoozeBtn.addEventListener('click', function() {
-        console.log('⏰ 别贪睡了');
+        console.log('⏰ 起床练功了');
         overlay.remove();
         // 停止振动
         if (navigator.vibrate) {
@@ -2384,6 +2384,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
