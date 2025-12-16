@@ -1260,7 +1260,16 @@ function applyTranslations(lang) {
             element.innerHTML = t[key]; // 统一用innerHTML
         }
     });
-    
+
+     // 直接修改字体大小
+    const infoBar = document.querySelector('.info-bar');
+    if (infoBar) {
+        if (lang === 'en') {
+            infoBar.style.fontSize = '1.2em'; // 英文缩小
+        } else {
+            infoBar.style.fontSize = '1.6em'; // 中文恢复
+        }
+    }
     console.log(`🌐 语言: ${lang}, 翻译了 ${elements.length} 个元素`);
 }
    
@@ -2425,6 +2434,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
