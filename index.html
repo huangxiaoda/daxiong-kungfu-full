@@ -1273,9 +1273,7 @@ function initI18n() {
         if (i18nConfig.languages.includes(lang)) {
             localStorage.setItem('preferred_lang', lang);
             applyTranslations(lang);
-             // 新增：如果游戏正在进行中，刷新师傅提示
-            if (typeof window.refreshMasterMove === 'function') {
-                window.refreshMasterMove();
+             
             }
         }
     };
@@ -2425,6 +2423,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
