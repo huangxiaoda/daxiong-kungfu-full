@@ -1095,7 +1095,7 @@
         <h2 data-i18n="purchase_title">试练收官！</h2>
         
         <!-- 副标题 -->
-        <p data-i18n="purchase_subtitle">少侠已体验3次功夫试练</p>
+        <p data-i18n="purchase_subtitle">少侠已体验5次功夫试练</p>
         
         <!-- 号召文案 -->
         <p data-i18n="purchase_calltoaction">
@@ -1164,7 +1164,7 @@ const i18nConfig = {
             
             // 购买弹窗
             'purchase_title': 'Training Complete!',
-            'purchase_subtitle': 'You have mastered 3 kung fu trials',
+            'purchase_subtitle': 'You have mastered 5 kung fu trials',
             'purchase_calltoaction': 'To secure your purchase, please add to home screen or desktop to continue trial.Unlock permanent version, infinitely challenge kung fu rhythm, achieve the "Bear Dominates World" ultimate realm!',
             'purchase_button': 'Unlock Permanent Version',
             'purchase_features': 'Enjoy exclusive sleep-relax music + smart desktop nap alarm',
@@ -1389,12 +1389,12 @@ function checkGameStatus() {
     } else {
         let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
         // 只在游戏开始时显示剩余次数，不增加次数
-        showRemainingTries(3 - playCount);
+        showRemainingTries(5 - playCount);
         
-        if (playCount <3) {
+        if (playCount <5) {
             // 注意：这里不再增加次数，次数在游戏结束时增加
-            if (playCount >=1) {
-                showFeedback(`剩余试玩次数: ${3 - playCount}`, 'combo');
+            if (playCount >=3) {
+                showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
             }
             return true;
         } else {
@@ -1892,14 +1892,14 @@ function updateLayoutForLevel(levelName) {
             if (!isUnlocked) {
                 let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
             // 确保播放次数正确增加
-                if (playCount <3) {
+                if (playCount <5) {
                     playCount++;
                     localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
                     console.log(`游戏结束，播放次数更新为: ${playCount}`);
             
                 // 显示剩余次数提示
-                    if (playCount >= 1) {
-                        showFeedback(`剩余试玩次数: ${3 - playCount}`, 'combo');
+                    if (playCount >= 3) {
+                        showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
                     }
                 }
             }
@@ -1909,7 +1909,7 @@ function updateLayoutForLevel(levelName) {
                     gameOverlay.querySelector('button').textContent = '再来一局';
                 }
 // 显示音乐说明函数
-function showMusicDescription(text, duration = 10000) {
+function showMusicDescription(text, duration = 7000) {
     const popup = document.getElementById('musicDescription');
     const textElement = document.getElementById('descriptionText');
     
@@ -1917,7 +1917,7 @@ function showMusicDescription(text, duration = 10000) {
         textElement.textContent = text;
         popup.classList.add('show');
         
-        // 10秒后自动隐藏
+        // 7秒后自动隐藏
         setTimeout(() => {
             popup.classList.remove('show');
         }, duration);
@@ -2011,7 +2011,7 @@ window.addEventListener('load', function() {
     // === 新增：显示歌曲说明 ===
     const selectedMusic = relaxMusicList.find(music => music.src === newSrc);
     if (selectedMusic && selectedMusic.description) {
-        showMusicDescription(selectedMusic.description, 10000);
+        showMusicDescription(selectedMusic.description, 7000);
     }
     
     const wasRelaxPlaying = !relaxAudio.paused;
@@ -2383,6 +2383,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
