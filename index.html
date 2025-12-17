@@ -1261,7 +1261,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function closeFirstPopup() {
     document.getElementById('firstPopup').style.display = 'none';
+
+     // 简单检查：最多3次试玩
+    let trialCount = localStorage.getItem('trial_count');
+    if (!trialCount) {
+        trialCount = 1;
+    } else {
+        trialCount = parseInt(trialCount) + 1;
+    }
     
+    localStorage.setItem('trial_count', trialCount);
+    
+    if (trialCount > 3) {
+        // 超过3次，显示购买弹窗
+        document.getElementById('purchasePopup').style.display = 'flex';
+        return;
+    }
     // 找到并点击开始按钮
     setTimeout(function() {
         // 根据按钮ID或类名修改
@@ -2383,6 +2398,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
