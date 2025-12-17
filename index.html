@@ -119,12 +119,13 @@
         #bgMusicToggle {
             background: none;
             border: none;
-            color:  #33691e; ;;
+            color: #cddc39;
             font-size: 1.2em;
             cursor: pointer;
             padding: 5px;
             margin-left: 10px;
             transition: color 0.3s ease;
+            flex-shrink: 0;
         }
 
         #bgMusicToggle:hover {
@@ -1029,9 +1030,8 @@
                     <label for="bgMusicSelector">游戏音乐:</label>
                     <select id="bgMusicSelector"></select>
                     <button id="bgMusicToggle" title="切换背景音乐">
-                <i class="fas fa-volume-up"></i>
-            </button> 
-           
+                     <i class="fas fa-volume-up"></i>
+                    </button> 
                 </div>
                 <div class="music-selector">
                     <label for="relaxMusicSelector">放松音乐:</label>
@@ -1233,8 +1233,7 @@ function initI18n() {
     window.switchLanguage = function(lang) {
         if (i18nConfig.languages.includes(lang)) {
             localStorage.setItem('preferred_lang', lang);
-            applyTranslations(lang);
-             
+            applyTranslations(lang);        
         }
     };
     
@@ -1244,7 +1243,6 @@ function initI18n() {
 // 5. 页面加载时初始化
 document.addEventListener('DOMContentLoaded', function() {
     initI18n();
-
 });
 
     // 游戏启动弹窗控制
@@ -1899,7 +1897,7 @@ function updateLayoutForLevel(levelName) {
                     console.log(`游戏结束，播放次数更新为: ${playCount}`);
             
                 // 显示剩余次数提示
-                    if (playCount >= 3) {
+                    if (playCount >=3) {
                         showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
                     }
                 }
@@ -2192,7 +2190,7 @@ function createMobileAlarmOverlay(soundType) {
         <div class="mobile-alarm-container">
             <div class="alarm-icon">⏰</div>
             <h2>起床时间到了！</h2>
-            <p>大熊提醒您该练功了！</p >
+            <p>大熊提醒您该练功了！</p>
             <div class="alarm-buttons">
                 <button id="snoozeAlarm">起床练功了</button>
                 <button id="stopAlarm">快起床</button>
@@ -2384,6 +2382,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
