@@ -1257,9 +1257,7 @@ document.addEventListener('DOMContentLoaded', function() {
             isGameRunning = false;
         }
     }
-});
-
- // ===== 添加开始按钮点击监听 =====
+// ===== 添加开始按钮点击监听 =====
     const startButton = document.getElementById('startButton');
     if (startButton) {
         startButton.addEventListener('click', function(e) {
@@ -1279,9 +1277,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // 正常开始游戏...
             console.log(`开始第 ${trialCount + 1} 次试玩`);
         });
-    }
-    
-
+    }   
+});
+  
 function closeFirstPopup() {
     document.getElementById('firstPopup').style.display = 'none';
 
@@ -2406,6 +2404,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
