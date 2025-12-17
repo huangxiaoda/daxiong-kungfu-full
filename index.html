@@ -1244,6 +1244,20 @@ function initI18n() {
 // 5. 页面加载时初始化
 document.addEventListener('DOMContentLoaded', function() {
     initI18n();
+ const trialCount = parseInt(localStorage.getItem('trial_count') || '0');
+    const MAX_TRIALS = 3;
+    
+    if (trialCount >= MAX_TRIALS) {
+        // 隐藏开始按钮，显示购买提示
+        document.getElementById('startButton').style.display = 'none';
+        document.getElementById('purchasePrompt').style.display = 'block';
+        
+        // 或者直接显示购买弹窗
+        setTimeout(function() {
+            document.getElementById('purchasePopup').style.display = 'flex';
+        }, 1000);
+    }
+
 });
 
     // 游戏启动弹窗控制
@@ -1256,28 +1270,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeof isGameRunning !== 'undefined') {
             isGameRunning = false;
         }
-    }
-// ===== 添加开始按钮点击监听 =====
-    const startButton = document.getElementById('startButton');
-    if (startButton) {
-        startButton.addEventListener('click', function(e) {
-            // 检查试玩次数
-            const MAX_TRIALS = 3;
-            const trialCount = parseInt(localStorage.getItem('trial_count') || '0');
-            
-            if (trialCount >= MAX_TRIALS) {
-                e.preventDefault(); // 阻止默认行为
-                e.stopPropagation(); // 阻止事件冒泡
-                
-                console.log('试玩次数已达上限，显示购买弹窗');
-                document.getElementById('purchasePopup').style.display = 'flex';
-                return false;
-            }
-            
-            // 正常开始游戏...
-            console.log(`开始第 ${trialCount + 1} 次试玩`);
-        });
-    }   
+    } 
 });
   
 function closeFirstPopup() {
@@ -1296,6 +1289,7 @@ function closeFirstPopup() {
         }
     }, 500);
 }
+ 
     // 🚨 游戏状态强制修复
 console.log('=== 游戏状态初始化 ===');
 
@@ -2404,6 +2398,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
