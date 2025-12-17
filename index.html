@@ -1259,24 +1259,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+ // ===== 添加开始按钮点击监听 =====
+    const startButton = document.getElementById('startButton');
+    if (startButton) {
+        startButton.addEventListener('click', function(e) {
+            // 检查试玩次数
+            const MAX_TRIALS = 3;
+            const trialCount = parseInt(localStorage.getItem('trial_count') || '0');
+            
+            if (trialCount >= MAX_TRIALS) {
+                e.preventDefault(); // 阻止默认行为
+                e.stopPropagation(); // 阻止事件冒泡
+                
+                console.log('试玩次数已达上限，显示购买弹窗');
+                document.getElementById('purchasePopup').style.display = 'flex';
+                return false;
+            }
+            
+            // 正常开始游戏...
+            console.log(`开始第 ${trialCount + 1} 次试玩`);
+        });
+    }
+});    
+
 function closeFirstPopup() {
     document.getElementById('firstPopup').style.display = 'none';
 
-     // 简单检查：最多3次试玩
-    let trialCount = localStorage.getItem('trial_count');
-    if (!trialCount) {
-        trialCount = 1;
-    } else {
-        trialCount = parseInt(trialCount) + 1;
-    }
-    
-    localStorage.setItem('trial_count', trialCount);
-    
-    if (trialCount > 3) {
-        // 超过3次，显示购买弹窗
-        document.getElementById('purchasePopup').style.display = 'flex';
-        return;
-    }
     // 找到并点击开始按钮
     setTimeout(function() {
         // 根据按钮ID或类名修改
@@ -2398,6 +2406,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
