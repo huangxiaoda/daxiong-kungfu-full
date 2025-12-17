@@ -1244,19 +1244,6 @@ function initI18n() {
 // 5. 页面加载时初始化
 document.addEventListener('DOMContentLoaded', function() {
     initI18n();
- const trialCount = parseInt(localStorage.getItem('trial_count') || '0');
-    const MAX_TRIALS = 3;
-    
-    if (trialCount >= MAX_TRIALS) {
-        // 隐藏开始按钮，显示购买提示
-        document.getElementById('startButton').style.display = 'none';
-        document.getElementById('purchasePrompt').style.display = 'block';
-        
-        // 或者直接显示购买弹窗
-        setTimeout(function() {
-            document.getElementById('purchasePopup').style.display = 'flex';
-        }, 1000);
-    }
 
 });
 
@@ -2398,6 +2385,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
