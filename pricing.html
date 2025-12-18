@@ -87,6 +87,15 @@
     </div>
       
 <script>
+  // 添加Paddle初始化（在launchPaddleCheckout函数前）
+    Paddle.Environment.set('production');
+    Paddle.Initialize({
+        token: "test_7d279f61a3499fed520f7cd8c08", // 或你的生产环境token
+        eventCallback: function(data) {
+            console.log('Paddle事件:', data);
+        }
+    });
+  
     // 支付函数 
         function launchPaddleCheckout() {
             const PURCHASE_ITEM = [{
