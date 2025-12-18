@@ -86,15 +86,16 @@
     </div>
       
 <script>
-function startPurchase() {
-    Paddle.Checkout.open({
-        items: [{ priceId: 'pri_01kawrmv7vcpnxwhsbn3tyf80q', quantity: 1 }],
-        settings: {
-            // 关键：支付成功后跳回游戏页面
-            successUrl: 'https://daxiongkungfu.com/game.html?payment=success&from=pricing'
+// 支付函数 
+        function launchPaddleCheckout() {
+            const PURCHASE_ITEM = [{
+                priceId: "pri_01kawrmv7vcpnxwhsbn3tyf80q",
+                quantity: 1
+            }];
+            Paddle.Checkout.open({
+                items: PURCHASE_ITEM
+            });
         }
-    });
-}
        
     </script>
     <p></p >
