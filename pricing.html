@@ -149,6 +149,10 @@
             Paddle.Checkout.open({
                 items: PURCHASE_ITEM
             });
+       settings: {
+            // 关键：支付成功后跳回游戏页面
+            successUrl: 'https://daxiongkungfu.com/game.html?payment=success&from=pricing'
+        }
         }
 // 添加购买按钮事件监听
     const purchaseButton = document.getElementById('purchaseButton');
