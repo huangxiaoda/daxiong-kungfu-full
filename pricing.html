@@ -41,6 +41,54 @@
         }
     </style>
     <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script type="text/javascript"> 
+    if (typeof Paddle === 'undefined') {
+    console.error('❌ Paddle.js未加载！');
+} else {
+    console.log('✅ Paddle.js已加载');
+    
+    try {
+        // 1. 设置环境
+        Paddle.Environment.set('production');
+        console.log('🔄 环境设置为production');
+        
+        // 2. 初始化
+        Paddle.Initialize({
+            token: "live_c96499fff8cbcb5eb8eab6964c6",
+            eventCallback: function(data) {
+                console.log('🔍 Paddle事件:', data.name);
+                
+                if (data.name === 'checkout.completed') {
+                    console.log('💰 支付成功！');
+                    localStorage.setItem('daxiong_pro_unlocked', 'true');
+                    
+                    // 可选：立即隐藏弹窗给用户反馈
+                    document.getElementById('purchaseOverlay')?.classList.add('hidden');
+                    
+                    // 3秒后刷新
+                    setTimeout(() => {
+                        alert('🎉 购买成功！页面即将刷新。');
+                        window.location.reload();
+                    }, 3000);
+                }
+            }
+        });
+        console.log('✅ Paddle初始化完成');
+        
+    } catch (error) {
+        console.error('❌ Paddle设置失败:', error);
+    }
+    
+    // 3. 环境验证（延迟检查）
+    setTimeout(() => {
+        const currentEnv = Paddle.Environment?.current;
+        console.log('📊 最终环境检查:', currentEnv || 'undefined');
+        
+        if (!currentEnv) {
+            console.warn('⚠️ 环境检测为undefined，但可能仍能工作');
+        }
+    }, 1000);
+}
 </head>
 <body>
     <h1>大熊学武功 - 永久版定价</h1>
