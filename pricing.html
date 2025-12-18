@@ -41,62 +41,14 @@
         }
     </style>
     <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-<script type="text/javascript"> 
-    if (typeof Paddle === 'undefined') {
-    console.error('❌ Paddle.js未加载！');
-} else {
-    console.log('✅ Paddle.js已加载');
-    
-    try {
-        // 1. 设置环境
-        Paddle.Environment.set('production');
-        console.log('🔄 环境设置为production');
-        
-        // 2. 初始化
-        Paddle.Initialize({
-            token: "live_c96499fff8cbcb5eb8eab6964c6",
-            eventCallback: function(data) {
-                console.log('🔍 Paddle事件:', data.name);
-                
-                if (data.name === 'checkout.completed') {
-                    console.log('💰 支付成功！');
-                    localStorage.setItem('daxiong_pro_unlocked', 'true');
-                    
-                    // 可选：立即隐藏弹窗给用户反馈
-                    document.getElementById('purchaseOverlay')?.classList.add('hidden');
-                    
-                    // 3秒后刷新
-                    setTimeout(() => {
-                        alert('🎉 购买成功！页面即将刷新。');
-                        window.location.reload();
-                    }, 3000);
-                }
-            }
-        });
-        console.log('✅ Paddle初始化完成');
-        
-    } catch (error) {
-        console.error('❌ Paddle设置失败:', error);
-    }
-    
-    // 3. 环境验证（延迟检查）
-    setTimeout(() => {
-        const currentEnv = Paddle.Environment?.current;
-        console.log('📊 最终环境检查:', currentEnv || 'undefined');
-        
-        if (!currentEnv) {
-            console.warn('⚠️ 环境检测为undefined，但可能仍能工作');
-        }
-    }, 1000);
-}
-</script>
+
 </head>
 <body>
     <h1>大熊学武功 - 永久版定价</h1>
     
     <div class="pricing-card">
         <h2>永久版游戏</h2>
-        <p>畅享所有功能，无限次游戏</p >
+        <p>畅享所有功能，无限次游戏</p>
         <div class="price">¥50.00 | $6.99</div>
         <p>一次性购买，永久有效</p >
         <ul style="text-align: left; display: inline-block;">
@@ -129,17 +81,12 @@
 
     <div class="business-info">
         <h3>商家信息</h3>
-        <p><strong>公司名称：</strong> Shenzhen Niu Baili Investment Development Co., Ltd.</p >
-        <p><strong>联系我们：</strong> lord_huang@nobalead.com</p >
-        <p><strong>服务条款：</strong> 查看永久版条款</p >
+        <p><strong>公司名称：</strong> Shenzhen Niu Baili Investment Development Co., Ltd.</p>
+        <p><strong>联系我们：</strong> lord_huang@nobalead.com</p>
+        <p><strong>服务条款：</strong> 查看永久版条款</p>
     </div>
       
 <script>
-// ===== 购买功能核心逻辑 =====
-        const UNLOCK_KEY = 'daxiong_pro_unlocked';
-        const PLAY_COUNT_KEY = 'daxiong_play_count';
-
-    
     // 支付函数 
         function launchPaddleCheckout() {
             const PURCHASE_ITEM = [{
@@ -149,23 +96,7 @@
             Paddle.Checkout.open({
                 items: PURCHASE_ITEM
             });
-       settings: {
-            // 关键：支付成功后跳回游戏页面
-            successUrl: 'https://daxiongkungfu.com/game.html?payment=success&from=pricing'
         }
-        }
-// 添加购买按钮事件监听
-    const purchaseButton = document.getElementById('purchaseButton');
-    if (purchaseButton) {
-        purchaseButton.addEventListener('click', 
-        launchPaddleCheckout); 
-        console.log('✅ 购买按钮绑定成功');
-    } else {
-        console.warn('⚠️ 未找到购买按钮');
-    }
-    
-    resetGame();
-});
     
     </script>
     <p></p >
