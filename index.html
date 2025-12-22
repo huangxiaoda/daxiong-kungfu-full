@@ -1051,6 +1051,14 @@
             <div class="relax-music-controls">
                 <button id="relaxPlayButton">播放</button>
                 <button id="relaxPauseButton">暂停</button>
+                <select id="musicTimer">
+                <option value="0">不定时</option>
+                <option value="900">15分钟</option>
+                <option value="1800">30分钟</option>
+                <option value="3600">60分钟</option>
+                <option value="5400">90分钟</option>
+                <option value="7200">120分钟</option>
+                </select>
                 <label for="relaxVolumeSlider">音量:</label>
                 <input type="range" id="relaxVolumeSlider" min="0" max="1" step="0.05" value="0.5">
             </div>
@@ -2368,7 +2376,40 @@ document.addEventListener('DOMContentLoaded', function() {
         selector.value = savedLang;
     }
 });  
-    </script>
+   
+let musicTimer = null;
+
+// 修改播放按钮事件
+document.getElementById('relaxPlayButton').addEventListener('click', function() {
+    const audio = document.getElementById('relax-audio');
+    audio.play();
+    
+    // 清除旧定时器
+    if (musicTimer) clearTimeout(musicTimer);
+    
+    // 设置新定时器
+    const seconds = parseInt(document.getElementById('musicTimer').value);
+    if (seconds > 0) {
+        musicTimer = setTimeout(() => {
+            audio.pause();
+            audio.currentTime = 0;
+            console.log('定时结束，音乐已停止');
+        }, seconds * 1000);
+    }
+});
+
+// 修改暂停按钮事件
+document.getElementById('relaxPauseButton').addEventListener('click', function() {
+    const audio = document.getElementById('relax-audio');
+    audio.pause();
+    
+    // 清除定时器
+    if (musicTimer) {
+        clearTimeout(musicTimer);
+        musicTimer = null;
+    }
+});
+</script>
  <!-- 音乐说明弹出框 -->
     <div id="musicDescription" class="music-description-popup">
         <div class="description-content">
@@ -2383,6 +2424,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </body>
 </html>
+
 
 
 
