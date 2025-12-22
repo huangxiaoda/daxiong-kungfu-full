@@ -1946,9 +1946,9 @@ function showMusicDescription(text, duration = 5000) {
                     isGameBgMusicPlaying = true;
                     bgMusicIcon.classList.remove('fa-volume-mute');
                     bgMusicIcon.classList.add('fa-volume-up');
-                      //if (!relaxAudio.paused) {
-                      //  relaxAudio.pause();
-                   // }
+                      if (!relaxAudio.paused) {
+                        relaxAudio.pause();
+                    }
                 }
             } else {
                 gameBgMusic.pause();
@@ -1968,9 +1968,9 @@ function showMusicDescription(text, duration = 5000) {
                 isGameBgMusicPlaying = true;
                 bgMusicIcon.classList.remove('fa-volume-mute');
                 bgMusicIcon.classList.add('fa-volume-up');
-                //if (!relaxAudio.paused) {
-                   // relaxAudio.pause();
-               // }
+                if (!relaxAudio.paused) {
+                    relaxAudio.pause();
+                }
             } else {
                 isGameBgMusicPlaying = false;
                 bgMusicIcon.classList.remove('fa-volume-up');
@@ -2426,6 +2426,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
