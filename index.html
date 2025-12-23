@@ -1048,13 +1048,12 @@
                 您的浏览器不支持放松音乐。
             </audio>
 
-            <div class="relax-music-controls">
-                style="display: flex; align-items: center; gap: 10px;">
+            <div class="relax-music-controls"> 
                 <button id="relaxPlayButton">播放</button>
                 <button id="relaxPauseButton">暂停</button>
-                 <!-- 定时器 -->
-                <label>定时:</label>
-                <select id="musicTimer">
+                <!-- 添加的定时下拉菜单 -->
+                <label for="musicTimer" style="margin-left: 10px;">定时:</label>
+                <select id="musicTimer" style="padding: 3px;">
                 <option value="0">不定时</option>
                 <option value="900">15分钟</option>
                 <option value="1800">30分钟</option>
@@ -2427,6 +2426,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
