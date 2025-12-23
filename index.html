@@ -1052,22 +1052,15 @@
                 <button id="relaxPlayButton">播放</button>
                 <button id="relaxPauseButton">暂停</button>
                 <!-- 添加的定时下拉菜单 -->
-                 <div style="position:relative;display:inline-block;">
-            <button onclick="this.nextElementSibling.style.display='block'" 
-                style="margin-left:10px;padding:3px 10px;">
-                定时
-            </button>
-            <select id="musicTimer" 
-            style="display:none;position:absolute;top:100%;left:0;padding:3px;"
-            onchange="this.style.display='none'">
-            <option value="0">循环播放</option>
-            <option value="900">15分钟</option>
-            <option value="1800">30分钟</option>
-            <option value="3600">60分钟</option>
-            <option value="5400">90分钟</option>
-            <option value="7200">120分钟</option>
+                 <label for="musicTimer" style="margin-left: 10px;">定时:</label>
+                <select id="musicTimer" style="padding: 3px;">
+                <option value="0">不定时</option>
+                <option value="900">15分钟</option>
+                <option value="1800">30分钟</option>
+                <option value="3600">60分钟</option>
+                <option value="5400">90分钟</option>
+                <option value="7200">120分钟</option>
                 </select>
-            </div>
                 <label for="relaxVolumeSlider">音量:</label>
                 <input type="range" id="relaxVolumeSlider" min="0" max="1" step="0.05" value="0.5">
             </div>
@@ -2433,6 +2426,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
