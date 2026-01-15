@@ -982,11 +982,23 @@
             您的浏览器不支持游戏背景音乐。
         </audio>
 
-        <div class="info-bar">
-          <span>时间T: <span id="timer">60</span>s</span>
-            <span>分数S: <span id="score">0</span></span>
-            <span>连击C: <span id="combo">0</span></span>
-            <span class="level">等级Lvl: <span id="level">学徒Appr</span></span>     
+         <div class="info-bar">
+            <span>
+        <span data-i18n="time_label">时间: </span>
+        <span id="timer">60</span>s
+    </span>
+    <span>
+        <span data-i18n="score_label">分数: </span>
+        <span id="score">0</span>
+    </span>
+    <span>
+        <span data-i18n="combo_label">连击: </span>
+        <span id="combo">0</span>
+    </span>
+    <span class="level">
+        <span data-i18n="level_label">等级: </span>
+        <span id="level" data-i18n="level_apprentice">学徒</span>
+    </span>   
             
         </div>
 
@@ -1161,7 +1173,20 @@ const i18nConfig = {
             'down-block': '下挡',
             'jump': '跳跃',
             'crouch': '蹲伏',    
-   
+
+              // 信息栏标签
+            'time_label': '时间: ',
+            'score_label': '分数: ',
+            'combo_label': '连击: ',
+            'level_label': '等级: ',
+        
+            // 等级名称
+            'level_apprentice': '学徒',
+            'level_bear_warrior': '小熊武者',
+            'level_kungfu_bear': '功夫大熊',
+            'level_master_disciple': '宗师之徒',
+            'level_bear_dominates': '熊霸天下',
+          
             // 游戏界面 
              'start_button': '开始练练',
              'retry_button': '再来一局'
@@ -1189,7 +1214,20 @@ const i18nConfig = {
            'down-block': 'Down Block', 
            'jump': 'Jump',
            'crouch': 'Crouch',
-            
+
+             // 信息栏标签
+            'time_label': 'time: ',
+            'score_label': 'score: ',
+            'combo_label': 'combo: ',
+            'level_label': 'level: ',
+        
+            // 等级名称
+            'level_apprentice': 'Appr',
+            'level_bear_warrior': 'Bear',
+            'level_kungfu_bear': 'KungFu',
+            'level_master_disciple': 'Master',
+            'level_bear_dominates': 'Champ',
+           
             // 游戏界面
             'start_button': 'Start Training',
             'retry_button': 'Try Again'
@@ -1538,11 +1576,11 @@ function updateLayoutForLevel(levelName) {
         ];
 
         const levels = [
-            { scoreThreshold: 0, name: '学徒Appr', moveSpeed: 1500 },
-            { scoreThreshold: 100, name: '小熊武者B.War', moveSpeed: 1200 },
-            { scoreThreshold: 300, name: '功夫大熊K.Fu', moveSpeed: 1000 },
-            { scoreThreshold: 600, name: '宗师之徒M.Dis', moveSpeed: 800 },
-            { scoreThreshold: 1000, name: '熊霸天下B.Dom', moveSpeed: 600 }
+            { scoreThreshold: 0, name: '学徒', moveSpeed: 1500 },
+            { scoreThreshold: 100, name: '小熊武者', moveSpeed: 1200 },
+            { scoreThreshold: 300, name: '功夫大熊', moveSpeed: 1000 },
+            { scoreThreshold: 600, name: '宗师之徒', moveSpeed: 800 },
+            { scoreThreshold: 1000, name: '熊霸天下', moveSpeed: 600 }
         ];
   
     // 音乐列表
@@ -2437,6 +2475,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
