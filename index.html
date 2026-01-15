@@ -649,15 +649,30 @@
         border-radius: 20px;
     }
 
-   .info-bar {
-    padding: 2vh 4vw;  /* 视口单位，自动适应 */
-    font-size: min(4vw, 16px); /* 最大16px，自动缩小 */
-    box-sizing: border-box;
-    width: 100%;
+ /* 信息栏基础样式 */
+.info-bar {
+    font-size: 16px; /* 中文大小 */
+    font-family: 'Microsoft YaHei', sans-serif;
 }
 
-.info-bar span {
-    margin: 0 max(5px, 1vw); /* 最小5px，按比例放大 */
+/* 当body有英文类名时调整 */
+body.english .info-bar,
+body[lang="en"] .info-bar {
+    font-size: 14px; /* 英文整体缩小 */
+}
+
+/* 英文等级特别处理 */
+body.english .info-bar .level,
+body[lang="en"] .info-bar .level {
+    font-size: 12px; /* 等级数字更小 */
+    font-weight: bold;
+    padding: 1px 4px;
+}
+
+/* 英文按钮文字也缩小 */
+body.english button,
+body[lang="en"] button {
+    font-size: 13px;
 }
 
     #master {
@@ -2480,6 +2495,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
