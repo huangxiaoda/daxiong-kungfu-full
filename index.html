@@ -651,29 +651,17 @@
 
  /* 信息栏基础样式 */
 .info-bar {
-    font-size: 18px; /* 中文大小 */
-    font-family: 'Microsoft YaHei', sans-serif;
+    font-size: 1em;      /* 从 1.2em 减小到 1em */
+    padding: 8px 12px;   /* 从 10px 15px 减小到 8px 12px */
+    box-sizing: border-box; /* 确保padding算在宽度内 */
 }
 
-/* 当body有英文类名时调整 */
-body.english .info-bar,
-body[lang="en"] .info-bar {
-    font-size: 14px; /* 英文整体缩小 */
+    * 英文时把等级往右移 */
+body.english .info-bar .level {
+    margin-left: 20px !important;  /* 离左边内容远点 */
+    font-size: 12px !important;    /* 再小一点 */
 }
 
-/* 英文等级特别处理 */
-body.english .info-bar .level,
-body[lang="en"] .info-bar .level {
-    font-size: 12px; /* 等级数字更小 */
-    font-weight: bold;
-    padding: 1px 4px;
-}
-
-/* 英文按钮文字也缩小 */
-body.english button,
-body[lang="en"] button {
-    font-size: 13px;
-}
 
     #master {
         top: -22px;
@@ -2495,6 +2483,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
