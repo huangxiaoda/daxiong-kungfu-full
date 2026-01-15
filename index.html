@@ -1581,11 +1581,11 @@ function updateLayoutForLevel(levelName) {
         ];
 
         const levels = [
-            { scoreThreshold: 0, name: '学徒', moveSpeed: 1500 },
-            { scoreThreshold: 100, name: '小熊武者', moveSpeed: 1200 },
-            { scoreThreshold: 300, name: '功夫大熊', moveSpeed: 1000 },
-            { scoreThreshold: 600, name: '宗师之徒', moveSpeed: 800 },
-            { scoreThreshold: 1000, name: '熊霸天下', moveSpeed: 600 }
+            { scoreThreshold: 0, name: '学徒', moveSpeed: 1500, translationKey: 'level_apprentice' },
+            { scoreThreshold: 100, name: '小熊武者', moveSpeed: 1200, translationKey: 'level_bear_warrior' },
+            { scoreThreshold: 300, name: '功夫大熊', moveSpeed: 1000, translationKey: 'level_kungfu_bear' },
+            { scoreThreshold: 600, name: '宗师之徒', moveSpeed: 800, translationKey: 'level_master_disciple' },
+            { scoreThreshold: 1000, name: '熊霸天下', moveSpeed: 600,translationKey: 'level_bear_dominates' }
         ];
   
     // 音乐列表
@@ -2480,6 +2480,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
