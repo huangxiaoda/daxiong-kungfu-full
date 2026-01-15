@@ -649,11 +649,16 @@
         border-radius: 20px;
     }
 
-    .info-bar {
-        font-size: 0.9em;
-        padding: 6px 8px;
-        box-sizing: border-box; 
-    }
+   .info-bar {
+    padding: 2vh 4vw;  /* 视口单位，自动适应 */
+    font-size: min(4vw, 16px); /* 最大16px，自动缩小 */
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.info-bar span {
+    margin: 0 max(5px, 1vw); /* 最小5px，按比例放大 */
+}
 
     #master {
         top: -22px;
@@ -2475,6 +2480,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
