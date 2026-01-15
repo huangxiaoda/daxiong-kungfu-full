@@ -662,9 +662,15 @@
 }
 
  .info-bar {
-    overflow-x: auto;  /* 允许滚动 */
-    white-space: nowrap; /* 不换行 */
-}   
+    overflow-x: auto;  /* 允许水平滚动 */
+    white-space: nowrap; /* 禁止换行 */
+    -webkit-overflow-scrolling: touch; /* 手机平滑滚动 */
+}
+
+/* 隐藏滚动条 */
+.info-bar::-webkit-scrollbar {
+    display: none;
+}
   
     #master {
         top: -22px;
@@ -2486,6 +2492,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
