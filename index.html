@@ -1846,7 +1846,7 @@ function updateLayoutForLevel(levelName) {
                     break;
                 }
             }
-             levelElement.textContent = currentLevelData.name;
+              levelElement.setAttribute('data-i18n', currentLevelData.translationKey);
             moveInterval = setInterval(showNextMove, currentLevelData.moveSpeed);
             showNextMove();
         }
@@ -2491,6 +2491,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
