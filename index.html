@@ -1847,10 +1847,23 @@ function updateLayoutForLevel(levelName) {
                 }
             }
               levelElement.setAttribute('data-i18n', currentLevelData.translationKey);
+             // 然后调用现有的applyTranslations函数来翻译这个元素
+            const currentLang = localStorage.getItem('preferred_lang') || detectLanguage();
+            applySingleElementTranslation(levelElement, currentLang);
+           
             moveInterval = setInterval(showNextMove, currentLevelData.moveSpeed);
             showNextMove();
+          }
+       
+            // 新增：只翻译单个元素的辅助函数
+        function applySingleElementTranslation(element, lang) {
+            const key = element.getAttribute('data-i18n');
+            const t = i18nConfig.translations[lang];
+            if (t && t[key]) {
+                element.innerHTML = t[key];
+            }
         }
-
+    
         // 显示下一个招式
         function showNextMove() {
             if (!isGameRunning) return;
@@ -2491,6 +2504,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
