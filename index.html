@@ -1057,20 +1057,20 @@
         <div class="relax-music-player">
             <div class="music-selector-row">
                 <div class="music-selector">
-                    <label for="bgMusicSelector">游戏音乐:</label>
+                    <label for="bgMusicSelector"data-i18n="music_game">游戏音乐:</label>
                     <select id="bgMusicSelector"></select>
                     <button id="bgMusicToggle" title="切换背景音乐">
                      <i class="fas fa-volume-up"></i>
                     </button> 
                 </div>
                 <div class="music-selector">
-                    <label for="relaxMusicSelector">放松音乐:</label>
+                    <label for="relaxMusicSelector"data-i18n="music_relax">放松音乐:</label>
                     <select id="relaxMusicSelector"></select> 
                 </div>
             </div>
 
             <div class="music-control-header">
-                <h3>🎵 放松音乐控制 🎵</h3> 
+                <h3 data-i18n="music_control">🎵 放松音乐控制 🎵</h3> 
                 <button id="alarmToggle" class="alarm-toggle" title="设置闹钟">⏰</button>
             </div>
 
@@ -1079,10 +1079,10 @@
             </audio>
 
             <div class="relax-music-controls"> 
-                <button id="relaxPlayButton">播放</button>
-                <button id="relaxPauseButton">暂停</button>
+                <button id="relaxPlayButton"data-i18n="music_play">播放</button>
+                <button id="relaxPauseButton"data-i18n="music_pause">暂停</button>
                 <div style="display:flex; align-items:center;">
-                <label for="musicTimer" style="color:#00bcd4; margin-right:5px;">定时:</label>
+                <label for="musicTimer" style="color:#00bcd4; margin-right:5px;"data-i18n="music_timer">定时:</label>
                 <select id="musicTimer" style="padding:3px;">
                 <option value="0">不定时</option>
                 <option value="900">15分钟</option>
@@ -1092,7 +1092,7 @@
                 <option value="7200">120分钟</option>
                 </select>
                </div>
-                <label for="relaxVolumeSlider">音量:</label>
+                <label for="relaxVolumeSlider"data-i18n="music_volume">音量:</label>
                 <input type="range" id="relaxVolumeSlider" min="0" max="1" step="0.05" value="0.5">
             </div>
             <!-- 🎯 新增的闹钟面板 -->
@@ -1203,8 +1203,17 @@ const i18nConfig = {
             'level_master_disciple': '宗师之徒',
             'level_bear_dominates': '熊霸天下',
           
+           // 音乐控制
+            'music_game': '游戏音乐',
+            'music_relax': '放松音乐',
+            'music_control': '放松音乐控制',
+            'music_play': '播放',
+            'music_pause': '暂停',
+            'music_timer': '定时',
+            'music_volume': '音量
+            
             // 游戏界面 
-             'start_button': '开始练练',
+             'start_button': '开始练功',
              'retry_button': '再来一局'
         },    
         
@@ -1244,6 +1253,15 @@ const i18nConfig = {
             'level_master_disciple': 'Master',
             'level_bear_dominates': 'Champ',
            
+            // 音乐控制
+            'music_game': 'Game Music',
+            'music_relax': 'Relax Music',
+            'music_control': 'Music Control',
+            'music_play': 'Play',
+            'music_pause': 'Pause',
+            'music_timer': 'Timer',
+            'music_volume': 'Volume'
+            
             // 游戏界面
             'start_button': 'Start Training',
             'retry_button': 'Try Again'
@@ -2504,6 +2522,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
