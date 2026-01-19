@@ -1106,8 +1106,8 @@
                     <label data-i18n="alarm_sound">铃声:</label>
                     <select id="alarmSound">
                 <option value="default" data-i18n="alarm_default_sound">默认铃声</option>
-                <option value="music/晨间唤起_01_柔和闹钟.mp3">晨间唤起_01_柔和闹钟</option>
-                <option value="music/晨间唤起_02_破晓鸟鸣.mp3">晨间唤起_02_破晓鸟鸣</option>
+                <option value="music/晨间唤起_01_柔和闹钟.mp3" data-i18n="music_morning_01">晨间唤起_01_柔和闹钟</option>
+                <option value="music/晨间唤起_02_破晓鸟鸣.mp3" data-i18n="music_morning_02">晨间唤起_02_破晓鸟鸣</option>
                     </select>
                 </div>
                 <div class="alarm-setting">
@@ -1232,8 +1232,12 @@ const i18nConfig = {
             'alarm_daily': '每天',
             'alarm_weekdays': '工作日',
             'alarm_save': '保存闹钟',
-            
-            // 游戏开始界面
+
+            // 闹钟音乐
+            'music_morning_01': '晨间唤起_01_柔和闹钟',
+            'music_morning_02': '晨间唤起_02_破晓鸟鸣',
+           
+             // 游戏开始界面
             'game_title': '大熊学武功！',
             'game_instructions': '看师傅演示，快速点击对应的招式！',
             'start_button': '开始练功',
@@ -1310,6 +1314,10 @@ const i18nConfig = {
             'alarm_daily': 'Daily',
             'alarm_weekdays': 'Weekdays',
             'alarm_save': 'Save Alarm',
+            
+            // 闹钟音乐
+            'music_morning_01': 'Morning Wake 01_Soft Alarm',
+            'music_morning_02': 'Morning Wake 02_Dawn Birds',
             
             // 游戏开始界面
             'game_title': 'Bear Learns Kung Fu!',
@@ -2611,6 +2619,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
