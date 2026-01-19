@@ -1903,7 +1903,16 @@ function updateLayoutForLevel(levelName) {
             const randomIndex = Math.floor(Math.random() * moves.length);
             const nextMove = moves[randomIndex];
             masterMoveEmoji.textContent = nextMove.emoji;
-            masterMoveText.textContent = nextMove.text;
+            // 单行翻译逻辑
+    const lang = localStorage.getItem('preferred_lang') || 'zh';
+    masterMoveText.textContent = lang === 'en' ? 
+        nextMove.text.replace('左拳', 'Left Punch')
+                    .replace('右拳', 'Right Punch')
+                    .replace('上踢', 'Up Kick')
+                    .replace('下挡', 'Down Block')
+                    .replace('跳跃', 'Jump')
+                    .replace('蹲伏', 'Crouch') : 
+        nextMove.text;
             masterMoveDisplay.classList.add('show');
             expectedMoveId = nextMove.id;
             actionButtons.forEach(button => {
@@ -2532,6 +2541,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
