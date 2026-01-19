@@ -1097,28 +1097,28 @@
             </div>
             <!-- 🎯 新增的闹钟面板 -->
             <div id="alarmPanel" class="alarm-panel hidden">
-                <h4>⏰ 闹钟设置</h4>
+                <h4 data-i18n="alarm_settings">⏰ 闹钟设置</h4>
                 <div class="alarm-setting">
-                    <label>时间:</label>
+                    <label data-i18n="alarm_time">时间:</label>
                     <input type="time" id="alarmTime">
                 </div>
                 <div class="alarm-setting">
-                    <label>铃声:</label>
+                    <label data-i18n="alarm_sound">铃声:</label>
                     <select id="alarmSound">
-                <option value="default">默认铃声</option>
+                <option value="default" data-i18n="alarm_default_sound">默认铃声</option>
                 <option value="music/晨间唤起_01_柔和闹钟.mp3">晨间唤起_01_柔和闹钟</option>
                 <option value="music/晨间唤起_02_破晓鸟鸣.mp3">晨间唤起_02_破晓鸟鸣</option>
                     </select>
                 </div>
                 <div class="alarm-setting">
-                    <label>重复:</label>
+                    <label data-i18n="alarm_repeat">重复:</label>
                     <select id="alarmRepeat">
-                        <option value="once">仅一次</option>
-                        <option value="daily">每天</option>
-                        <option value="weekdays">工作日</option>
+                        <option value="once" data-i18n="alarm_once">仅一次</option>
+                        <option value="daily" data-i18n="alarm_daily">每天</option>
+                        <option value="weekdays" data-i18n="alarm_weekdays">工作日</option>
                     </select>
                 </div>
-                <button id="saveAlarm" class="alarm-save">保存闹钟</button>
+                <button id="saveAlarm" class="alarm-save" data-i18n="alarm_save">保存闹钟</button>
             </div>
         </div>
 
@@ -1221,6 +1221,17 @@ const i18nConfig = {
             'feedback_correct': '正确！',
             'feedback_wrong': '错误！',
             'feedback_combo': '连击 x{combo}!',
+
+             // 闹钟设置
+            'alarm_settings': '闹钟设置',
+            'alarm_time': '时间:',
+            'alarm_sound': '铃声:',
+            'alarm_default_sound': '默认铃声',
+            'alarm_repeat': '重复:',
+            'alarm_once': '仅一次',
+            'alarm_daily': '每天',
+            'alarm_weekdays': '工作日',
+            'alarm_save': '保存闹钟',
             
             // 游戏开始界面
             'game_title': '大熊学武功！',
@@ -1288,6 +1299,17 @@ const i18nConfig = {
             'feedback_correct': 'Correct!',
             'feedback_wrong': 'Wrong!',
             'feedback_combo': 'Combo x{combo}!',
+
+             // 闹钟设置
+            'alarm_settings': 'Alarm Settings',
+            'alarm_time': 'Time:',
+            'alarm_sound': 'Sound:',
+            'alarm_default_sound': 'Default Ringtone',
+            'alarm_repeat': 'Repeat:',
+            'alarm_once': 'Once',
+            'alarm_daily': 'Daily',
+            'alarm_weekdays': 'Weekdays',
+            'alarm_save': 'Save Alarm',
             
             // 游戏开始界面
             'game_title': 'Bear Learns Kung Fu!',
@@ -2589,6 +2611,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
