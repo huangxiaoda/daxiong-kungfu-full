@@ -1956,9 +1956,17 @@ function updateLayoutForLevel(levelName) {
                 scoreElement.textContent = score;
                 comboElement.textContent = combo;
                 if (combo > 1) {
-                    showFeedback(`连击 x${combo}!`, 'combo');
+                   // 获取当前语言的连击文本
+                    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+                    const t = i18nConfig.translations[currentLang];
+                    const comboText = t ? t['feedback_combo'].replace('{combo}', combo) : `连击 x${combo}!`;
+                    showFeedback(comboText, 'combo');
                 } else {
-                    showFeedback('正确！', 'correct');
+                    // 获取当前语言的正确文本
+                    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+                    const t = i18nConfig.translations[currentLang];
+                    const correctText = t ? t['feedback_correct'] : '正确！';
+                    showFeedback(correctText, 'correct');
                 }
                 const nextLevelThreshold = levels[level] ? levels[level].scoreThreshold : Infinity;
                 if (score >= nextLevelThreshold) {
@@ -1967,10 +1975,16 @@ function updateLayoutForLevel(levelName) {
                     // 在等级提升的代码中添加
                     updateLayoutForLevel(levels[level-1].name);
                     startNewMoveSequence();
-                    showFeedback(`等级提升！`, 'combo');
+                    //showFeedback(`等级提升！`, 'combo');
                 }
             } else {
                 console.log("Wrong!");
+                 // 这里应该显示错误反馈
+                const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+                const t = i18nConfig.translations[currentLang];
+                const wrongText = t ? t['feedback_wrong'] : '错误！';
+                showFeedback(wrongText, 'wrong');
+                
                 handleWrongGuess(event.currentTarget);
             }
         }
@@ -1981,7 +1995,7 @@ function updateLayoutForLevel(levelName) {
             combo = 0;
             scoreElement.textContent = score;
             comboElement.textContent = combo;
-            showFeedback('错误！', 'wrong');
+            //showFeedback('错误！', 'wrong');
             if (clickedButton) {
                 clickedButton.classList.add('wrong');
             }
@@ -2551,6 +2565,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
