@@ -1611,12 +1611,12 @@ function updateLayoutForLevel(levelName) {
 } 
     // ===== 游戏数据 =====
         const moves = [
-            { id: 'left-punch', emoji: '👊', text: '左拳 (L)' },
-            { id: 'right-punch', emoji: '🤜', text: '右拳 (R)' },
-            { id: 'up-kick', emoji: '🤸', text: '上踢 (U)' },
-            { id: 'down-block', emoji: '🛡️', text: '下挡 (D)' },
-            { id: 'jump', emoji: '⬆️', text: '跳跃 (J)' },
-            { id: 'crouch', emoji: '⤵️', text: '蹲伏 (C)' }
+            { id: 'left-punch', emoji: '👊', text: '左拳',enText: 'Left Punch' },
+            { id: 'right-punch', emoji: '🤜', text: '右拳',enText: 'Right Punch' },
+            { id: 'up-kick', emoji: '🤸', text: '上踢',enText: 'Up Kick' },
+            { id: 'down-block', emoji: '🛡️', text: '下挡', enText: 'Down Block' },
+            { id: 'jump', emoji: '⬆️', text: '跳跃',enText: 'Jump' },
+            { id: 'crouch', emoji: '⤵️', text: '蹲伏',enText: 'Crouch' }
         ];
 
         const levels = [
@@ -1903,7 +1903,7 @@ function updateLayoutForLevel(levelName) {
             const randomIndex = Math.floor(Math.random() * moves.length);
             const nextMove = moves[randomIndex];
             masterMoveEmoji.textContent = nextMove.emoji;
-            masterMoveText.textContent = nextMove.text;
+            masterMoveText.textContent = currentLang === 'en' ? nextMove.enText : nextMove.zhText;
             masterMoveDisplay.classList.add('show');
             expectedMoveId = nextMove.id;
             actionButtons.forEach(button => {
@@ -2532,6 +2532,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
