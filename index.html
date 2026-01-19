@@ -1903,7 +1903,7 @@ function updateLayoutForLevel(levelName) {
             const randomIndex = Math.floor(Math.random() * moves.length);
             const nextMove = moves[randomIndex];
             masterMoveEmoji.textContent = nextMove.emoji;
-            masterMoveText.textContent = currentLang === 'en' ? nextMove.enText : nextMove.zhText;
+            masterMoveText.textContent = nextMove.text;
             masterMoveDisplay.classList.add('show');
             expectedMoveId = nextMove.id;
             actionButtons.forEach(button => {
@@ -2532,6 +2532,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
