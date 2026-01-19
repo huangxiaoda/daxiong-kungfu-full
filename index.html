@@ -2066,9 +2066,20 @@ function updateLayoutForLevel(levelName) {
                 }
             }
                     gameOverlay.classList.remove('hidden');
-                    gameOverlay.querySelector('h2').textContent = '练功结束！';
-                    gameOverlay.querySelector('p').textContent = `你的最终分数是：${score} 分，大熊达到了 ${levelElement.textContent} 境界！`;
-                    gameOverlay.querySelector('button').textContent = '再来一局';
+                    // 获取当前语言
+                    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+                    const t = i18nConfig.translations[currentLang];
+                    gameOverlay.querySelector('h2').textContent = t ? t['game_over_title'] :'练功结束！';
+                    // 分数信息（注意：levelElement.textContent已经翻译好了）
+                    const levelName = levelElement.textContent; // 这个已经是翻译后的等级名称
+                    const scoreText = t ? t['game_over_score'] : '你的最终分数是：{score} 分，大熊达到了 {level} 境界！';
+                    gameOverlay.querySelector('p').textContent = scoreText
+                        .replace('{score}', score)
+                        .replace('{level}', levelName);
+
+                    // 按钮
+                    gameOverlay.querySelector('button').textContent = t ? t['retry_button'] : '再来一局';
+                    
                 }
 // 显示音乐说明函数
 function showMusicDescription(text, duration = 5000) {
@@ -2578,6 +2589,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
