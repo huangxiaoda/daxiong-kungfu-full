@@ -1582,12 +1582,16 @@ function checkGameStatus() {
                 document.querySelector('.play-area').appendChild(remainingElement);
             }
            
-            const currentLang = localStorage.getItem('preferred_lang') || 'zh';
-            if (currentLang === 'en') {
-                remainingElement.textContent = `Remaining Tries: ${count}`;
-            } else {
-                remainingElement.textContent = `剩余试玩: ${count}次`;
-            }
+            // 直接使用已有的applyTranslations逻辑
+            const currentLang = detectLanguage(); // 使用detectLanguage函数
+    
+            // 翻译文本
+            const translations = {
+                'zh': `剩余试玩: ${count}次`,
+                'en': `Remaining Tries: ${count}`
+            };
+    
+            remainingElement.textContent = translations[currentLang] || translations['zh'];
             remainingElement.style.display = 'block';
         }
 
@@ -2631,6 +2635,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
