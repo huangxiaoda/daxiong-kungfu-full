@@ -1383,7 +1383,23 @@ function initI18n() {
             localStorage.setItem('preferred_lang', lang);
             applyTranslations(lang);        
        // 只加这一行：刷新剩余次数显示
-        //refreshRemainingTries();
+       //refreshRemainingTries();
+       // 只更新当前显示的剩余次数文本，不调用其他逻辑
+        const remainingElement = document.getElementById('remainingTries');
+        if (remainingElement && remainingElement.style.display !== 'none') {
+            const currentText = remainingElement.textContent;
+            const countMatch = currentText.match(/\d+/);
+            if (countMatch) {
+                const count = countMatch[0];
+                if (lang === 'en') {
+                    remainingElement.textContent = `Remaining Tries: ${count}`;
+                } else {
+                    remainingElement.textContent = `剩余试玩: ${count}次`;
+                }
+            console.log('切换语言，更新剩余次数显示:', remainingElement.textContent);
+            }
+        }
+        
         }
     };
     
@@ -1578,24 +1594,24 @@ function checkGameStatus() {
                 document.querySelector('.play-area').appendChild(remainingElement);
             }
           // 最简单的语言检测
-            const savedLang = localStorage.getItem('preferred_lang');
-            let currentLang = savedLang;
+            //const savedLang = localStorage.getItem('preferred_lang');
+           // let currentLang = savedLang;
     
             // 如果没有保存的语言，检测浏览器语言
-            if (!currentLang) {
-                const browserLang = navigator.language || navigator.userLanguage;
-                currentLang = browserLang.startsWith('zh') ? 'zh' : 'en';
-                localStorage.setItem('preferred_lang', currentLang);
-            }
+            //if (!currentLang) {
+               // const browserLang = navigator.language || navigator.userLanguage;
+               // currentLang = browserLang.startsWith('zh') ? 'zh' : 'en';
+               // localStorage.setItem('preferred_lang', currentLang);
+           // }
     
             //console.log('剩余次数显示 - 语言:', currentLang, '次数:', count);
     
             // 只在这里决定显示什么
-            if (currentLang === 'en') {
-                remainingElement.textContent = `Remaining Tries: ${count}`;
-            } else {
+           // if (currentLang === 'en') {
+               // remainingElement.textContent = `Remaining Tries: ${count}`;
+           // } else {
                 remainingElement.textContent = `剩余试玩: ${count}次`;
-            }
+            //}
             remainingElement.style.display = 'block';
         }
 
@@ -2650,6 +2666,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
