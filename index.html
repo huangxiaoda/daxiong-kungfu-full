@@ -1388,7 +1388,8 @@ function initI18n() {
         if (i18nConfig.languages.includes(lang)) {
             localStorage.setItem('preferred_lang', lang);
             applyTranslations(lang);        
-      
+       // 只加这一行：刷新剩余次数显示
+        refreshRemainingTries();
         }
     };
     
@@ -1597,9 +1598,9 @@ function checkGameStatus() {
     
             // 只在这里决定显示什么
             if (currentLang === 'en') {
-                remainingElement.textContent = `Remaining: ${count}`;
+                remainingElement.textContent = `Remaining Tries: ${count}`;
             } else {
-                remainingElement.textContent = `剩余: ${count}次`;
+                remainingElement.textContent = `剩余试玩: ${count}次`;
             }
             remainingElement.style.display = 'block';
         }
@@ -1612,6 +1613,17 @@ function checkGameStatus() {
             }
         }
 
+        // 添加这个简单的刷新函数
+        function refreshRemainingTries() {
+            const playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
+            const remainingCount = 5 - playCount;
+            if (remainingCount > 0) {
+                showRemainingTries(remainingCount);
+            } else {
+                hideRemainingTries();
+            }
+        }
+    
         // ===== 元素获取 =====
         const timerElement = document.getElementById('timer');
         const scoreElement = document.getElementById('score');
@@ -2644,6 +2656,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
