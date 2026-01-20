@@ -1582,7 +1582,7 @@ function checkGameStatus() {
             const savedLang = localStorage.getItem('preferred_lang');
             let currentLang = savedLang;
     
-             如果没有保存的语言，检测浏览器语言
+             //如果没有保存的语言，检测浏览器语言
             if (!currentLang) {
                 const browserLang = navigator.language || navigator.userLanguage;
                 currentLang = browserLang.startsWith('zh') ? 'zh' : 'en';
@@ -1591,7 +1591,7 @@ function checkGameStatus() {
     
             console.log('剩余次数显示 - 语言:', currentLang, '次数:', count);
     
-             只在这里决定显示什么
+             //只在这里决定显示什么
             if (currentLang === 'en') {
                 remainingElement.textContent = `Remaining Tries: ${count}`;
             } else {
@@ -2651,6 +2651,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
