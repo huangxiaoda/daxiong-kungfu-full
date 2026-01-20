@@ -1610,23 +1610,12 @@ function checkGameStatus() {
 
         // 添加这个简单的刷新函数
         function refreshRemainingTries() {
-        // 首先检查用户是否已购买
-        const isUnlocked = localStorage.getItem(UNLOCK_KEY) === 'true';
-    
-        if (isUnlocked) {
-        // 已购买用户：隐藏剩余次数
-            hideRemainingTries();
-            return;
-        }
-    
-            // 未购买用户：计算并显示剩余次数
-        const playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
-        const remainingCount = 5 - playCount;
-    
-        if (remainingCount > 0) {
-        showRemainingTries(remainingCount);
-        } else {
-            hideRemainingTries();
+            const playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
+            const remainingCount = 5 - playCount;
+            if (remainingCount > 0) {
+                showRemainingTries(remainingCount);
+            } else {
+                hideRemainingTries();
             }
         }
     
@@ -2662,6 +2651,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
