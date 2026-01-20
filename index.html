@@ -1236,7 +1236,10 @@ const i18nConfig = {
             // 闹钟音乐
             'music_morning_01': '晨间唤起_01_柔和闹钟',
             'music_morning_02': '晨间唤起_02_破晓鸟鸣',
-           
+
+             //显示剩余次数
+            'remaining_tries': '剩余试玩: {count}次',
+            
              // 游戏开始界面
             'game_title': '大熊学武功！',
             'game_instructions': '看师傅演示，快速点击对应的招式！',
@@ -1318,6 +1321,9 @@ const i18nConfig = {
             // 闹钟音乐
             'music_morning_01': 'Morning Wake 01_Soft Alarm',
             'music_morning_02': 'Morning Wake 02_Dawn Birds',
+
+            //显示剩余次数
+            'remaining_tries': 'Remaining Tries: {count}'
             
             // 游戏开始界面
             'game_title': 'Bear Learns Kung Fu!',
@@ -1575,7 +1581,11 @@ function checkGameStatus() {
                 remainingElement.className = 'remaining-tries';
                 document.querySelector('.play-area').appendChild(remainingElement);
             }
-            remainingElement.textContent = `剩余试玩: ${count}次`;
+           
+            const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+            const t = i18nConfig.translations[currentLang];
+            const text = t ? t['remaining_tries'].replace('{count}', count) : `剩余试玩: ${count}次`;
+            remainingElement.textContent = text;
             remainingElement.style.display = 'block';
         }
 
@@ -2619,6 +2629,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
