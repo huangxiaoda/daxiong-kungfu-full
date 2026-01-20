@@ -1586,10 +1586,11 @@ function checkGameStatus() {
              // 直接获取语言，不依赖任何缓存
             let currentLang;
 
-             // 方法2：检测浏览器语言
-            else {
-                const browserLang = navigator.language || navigator.userLanguage;
-                currentLang = browserLang.startsWith('zh') ? 'zh' : 'en';
+               // 方法1：从localStorage获取（用户选择的）
+            const savedLang = localStorage.getItem('preferred_lang');
+            if (savedLang === 'zh' || savedLang === 'en') {
+                currentLang = savedLang;
+            } 
             // 保存检测结果
                 localStorage.setItem('preferred_lang', currentLang);
             }
@@ -2645,6 +2646,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
