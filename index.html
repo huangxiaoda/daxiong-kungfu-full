@@ -1583,9 +1583,11 @@ function checkGameStatus() {
             }
            
             const currentLang = localStorage.getItem('preferred_lang') || 'zh';
-            const t = i18nConfig.translations[currentLang];
-            const text = t ? t['remaining_tries'].replace('{count}', count) : `剩余试玩: ${count}次`;
-            remainingElement.textContent = text;
+            if (currentLang === 'en') {
+                remainingElement.textContent = `Remaining Tries: ${count}`;
+            } else {
+                remainingElement.textContent = `剩余试玩: ${count}次`;
+            }
             remainingElement.style.display = 'block';
         }
 
@@ -2629,6 +2631,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
