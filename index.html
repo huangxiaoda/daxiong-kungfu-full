@@ -1383,7 +1383,7 @@ function initI18n() {
             localStorage.setItem('preferred_lang', lang);
             applyTranslations(lang);        
        // 只加这一行：刷新剩余次数显示
-       //refreshRemainingTries();
+       refreshRemainingTries();
      
         }
     };
@@ -1533,7 +1533,11 @@ if (currentDomain === 'daxiongkungfu.com') {
         // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = String(localStorage.getItem(UNLOCK_KEY)).toLowerCase() === 'true';
-    
+     console.log('检查购买状态:', {
+        原始值: unlockValue,
+        转换后: String(unlockValue).toLowerCase(),
+        是否已购买: isUnlocked
+    });
     if (isUnlocked) {
         hideRemainingTries();
         return true;
@@ -1610,6 +1614,14 @@ function checkGameStatus() {
 
         // 添加这个简单的刷新函数
         function refreshRemainingTries() {
+             // 确保用字符串比较
+    const unlockValue = localStorage.getItem(UNLOCK_KEY);
+    const isUnlocked = String(unlockValue).toLowerCase() === 'true';
+    
+    if (isUnlocked) {
+        hideRemainingTries();
+        return;
+    }
             const playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
             const remainingCount = 5 - playCount;
             if (remainingCount > 0) {
@@ -2651,6 +2663,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
