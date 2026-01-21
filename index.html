@@ -1533,11 +1533,7 @@ if (currentDomain === 'daxiongkungfu.com') {
         // 检查游戏状态
 function checkGameStatus() {
     const isUnlocked = String(localStorage.getItem(UNLOCK_KEY)).toLowerCase() === 'true';
-     console.log('检查购买状态:', {
-        原始值: unlockValue,
-        转换后: String(unlockValue).toLowerCase(),
-        是否已购买: isUnlocked
-    });
+     
     if (isUnlocked) {
         hideRemainingTries();
         return true;
@@ -2663,6 +2659,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
