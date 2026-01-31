@@ -1899,18 +1899,45 @@ function updateLayoutForLevel(levelName) {
         ];
 
        // 显示时使用音乐说明和歌名翻译
-function displayMusicName(music) {
+            function populateMusicSelectors() {
+    bgMusicSelector.innerHTML = '';
+    relaxMusicSelector.innerHTML = '';
+
+    // 获取当前语言和翻译
     const currentLang = localStorage.getItem('preferred_lang') || 'zh';
     const t = i18nConfig.translations[currentLang];
-    
-    // 名称
-    const displayName = t ? t[music.nameKey] : music.name;
-    
-    // 说明（简洁版）
-    const displayDesc = t ? t[music.descKey] : music.description.substring(3); // 去掉"说明:"
-    
-    return { name: displayName, desc: displayDesc };
+
+    // 填充游戏音乐
+    gameMusicList.forEach((music) => {
+        const option = document.createElement('option');
+        option.value = music.src;
+        option.textContent = t && music.nameKey && t[music.nameKey] 
+            ? t[music.nameKey] 
+            : music.name;
+        bgMusicSelector.appendChild(option);
+    });
+
+    if (gameMusicList.length > 0) {
+        gameBgMusic.src = gameMusicList[0].src;
+        gameBgMusic.load();
+    }
+
+    // 填充放松音乐
+    relaxMusicList.forEach((music) => {
+        const option = document.createElement('option');
+        option.value = music.src;
+        option.textContent = t && music.nameKey && t[music.nameKey] 
+            ? t[music.nameKey] 
+            : music.name;
+        relaxMusicSelector.appendChild(option);
+    });
+
+    if (relaxMusicList.length > 0) {
+        relaxAudio.src = relaxMusicList[0].src;
+        relaxAudio.load();
+    }
 }
+
     
     // ===== 音乐播放辅助函数 =====
         async function loadAndPlayMusic(audioElement, src, shouldPlay) {
@@ -2812,6 +2839,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
