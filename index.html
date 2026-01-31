@@ -1898,47 +1898,19 @@ function updateLayoutForLevel(levelName) {
             { name: "海浪声", src: "https://www.bensound.com/bensound-music/bensound-relaxing.mp3" ,nameKey: 'music_ocean'}
         ];
 
-       // 填充游戏音乐选择器
-function populateGameMusicSelector() {
-    const gameMusicSelect = document.getElementById('bgMusicSelector');
+               // 显示时使用音乐说明和歌名翻译
+        function displayMusicName(music) {
+            const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+            const t = i18nConfig.translations[currentLang];
     
-    if (!gameMusicSelect) return;
+            // 名称
+            const displayName = t ? t[music.nameKey] : music.name;
     
-    // 获取当前语言
-    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
-    const t = i18nConfig.translations[currentLang];
+            // 说明（简洁版）
+            const displayDesc = t ? t[music.descKey] : music.description.substring(3); // 去掉"说明:"
     
-    // 清空选项
-    gameMusicSelect.innerHTML = '';
-    
-    // 添加选项
-    gameMusicList.forEach(music => {
-        const option = document.createElement('option');
-        option.value = music.src;
-        
-        // 使用翻译的名称
-        option.textContent = t ? t[music.nameKey] : music.name;
-        
-        gameMusicSelect.appendChild(option);
-    });
-}
-   window.switchLanguage = function(lang) {
-    if (i18nConfig.languages.includes(lang)) {
-        localStorage.setItem('preferred_lang', lang);
-        applyTranslations(lang);
-        
-        // 重新填充所有音乐选择器
-        populateAllMusicSelectors();  // 或分别调用
-        // populateGameMusicSelector();
-        // populateRelaxMusicSelector();
-    }
-};     
-
-document.addEventListener('DOMContentLoaded', function() {
-    initI18n();
-    populateAllMusicSelectors();  // 初始化时填充
-});
-    
+            return { name: displayName, desc: displayDesc };
+        }
   
     // ===== 音乐播放辅助函数 =====
         async function loadAndPlayMusic(audioElement, src, shouldPlay) {
@@ -2840,6 +2812,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
