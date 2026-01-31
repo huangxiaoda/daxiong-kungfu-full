@@ -1898,7 +1898,21 @@ function updateLayoutForLevel(levelName) {
             { name: "海浪声", src: "https://www.bensound.com/bensound-music/bensound-relaxing.mp3" ,nameKey: 'music_ocean'}
         ];
 
-        // ===== 音乐播放辅助函数 =====
+       // 显示时使用音乐说明和歌名翻译
+function displayMusicName(music) {
+    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+    const t = i18nConfig.translations[currentLang];
+    
+    // 名称
+    const displayName = t ? t[music.nameKey] : music.name;
+    
+    // 说明（简洁版）
+    const displayDesc = t ? t[music.descKey] : music.description.substring(3); // 去掉"说明:"
+    
+    return { name: displayName, desc: displayDesc };
+}
+    
+    // ===== 音乐播放辅助函数 =====
         async function loadAndPlayMusic(audioElement, src, shouldPlay) {
             console.log(`尝试加载: ${src}, 预期播放: ${shouldPlay}`);
             audioElement.src = src;
@@ -2304,21 +2318,7 @@ function showMusicDescription(text, duration = 5000) {
         }, duration);
     }
 }
-
-// 显示时使用音乐说明和歌名翻译
-function displayMusicName(music) {
-    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
-    const t = i18nConfig.translations[currentLang];
-    
-    // 名称
-    const displayName = t ? t[music.nameKey] : music.name;
-    
-    // 说明（简洁版）
-    const displayDesc = t ? t[music.descKey] : music.description.substring(3); // 去掉"说明:"
-    
-    return { name: displayName, desc: displayDesc };
-}
-    
+ 
        
     // ===== 事件监听器 =====
         actionButtons.forEach(button => {
@@ -2812,6 +2812,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
