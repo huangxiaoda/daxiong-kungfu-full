@@ -1899,6 +1899,20 @@ function updateLayoutForLevel(levelName) {
         ];
 
        // 显示时使用音乐说明和歌名翻译
+          // 显示时使用音乐说明和歌名翻译
+function displayMusicName(music) {
+    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+    const t = i18nConfig.translations[currentLang];
+    
+    // 名称
+    const displayName = t ? t[music.nameKey] : music.name;
+    
+    // 说明（简洁版）
+    const displayDesc = t ? t[music.descKey] : music.description.substring(3); // 去掉"说明:"
+    
+    return { name: displayName, desc: displayDesc };
+}  
+    
             function populateMusicSelectors() {
     bgMusicSelector.innerHTML = '';
     relaxMusicSelector.innerHTML = '';
@@ -2839,6 +2853,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
