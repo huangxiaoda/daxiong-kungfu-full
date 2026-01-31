@@ -1899,35 +1899,34 @@ function updateLayoutForLevel(levelName) {
         ];
 
        // 显示时使用音乐说明和歌名翻译
-          // 显示时使用音乐说明和歌名翻译
-function displayMusicName(music) {
-    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
-    const t = i18nConfig.translations[currentLang];
+         function populateMusicSelectors() {
+    console.log('=== populateMusicSelectors调用（修复版） ===');
     
-    // 名称
-    const displayName = t ? t[music.nameKey] : music.name;
-    
-    // 说明（简洁版）
-    const displayDesc = t ? t[music.descKey] : music.description.substring(3); // 去掉"说明:"
-    
-    return { name: displayName, desc: displayDesc };
-}  
-    
-            function populateMusicSelectors() {
     bgMusicSelector.innerHTML = '';
     relaxMusicSelector.innerHTML = '';
 
-    // 获取当前语言和翻译
+    // 获取当前语言
     const currentLang = localStorage.getItem('preferred_lang') || 'zh';
     const t = i18nConfig.translations[currentLang];
+    
+    console.log('当前语言:', currentLang);
+    console.log('翻译对象t:', t);
+    console.log('第一个游戏的nameKey:', gameMusicList[0]?.nameKey);
+    console.log('翻译结果:', t ? t[gameMusicList[0]?.nameKey] : '无');
 
     // 填充游戏音乐
     gameMusicList.forEach((music) => {
         const option = document.createElement('option');
         option.value = music.src;
-        option.textContent = t && music.nameKey && t[music.nameKey] 
+        
+        // 修复：使用翻译
+        const displayName = t && music.nameKey && t[music.nameKey] 
             ? t[music.nameKey] 
             : music.name;
+        
+        console.log(`游戏音乐 "${music.name}" -> "${displayName}" (key: ${music.nameKey})`);
+        
+        option.textContent = displayName;
         bgMusicSelector.appendChild(option);
     });
 
@@ -1940,9 +1939,15 @@ function displayMusicName(music) {
     relaxMusicList.forEach((music) => {
         const option = document.createElement('option');
         option.value = music.src;
-        option.textContent = t && music.nameKey && t[music.nameKey] 
+        
+        // 修复：使用翻译
+        const displayName = t && music.nameKey && t[music.nameKey] 
             ? t[music.nameKey] 
             : music.name;
+        
+        console.log(`放松音乐 "${music.name}" -> "${displayName}" (key: ${music.nameKey})`);
+        
+        option.textContent = displayName;
         relaxMusicSelector.appendChild(option);
     });
 
@@ -1950,6 +1955,8 @@ function displayMusicName(music) {
         relaxAudio.src = relaxMusicList[0].src;
         relaxAudio.load();
     }
+    
+    console.log('=== 填充完成 ===');
 }
 
     
@@ -2853,6 +2860,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
