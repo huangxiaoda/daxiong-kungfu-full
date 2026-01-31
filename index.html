@@ -1247,6 +1247,11 @@ const i18nConfig = {
             'game_over_score': '你的最终分数是：{score} 分，大熊达到了 {level} 境界！',
             'retry_button': '再来一局',
 
+             // 游戏音乐
+        'music_kungfu_rhythm': '功夫节奏',
+        'music_striving_strike': '奋进之击',
+        'music_mountain_training': '山林修炼',
+            
              // 音乐名称（保持原中文）
         'music_sleep_01': '快速入睡_01_暖呼吸',
         'music_sleep_02': '快速入睡_02_海浪柔情',
@@ -1392,7 +1397,12 @@ const i18nConfig = {
             'game_over_title': 'Training Complete!',
             'game_over_score': 'Your final score: {score} points, Bear reached the {level} realm!',
             'retry_button': 'Play Again',
-       
+
+            // 游戏音乐
+        'music_kungfu_rhythm': 'Kung Fu Rhythm',
+        'music_striving_strike': 'Striving Strike',
+        'music_mountain_training': 'Mountain Training',
+            
              // 音乐名称（英文翻译）
         'music_sleep_01': 'Fast Sleep_01_Warm Breath',
         'music_sleep_02': 'Fast Sleep_02_Gentle Waves',
@@ -1850,9 +1860,9 @@ function updateLayoutForLevel(levelName) {
   
     // 音乐列表
         const gameMusicList = [
-            { name: "功夫节奏", src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3" },
-            { name: "奋进之击", src: "music/奋进之击.mp3" },
-            { name: "山林修炼", src: "music/山林修炼.mp3" }
+            { name: "功夫节奏", src: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",nameKey: 'music_kungfu_rhythm'},
+            { name: "奋进之击", src: "music/奋进之击.mp3",nameKey: 'music_striving_strike'},
+            { name: "山林修炼", src: "music/山林修炼.mp3",nameKey: 'music_mountain_training' }
         ];
 
         const relaxMusicList = [
@@ -2787,6 +2797,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
