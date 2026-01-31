@@ -1899,20 +1899,36 @@ function updateLayoutForLevel(levelName) {
         ];
 
                // 显示时使用音乐说明和歌名翻译
-        function displayMusicName(music) {
-            const currentLang = localStorage.getItem('preferred_lang') || 'zh';
-            const t = i18nConfig.translations[currentLang];
-    
-            // 名称
-            const displayName = t ? t[music.nameKey] : music.name;
-    
-            // 说明（简洁版）
-            const displayDesc = t ? t[music.descKey] : music.description.substring(3); // 去掉"说明:"
-    
-            return { name: displayName, desc: displayDesc };
-        }
+        function populateMusicSelectors() {
+    bgMusicSelector.innerHTML = '';
+    relaxMusicSelector.innerHTML = '';
+
+    // 获取当前语言
+    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+    const t = i18nConfig.translations[currentLang];
+
+    // 填充游戏音乐
+    gameMusicList.forEach((music) => {
+        const option = document.createElement('option');
+        option.value = music.src;
+        option.textContent = t && music.nameKey && t[music.nameKey] 
+            ? t[music.nameKey] 
+            : music.name;
+        bgMusicSelector.appendChild(option);
+    });
+
+    // 填充放松音乐
+    relaxMusicList.forEach((music) => {
+        const option = document.createElement('option');
+        option.value = music.src;
+        option.textContent = t && music.nameKey && t[music.nameKey] 
+            ? t[music.nameKey] 
+            : music.name;
+        relaxMusicSelector.appendChild(option);
+    });
   
-    // ===== 音乐播放辅助函数 =====
+   
+            // ===== 音乐播放辅助函数 =====
         async function loadAndPlayMusic(audioElement, src, shouldPlay) {
             console.log(`尝试加载: ${src}, 预期播放: ${shouldPlay}`);
             audioElement.src = src;
@@ -2812,6 +2828,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
