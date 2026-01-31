@@ -1516,7 +1516,7 @@ function initI18n() {
     const currentLang = detectLanguage();
     applyTranslations(currentLang);
     
-    // 重要：初始化时填充音乐选择器
+    // 音乐翻译：初始化时填充音乐选择器
     populateMusicSelectors();
    
     // 暴露切换函数到全局
@@ -1525,7 +1525,7 @@ function initI18n() {
             localStorage.setItem('preferred_lang', lang);
             applyTranslations(lang);        
 
-           // 切换语言时重新填充音乐选择器
+           //音乐翻译： 切换语言时重新填充音乐选择器
             populateMusicSelectors();  
        
             // 只加这一行：刷新剩余次数显示
@@ -1906,37 +1906,39 @@ function updateLayoutForLevel(levelName) {
             { name: "海浪声", src: "https://www.bensound.com/bensound-music/bensound-relaxing.mp3" ,nameKey: 'music_ocean'}
         ];
 
-               // 显示时使用音乐说明和歌名翻译
+        // 音乐说明和歌名翻译
         function populateMusicSelectors() {
-    bgMusicSelector.innerHTML = '';
-    relaxMusicSelector.innerHTML = '';
+            bgMusicSelector.innerHTML = '';
+            relaxMusicSelector.innerHTML = '';
 
-    // 获取当前语言
-    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
-    const t = i18nConfig.translations[currentLang];
+            // 获取当前语言
+            const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+            const t = i18nConfig.translations[currentLang];
 
-    // 填充游戏音乐
-    gameMusicList.forEach((music) => {
-        const option = document.createElement('option');
-        option.value = music.src;
-        option.textContent = t && music.nameKey && t[music.nameKey] 
-            ? t[music.nameKey] 
-            : music.name;
-        bgMusicSelector.appendChild(option);
-    });
+            // 填充游戏音乐
+            gameMusicList.forEach((music) => {
+                const option = document.createElement('option');
+                option.value = music.src;
+                option.textContent = t && music.nameKey && t[music.nameKey] 
+                    ? t[music.nameKey] 
+                    : music.name;
+                bgMusicSelector.appendChild(option);
+            });
 
-    // 填充放松音乐
-    relaxMusicList.forEach((music) => {
-        const option = document.createElement('option');
-        option.value = music.src;
-        option.textContent = t && music.nameKey && t[music.nameKey] 
-            ? t[music.nameKey] 
-            : music.name;
-        relaxMusicSelector.appendChild(option);
-    });
+            // 填充放松音乐
+            relaxMusicList.forEach((music) => {
+                const option = document.createElement('option');
+                option.value = music.src;
+                option.textContent = t && music.nameKey && t[music.nameKey] 
+                    ? t[music.nameKey] 
+                    : music.name;
+                relaxMusicSelector.appendChild(option);
+            });
   
-        }
-            // ===== 音乐播放辅助函数 =====
+                }
+           
+        
+        // ===== 音乐播放辅助函数 =====
         async function loadAndPlayMusic(audioElement, src, shouldPlay) {
             console.log(`尝试加载: ${src}, 预期播放: ${shouldPlay}`);
             audioElement.src = src;
@@ -2836,6 +2838,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
