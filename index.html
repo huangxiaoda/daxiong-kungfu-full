@@ -1898,68 +1898,48 @@ function updateLayoutForLevel(levelName) {
             { name: "海浪声", src: "https://www.bensound.com/bensound-music/bensound-relaxing.mp3" ,nameKey: 'music_ocean'}
         ];
 
-       // 显示时使用音乐说明和歌名翻译
-         function populateMusicSelectors() {
-    console.log('=== populateMusicSelectors调用（修复版） ===');
+       // 填充游戏音乐选择器
+function populateGameMusicSelector() {
+    const gameMusicSelect = document.getElementById('bgMusicSelector');
     
-    bgMusicSelector.innerHTML = '';
-    relaxMusicSelector.innerHTML = '';
-
+    if (!gameMusicSelect) return;
+    
     // 获取当前语言
     const currentLang = localStorage.getItem('preferred_lang') || 'zh';
     const t = i18nConfig.translations[currentLang];
     
-    console.log('当前语言:', currentLang);
-    console.log('翻译对象t:', t);
-    console.log('第一个游戏的nameKey:', gameMusicList[0]?.nameKey);
-    console.log('翻译结果:', t ? t[gameMusicList[0]?.nameKey] : '无');
-
-    // 填充游戏音乐
-    gameMusicList.forEach((music) => {
-        const option = document.createElement('option');
-        option.value = music.src;
-        
-        // 修复：使用翻译
-        const displayName = t && music.nameKey && t[music.nameKey] 
-            ? t[music.nameKey] 
-            : music.name;
-        
-        console.log(`游戏音乐 "${music.name}" -> "${displayName}" (key: ${music.nameKey})`);
-        
-        option.textContent = displayName;
-        bgMusicSelector.appendChild(option);
-    });
-
-    if (gameMusicList.length > 0) {
-        gameBgMusic.src = gameMusicList[0].src;
-        gameBgMusic.load();
-    }
-
-    // 填充放松音乐
-    relaxMusicList.forEach((music) => {
-        const option = document.createElement('option');
-        option.value = music.src;
-        
-        // 修复：使用翻译
-        const displayName = t && music.nameKey && t[music.nameKey] 
-            ? t[music.nameKey] 
-            : music.name;
-        
-        console.log(`放松音乐 "${music.name}" -> "${displayName}" (key: ${music.nameKey})`);
-        
-        option.textContent = displayName;
-        relaxMusicSelector.appendChild(option);
-    });
-
-    if (relaxMusicList.length > 0) {
-        relaxAudio.src = relaxMusicList[0].src;
-        relaxAudio.load();
-    }
+    // 清空选项
+    gameMusicSelect.innerHTML = '';
     
-    console.log('=== 填充完成 ===');
+    // 添加选项
+    gameMusicList.forEach(music => {
+        const option = document.createElement('option');
+        option.value = music.src;
+        
+        // 使用翻译的名称
+        option.textContent = t ? t[music.nameKey] : music.name;
+        
+        gameMusicSelect.appendChild(option);
+    });
 }
+   window.switchLanguage = function(lang) {
+    if (i18nConfig.languages.includes(lang)) {
+        localStorage.setItem('preferred_lang', lang);
+        applyTranslations(lang);
+        
+        // 重新填充所有音乐选择器
+        populateAllMusicSelectors();  // 或分别调用
+        // populateGameMusicSelector();
+        // populateRelaxMusicSelector();
+    }
+};     
 
+document.addEventListener('DOMContentLoaded', function() {
+    initI18n();
+    populateAllMusicSelectors();  // 初始化时填充
+});
     
+  
     // ===== 音乐播放辅助函数 =====
         async function loadAndPlayMusic(audioElement, src, shouldPlay) {
             console.log(`尝试加载: ${src}, 预期播放: ${shouldPlay}`);
@@ -2860,6 +2840,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
