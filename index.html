@@ -687,15 +687,19 @@
         font-size: 0.9em  !important;
     }
     
-    .action-button .text {
-        font-size: 0.4em;
-        line-height: 1.0;
-    }
+   /* 英文样式 */
+.en .action-button .text,
+[lang="en"] .action-button .text {
+    font-size: 0.4em;
+    line-height: 1.0;
+}
 
-    /* 中文样式 */
-    .lang-zh .action-button .text {
-        font-size: 0.6em;
-    }
+/* 中文样式 */
+.zh .action-button .text,
+[lang="zh"] .action-button .text {
+    font-size: 0.6em;
+    line-height: 1.0;
+}
    
     .remaining-tries {
         top: 120px;
@@ -2843,6 +2847,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
