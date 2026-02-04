@@ -687,17 +687,8 @@
         font-size: 0.9em  !important;
     }
     
-   /* 英文样式 */
-.en .action-button .text,
-[lang="en"] .action-button .text {
-    font-size: 0.2em;
-    line-height: 1.0;
-}
-
-/* 中文样式 */
-.zh .action-button .text,
-[lang="zh"] .action-button .text {
-    font-size: 0.4em;
+.action-button .text {
+    font-size: var(--button-font-size, 0.4em);
     line-height: 1.0;
 }
    
@@ -1946,7 +1937,12 @@ function updateLayoutForLevel(levelName) {
   
                 }
            
-        
+// 切换到中文时
+document.documentElement.style.setProperty('--button-font-size', '0.6em');
+
+// 切换到英文时
+document.documentElement.style.setProperty('--button-font-size', '0.4em');
+           
         // ===== 音乐播放辅助函数 =====
         async function loadAndPlayMusic(audioElement, src, shouldPlay) {
             console.log(`尝试加载: ${src}, 预期播放: ${shouldPlay}`);
@@ -2847,6 +2843,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
