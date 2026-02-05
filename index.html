@@ -1140,12 +1140,12 @@
         
         <!-- 号召文案 -->
         <p data-i18n="purchase_calltoaction">
-           为获得最佳体验并保障您的购买权益，建议您添加到手机主屏幕或电脑桌面继续试玩，解锁永久版游戏，无限挑战功夫节奏快速反应,冲击「熊霸天下」最高境界！
+           为获得最佳体验并保障您的购买权益，建议您添加到手机主屏幕或电脑桌面继续试玩，解锁完整版游戏，无限挑战功夫节奏快速反应,冲击「熊霸天下」最高境界！
         </p>
         
         <!-- 购买按钮 -->
         <button id="purchaseButton" data-i18n="purchase_button">
-            解锁永久版
+            解锁完整版
         </button>
         
         <!-- 价格/功能说明 -->
@@ -1178,8 +1178,8 @@ const i18nConfig = {
             // 购买弹窗
              'purchase_title': '试练收官！',
             'purchase_subtitle': '少侠已体验5次功夫试练',
-            'purchase_calltoaction': '为获得最佳体验并保障您的购买权益，建议您添加到手机主屏幕或电脑桌面继续试玩，解锁永久版游戏，无限挑战功夫节奏快速反应，冲击「熊霸天下」最高境界！',
-            'purchase_button': '解锁永久版',
+            'purchase_calltoaction': '为获得最佳体验并保障您的购买权益，建议您添加到手机主屏幕或电脑桌面继续试玩，解锁完整版游戏，无限挑战功夫节奏快速反应，冲击「熊霸天下」最高境界！',
+            'purchase_button': '解锁完整版',
             'purchase_features': '畅享专属助眠放松音乐+桌面午休智能闹钟唤醒',
             
             // 动作按钮
@@ -1329,8 +1329,8 @@ const i18nConfig = {
             // 购买弹窗
             'purchase_title': 'Training Complete!',
             'purchase_subtitle': 'You have mastered 5 kung fu trials',
-            'purchase_calltoaction': 'For the best experience and to secure your purchase, please add to home screen or desktop to continue trial.Unlock permanent version, infinitely challenge kung fu rhythm, achieve the "Bear Dominates World" ultimate realm!',
-            'purchase_button': 'Unlock Permanent Version',
+            'purchase_calltoaction': 'For the best experience and to secure your purchase, please add to home screen or desktop to continue trial.Unlock Full version, infinitely challenge kung fu rhythm, achieve the "Bear Dominates World" ultimate realm!',
+            'purchase_button': 'Unlock Full Version',
             'purchase_features': 'Enjoy exclusive sleep-relax music + smart desktop nap alarm',
 
             //动作按钮
@@ -1661,7 +1661,7 @@ if (currentDomain === 'daxiongkungfu.com') {
             hidePurchaseOverlay();
             hideRemainingTries();
             isGameRunning = true;
-            showFeedback('已购买永久版!','combo');
+            showFeedback('已购买完整版!','combo');
             startNewMoveSequence();
         }
 
@@ -2872,6 +2872,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
