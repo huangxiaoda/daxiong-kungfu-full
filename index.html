@@ -1154,14 +1154,12 @@
         </p>
             </div>
         </div>
-    </div>
-
-        <div class="subscription-buttons">
+ </div>
+        
+        <button onclick="launchPaddleCheckoutMonthly()">月度订阅</button>
         <button onclick="launchPaddleCheckoutQuarterly()">季度订阅</button>
         <button onclick="launchPaddleCheckoutAnnual()">年度订阅</button>
         <button onclick="launchPaddleCheckoutTriennial()">三年订阅</button>
-  
-        </div>
 <script>
  // 1. 语言配置
 const i18nConfig = {
@@ -1714,7 +1712,6 @@ if (currentDomain === 'daxiongkungfu.com') {
                 items: PURCHASE_ITEM
             });
         }
- 
     
     // 检查游戏状态
 function checkGameStatus() {
@@ -2878,6 +2875,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
