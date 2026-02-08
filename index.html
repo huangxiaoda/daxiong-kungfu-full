@@ -1136,7 +1136,7 @@
         <h2 data-i18n="purchase_title">试练收官！</h2>
         
         <!-- 副标题 -->
-        <p data-i18n="purchase_subtitle">少侠已体验5次功夫试练</p>
+        <p data-i18n="purchase_subtitle">少侠已体验3次功夫试练</p>
         
         <!-- 号召文案 -->
         <p data-i18n="purchase_calltoaction">
@@ -1177,7 +1177,7 @@ const i18nConfig = {
             
             // 购买弹窗
              'purchase_title': '试练收官！',
-            'purchase_subtitle': '少侠已体验5次功夫试练',
+            'purchase_subtitle': '少侠已体验3次功夫试练',
             'purchase_calltoaction': '为获得最佳体验并保障您的购买权益，建议您添加到手机主屏幕或电脑桌面继续试玩，解锁完整版游戏，无限挑战功夫节奏快速反应，冲击「熊霸天下」最高境界！',
             'purchase_button': '解锁完整版',
             'purchase_features': '畅享专属助眠放松音乐+桌面午休智能闹钟唤醒',
@@ -1328,7 +1328,7 @@ const i18nConfig = {
             
             // 购买弹窗
             'purchase_title': 'Training Complete!',
-            'purchase_subtitle': 'You have mastered 5 kung fu trials',
+            'purchase_subtitle': 'You have mastered 3 kung fu trials',
             'purchase_calltoaction': 'For the best experience and to secure your purchase, please add to home screen or desktop to continue trial.Unlock Full version, infinitely challenge kung fu rhythm, achieve the "Bear Dominates World" ultimate realm!',
             'purchase_button': 'Unlock Full Version',
             'purchase_features': 'Enjoy exclusive sleep-relax music + smart desktop nap alarm',
@@ -1687,12 +1687,12 @@ function checkGameStatus() {
     } else {
         let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
         // 只在游戏开始时显示剩余次数，不增加次数
-        showRemainingTries(5 - playCount);
+        showRemainingTries(3 - playCount);
         
-        if (playCount <5) {
+        if (playCount <3) {
             // 注意：这里不再增加次数，次数在游戏结束时增加
-            if (playCount >=3) {
-                showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
+            if (playCount >=1) {
+                showFeedback(`剩余试玩次数: ${3 - playCount}`, 'combo');
             }
             return true;
         } else {
@@ -1766,7 +1766,7 @@ function checkGameStatus() {
         return;
     }
             const playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
-            const remainingCount = 5 - playCount;
+            const remainingCount = 3 - playCount;
             if (remainingCount > 0) {
                 showRemainingTries(remainingCount);
             } else {
@@ -2303,14 +2303,14 @@ function updateLayoutForLevel(levelName) {
             if (!isUnlocked) {
                 let playCount = parseInt(localStorage.getItem(PLAY_COUNT_KEY)) || 0;
             // 确保播放次数正确增加
-                if (playCount <5) {
+                if (playCount <3) {
                     playCount++;
                     localStorage.setItem(PLAY_COUNT_KEY, playCount.toString());
                     console.log(`游戏结束，播放次数更新为: ${playCount}`);
             
                 // 显示剩余次数提示
-                    if (playCount >=3) {
-                        showFeedback(`剩余试玩次数: ${5 - playCount}`, 'combo');
+                    if (playCount >=1) {
+                        showFeedback(`剩余试玩次数: ${3 - playCount}`, 'combo');
                     }
                 }
             }
@@ -2839,6 +2839,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
