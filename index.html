@@ -1330,33 +1330,37 @@
             解锁完整版
         </button>
 
-          <!-- ===== 订阅选项分隔线（功夫风格）===== -->
+           <!-- ===== 订阅选项分隔线（带翻译）===== -->
         <div class="subscription-divider">
-            <span>⚡ 或选灵活订阅 ⚡</span>
+            <span data-i18n="subscription_or">⚡ 或选灵活订阅 ⚡</span>
         </div>
         
-        <!-- 三个订阅按钮 - 添加唯一ID，不使用onclick -->
-<div class="subscription-row">
-    <button id="quarterlyButton" class="sub-btn">
-        <span class="sub-title">📅 季度</span>
-        <span class="sub-price">$49</span>
-        <span class="sub-period">/3个月</span>
-    </button>
-    
-    <button id="annualButton" class="sub-btn popular">
-        <span class="save-badge">省15%</span>
-        <span class="sub-title">📅 年度</span>
-        <span class="sub-price">$169</span>
-        <span class="sub-period">/年</span>
-    </button>
-    
-    <button id="triennialButton" class="sub-btn">
-        <span class="save-badge">省33%</span>
-        <span class="sub-title">📅 三年</span>
-        <span class="sub-price">$399</span>
-        <span class="sub-period">/3年</span>
-    </button>
-</div>
+        <!-- ===== 三个订阅按钮（全部带data-i18n）===== -->
+        <div class="subscription-row">
+            <!-- 季度订阅 -->
+            <button onclick="launchPaddleCheckoutQuarterly()" class="sub-btn">
+                <span class="sub-title" data-i18n="subscription_quarterly_title">📅 季度</span>
+                <span class="sub-price">$49</span>
+                <span class="sub-period" data-i18n="subscription_quarterly_period">/3个月</span>
+                <span class="save-badge" data-i18n="subscription_quarterly_save" style="display: none;"></span>
+            </button>
+            
+            <!-- 年度订阅（热门推荐）-->
+            <button onclick="launchPaddleCheckoutAnnual()" class="sub-btn popular">
+                <span class="save-badge" data-i18n="subscription_annual_save">省15%</span>
+                <span class="sub-title" data-i18n="subscription_annual_title">📅 年度</span>
+                <span class="sub-price">$169</span>
+                <span class="sub-period" data-i18n="subscription_annual_period">/年</span>
+            </button>
+            
+            <!-- 三年订阅 -->
+            <button onclick="launchPaddleCheckoutTriennial()" class="sub-btn">
+                <span class="save-badge" data-i18n="subscription_triennial_save">省33%</span>
+                <span class="sub-title" data-i18n="subscription_triennial_title">📅 三年</span>
+                <span class="sub-price">$399</span>
+                <span class="sub-period" data-i18n="subscription_triennial_period">/3年</span>
+            </button>
+        </div>
         
                 <!-- 价格/功能说明 -->
         <p class="price" data-i18n="purchase_features">
@@ -1391,7 +1395,21 @@ const i18nConfig = {
             'purchase_calltoaction': '为获得最佳体验并保障您的购买权益，建议您添加到手机主屏幕或电脑桌面继续试玩，解锁完整版游戏，无限挑战功夫节奏快速反应，冲击「熊霸天下」最高境界！',
             'purchase_button': '解锁完整版',
             'purchase_features': '畅享专属助眠放松音乐+桌面午休智能闹钟唤醒',
-            
+      
+            // 订阅翻译
+            'subscription_or': '⚡ 或选灵活订阅 ⚡',
+        
+            'subscription_quarterly_title': '📅 季度',
+            'subscription_quarterly_period': '/3个月',
+        
+            'subscription_annual_title': '📅 年度',
+            'subscription_annual_period': '/年',
+            'subscription_annual_save': '省15%',
+        
+            'subscription_triennial_title': '📅 三年',
+            'subscription_triennial_period': '/3年',
+            'subscription_triennial_save': '省33%',
+          
             // 动作按钮
             'left-punch': '左拳',
             'right-punch': '右拳',
@@ -1543,6 +1561,20 @@ const i18nConfig = {
             'purchase_button': 'Unlock Full Version',
             'purchase_features': 'Enjoy exclusive sleep-relax music + smart desktop nap alarm',
 
+             // 订阅翻译
+            'subscription_or': '⚡ Or Subscribe ⚡',
+        
+            'subscription_quarterly_title': '📅 Quarterly',
+            'subscription_quarterly_period': '/3 months',
+        
+            'subscription_annual_title': '📅 Annual',
+            'subscription_annual_period': '/year',
+            'subscription_annual_save': 'Save 15%',
+        
+            'subscription_triennial_title': '📅 Triennial',
+            'subscription_triennial_period': '/3 years',
+            'subscription_triennial_save': 'Save 33%',
+          
             //动作按钮
            'left-punch': 'Left Punch',
            'right-punch': 'Right Punch',
@@ -3076,6 +3108,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
