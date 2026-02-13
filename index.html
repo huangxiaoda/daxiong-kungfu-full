@@ -584,7 +584,189 @@
             font-family: 'Press Start 2P', cursive;
          white-space: nowrap; /* 防止文字换行 */
         }
-/* 确保emoji正确显示 */
+
+        /* ===== 新增：订阅选项分隔线（匹配原风格）===== */
+.subscription-divider {
+    text-align: center;
+    margin: 15px 0 10px 0;
+    color: #bf360c;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+}
+
+.subscription-divider span {
+    background: linear-gradient(135deg, #ffd54f, #ffb300);
+    padding: 0 15px;
+    color: #d84315;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.3);
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+}
+
+.subscription-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #ff8f00, transparent);
+    z-index: -1;
+}
+
+/* ===== 新增：订阅按钮行 ===== */
+.subscription-row {
+    display: flex;
+    gap: 12px;
+    margin: 15px 0 20px 0;
+    justify-content: center;
+}
+
+/* ===== 新增：订阅按钮样式（完美匹配原风格）===== */
+.sub-btn {
+    flex: 1;
+    background: linear-gradient(to bottom, #fff3e0, #ffe0b2);
+    border: 3px solid #ff8f00;
+    border-radius: 20px;
+    padding: 12px 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 4px 0 #b26a00;
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+}
+
+.sub-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #b26a00;
+    background: linear-gradient(to bottom, #ffe0b2, #ffcc80);
+    border-color: #e65100;
+}
+
+.sub-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 #b26a00;
+}
+
+/* 热门推荐订阅按钮（年度） */
+.sub-btn.popular {
+    background: linear-gradient(to bottom, #ffe57f, #ffc107);
+    border-color: #e65100;
+    box-shadow: 0 4px 0 #bf360c;
+    position: relative;
+    overflow: visible;
+}
+
+.sub-btn.popular:hover {
+    background: linear-gradient(to bottom, #ffd54f, #ffb300);
+    border-color: #bf360c;
+    box-shadow: 0 6px 0 #bf360c;
+}
+
+/* 节省标签 */
+.save-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: linear-gradient(to bottom, #e65100, #bf360c);
+    color: white;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 0 #7f0000;
+    border: 1px solid #ffd54f;
+}
+
+/* 订阅按钮文字样式 */
+.sub-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #5d4037;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+}
+
+.sub-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #bf360c;
+    margin-bottom: 2px;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+}
+
+.sub-period {
+    font-size: 11px;
+    color: #6d4c41;
+    font-weight: bold;
+}
+
+/* 英文版适配 */
+.purchase-modal.english .sub-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+.purchase-modal.english .sub-price {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+}
+
+.purchase-modal.english .sub-period {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+}
+
+.purchase-modal.english .save-badge {
+    font-size: 8px;
+}
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 480px) {
+    .subscription-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .sub-btn {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 12px 20px;
+    }
+    
+    .sub-title {
+        margin-bottom: 0;
+        font-size: 16px;
+    }
+    
+    .sub-price {
+        margin-bottom: 0;
+        font-size: 18px;
+    }
+    
+    .save-badge {
+        position: static;
+        margin-left: 10px;
+    }
+    
+    .purchase-modal.english .sub-title {
+        font-size: 14px;
+    }
+    
+    .purchase-modal.english .sub-price {
+        font-size: 16px;
+    }
+}
+
+
+        /* 确保emoji正确显示 */
 .character, .action-button span, .master-move-display .emoji {
     font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Zhi Mang Xing', cursive;
 }
@@ -797,7 +979,7 @@
         }
     }
         
-} /* 添加闭合括号 */
+} 
 /* 音乐控制头部布局 */
 .music-control-header {
     display: flex;
@@ -1148,33 +1330,36 @@
             解锁完整版
         </button>
 
-          <!-- ===== 新增：订阅选项分隔线 ===== -->
+          <!-- ===== 订阅选项分隔线（功夫风格）===== -->
         <div class="subscription-divider">
-            <span>或选择灵活订阅</span>
+            <span>⚡ 或选灵活订阅 ⚡</span>
         </div>
         
-        <!-- ===== 新增：三个订阅按钮 ===== -->
+        <!-- ===== 三个订阅按钮（功夫风格）===== -->
         <div class="subscription-row">
+            <!-- 季度订阅 -->
             <button onclick="launchPaddleCheckoutQuarterly()" class="sub-btn">
-                <span class="sub-title">📅 季度订阅</span>
+                <span class="sub-title">📅 季度</span>
                 <span class="sub-price">$49</span>
                 <span class="sub-period">/3个月</span>
             </button>
             
+            <!-- 年度订阅（热门推荐） -->
             <button onclick="launchPaddleCheckoutAnnual()" class="sub-btn popular">
-                <span class="sub-title">📅 年度订阅</span>
+                <span class="save-badge">省15%</span>
+                <span class="sub-title">📅 年度</span>
                 <span class="sub-price">$169</span>
                 <span class="sub-period">/年</span>
-                <span class="save-badge">省15%</span>
             </button>
             
+            <!-- 三年订阅 -->
             <button onclick="launchPaddleCheckoutTriennial()" class="sub-btn">
-                <span class="sub-title">📅 三年订阅</span>
+                <span class="save-badge">省33%</span>
+                <span class="sub-title">📅 三年</span>
                 <span class="sub-price">$399</span>
                 <span class="sub-period">/3年</span>
-                <span class="save-badge">省33%</span>
             </button>
-        </div>      
+        </div>
         
                 <!-- 价格/功能说明 -->
         <p class="price" data-i18n="purchase_features">
@@ -2867,6 +3052,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
