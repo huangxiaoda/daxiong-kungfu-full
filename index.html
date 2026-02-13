@@ -1335,31 +1335,28 @@
             <span>⚡ 或选灵活订阅 ⚡</span>
         </div>
         
-        <!-- ===== 三个订阅按钮（功夫风格）===== -->
-        <div class="subscription-row">
-            <!-- 季度订阅 -->
-            <button onclick="launchPaddleCheckoutQuarterly()" class="sub-btn">
-                <span class="sub-title">📅 季度</span>
-                <span class="sub-price">$49</span>
-                <span class="sub-period">/3个月</span>
-            </button>
-            
-            <!-- 年度订阅（热门推荐） -->
-            <button onclick="launchPaddleCheckoutAnnual()" class="sub-btn popular">
-                <span class="save-badge">省15%</span>
-                <span class="sub-title">📅 年度</span>
-                <span class="sub-price">$169</span>
-                <span class="sub-period">/年</span>
-            </button>
-            
-            <!-- 三年订阅 -->
-            <button onclick="launchPaddleCheckoutTriennial()" class="sub-btn">
-                <span class="save-badge">省33%</span>
-                <span class="sub-title">📅 三年</span>
-                <span class="sub-price">$399</span>
-                <span class="sub-period">/3年</span>
-            </button>
-        </div>
+        <!-- 三个订阅按钮 - 添加唯一ID，不使用onclick -->
+<div class="subscription-row">
+    <button id="quarterlyButton" class="sub-btn">
+        <span class="sub-title">📅 季度</span>
+        <span class="sub-price">$49</span>
+        <span class="sub-period">/3个月</span>
+    </button>
+    
+    <button id="annualButton" class="sub-btn popular">
+        <span class="save-badge">省15%</span>
+        <span class="sub-title">📅 年度</span>
+        <span class="sub-price">$169</span>
+        <span class="sub-period">/年</span>
+    </button>
+    
+    <button id="triennialButton" class="sub-btn">
+        <span class="save-badge">省33%</span>
+        <span class="sub-title">📅 三年</span>
+        <span class="sub-price">$399</span>
+        <span class="sub-period">/3年</span>
+    </button>
+</div>
         
                 <!-- 价格/功能说明 -->
         <p class="price" data-i18n="purchase_features">
@@ -3079,6 +3076,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
