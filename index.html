@@ -1879,7 +1879,7 @@ if (currentDomain === 'daxiongkungfu.com') {
         }
 
 
-        // 三年订阅支付函数 
+        // 1.永久版支付函数 
         function launchPaddleCheckout() {
             const PURCHASE_ITEM = [{
                 priceId: "pri_01kawrmv7vcpnxwhsbn3tyf80q",
@@ -1889,6 +1889,33 @@ if (currentDomain === 'daxiongkungfu.com') {
                 items: PURCHASE_ITEM
             });
         }
+
+        // 2. 季度订阅
+function launchPaddleCheckoutQuarterly() {
+    const PURCHASE_ITEM = [{
+        priceId: "pri_01kgmepc0e6sy3tjap9pnepjkz", // 季度价格ID
+        quantity: 1
+    }];
+    Paddle.Checkout.open({ items: PURCHASE_ITEM });
+}
+
+// 3. 年度订阅
+function launchPaddleCheckoutAnnual() {
+    const PURCHASE_ITEM = [{
+        priceId: "pri_01kgmeaerezt9kvy132ag07qpm", // 年度价格ID
+        quantity: 1
+    }];
+    Paddle.Checkout.open({ items: PURCHASE_ITEM });
+}
+
+// 4. 三年订阅
+function launchPaddleCheckoutTriennial() {
+    const PURCHASE_ITEM = [{
+        priceId: "pri_01kgmehf5jejv168b1j0m2xcz7", // 三年价格ID
+        quantity: 1
+    }];
+    Paddle.Checkout.open({ items: PURCHASE_ITEM });
+}
     
     // 检查游戏状态
 function checkGameStatus() {
@@ -3052,6 +3079,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
