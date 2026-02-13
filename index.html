@@ -1147,8 +1147,36 @@
         <button id="purchaseButton" data-i18n="purchase_button">
             解锁完整版
         </button>
+
+          <!-- ===== 新增：订阅选项分隔线 ===== -->
+        <div class="subscription-divider">
+            <span>或选择灵活订阅</span>
+        </div>
         
-        <!-- 价格/功能说明 -->
+        <!-- ===== 新增：三个订阅按钮 ===== -->
+        <div class="subscription-row">
+            <button onclick="launchPaddleCheckoutQuarterly()" class="sub-btn">
+                <span class="sub-title">📅 季度订阅</span>
+                <span class="sub-price">$49</span>
+                <span class="sub-period">/3个月</span>
+            </button>
+            
+            <button onclick="launchPaddleCheckoutAnnual()" class="sub-btn popular">
+                <span class="sub-title">📅 年度订阅</span>
+                <span class="sub-price">$169</span>
+                <span class="sub-period">/年</span>
+                <span class="save-badge">省15%</span>
+            </button>
+            
+            <button onclick="launchPaddleCheckoutTriennial()" class="sub-btn">
+                <span class="sub-title">📅 三年订阅</span>
+                <span class="sub-price">$399</span>
+                <span class="sub-period">/3年</span>
+                <span class="save-badge">省33%</span>
+            </button>
+        </div>      
+        
+                <!-- 价格/功能说明 -->
         <p class="price" data-i18n="purchase_features">
             畅享专属助眠放松音乐+桌面午休智能闹钟唤醒
         </p>
@@ -2839,6 +2867,7 @@ document.getElementById('relaxPauseButton').addEventListener('click', function()
     
 </body>
 </html>
+
 
 
 
