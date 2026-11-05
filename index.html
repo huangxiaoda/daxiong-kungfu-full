@@ -2879,7 +2879,11 @@ function createMobileAlarmOverlay(soundType) {
     if (existingOverlay) {
         existingOverlay.remove();
     }
-    
+
+	// 获取当前语言并读取翻译
+    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+    const t = i18nConfig.translations[currentLang] || i18nConfig.translations['zh'];
+
     // 创建全屏遮罩
     const overlay = document.createElement('div');
     overlay.id = 'mobileAlarmOverlay';
