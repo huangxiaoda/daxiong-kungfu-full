@@ -2266,36 +2266,6 @@ function updateLayoutForLevel(levelName) {
             return false;
         }
 
-        // 填充音乐选择器下拉菜单
-        function populateMusicSelectors() {
-            bgMusicSelector.innerHTML = '';
-            relaxMusicSelector.innerHTML = '';
-
-            gameMusicList.forEach((music) => {
-                const option = document.createElement('option');
-                option.value = music.src;
-                option.textContent = music.name;
-                bgMusicSelector.appendChild(option);
-            });
-
-            if (gameMusicList.length > 0) {
-                gameBgMusic.src = gameMusicList[0].src;
-                gameBgMusic.load();
-            }
-
-            relaxMusicList.forEach((music) => {
-                const option = document.createElement('option');
-                option.value = music.src;
-                option.textContent = music.name;
-                relaxMusicSelector.appendChild(option);
-            });
-
-            if (relaxMusicList.length > 0) {
-                relaxAudio.src = relaxMusicList[0].src;
-                relaxAudio.load();
-            }
-        }
-
         // ===== 游戏核心逻辑 =====
         // 重置游戏状态
         function resetGame() {
