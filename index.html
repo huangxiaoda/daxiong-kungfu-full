@@ -2747,12 +2747,20 @@ document.getElementById('saveAlarm').addEventListener('click', function() {
     
     setAlarm(alarmTime, alarmSoundType, alarmRepeat);
     
-    // 更新闹钟视觉状态
+   // 更新闹钟视觉状态
     const alarmToggle = document.getElementById('alarmToggle');
     alarmToggle.classList.add('set');
-    alarmToggle.title = `闹钟设置: ${alarmTime}`;
+    alarmToggle.title = `闹钟设置: ${alarmTime}`; // （这里其实也可以翻译，但平时看不到）
+
+    // ✅ 动态获取翻译提示
+    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+    const t = i18nConfig.translations[currentLang] || i18nConfig.translations['zh'];
+    let successMsg = t['alarm_set_success'] || '闹钟已设置为 {time}';
     
-    alert(`闹钟已设置为 ${alarmTime}`);
+    // 替换占位符 {time}
+    successMsg = successMsg.replace('{time}', alarmTime);
+    
+    alert(successMsg);
 });
 
 // 设置闹钟函数
