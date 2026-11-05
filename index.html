@@ -2883,14 +2883,16 @@ function createMobileAlarmOverlay(soundType) {
     // 创建全屏遮罩
     const overlay = document.createElement('div');
     overlay.id = 'mobileAlarmOverlay';
+    
+    // 使用动态翻译变量替换写死的中文
     overlay.innerHTML = `
         <div class="mobile-alarm-container">
             <div class="alarm-icon">⏰</div>
-            <h2>起床时间到了！</h2>
-            <p>大熊提醒您该练功了！</p>
+            <h2>${t['alarm_wakeup_title']}</h2>
+            <p>${t['alarm_wakeup_desc']}</p>
             <div class="alarm-buttons">
-                <button id="snoozeAlarm">起床练功了</button>
-                <button id="stopAlarm">快起床</button>
+                <button id="snoozeAlarm">${t['alarm_wakeup_btn1']}</button>
+                <button id="stopAlarm">${t['alarm_wakeup_btn2']}</button>
             </div>
         </div>
     `;
