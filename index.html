@@ -2809,6 +2809,9 @@ function playAlarmSound(soundType) {
 
 // 桌面端提醒
 function desktopAlarmAlert(soundType) {
+	const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+	    const t = i18nConfig.translations[currentLang] || i18nConfig.translations['zh'];
+	    const alertText = currentLang === 'zh' ? '⏰ 起床时间到了！该练功了！' : '⏰ Wake up! Time to train!';
     if (soundType !== 'default') {
         const audio = new Audio(soundType);
         audio.volume = 0.8;
