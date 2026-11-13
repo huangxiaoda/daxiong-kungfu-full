@@ -2695,9 +2695,32 @@ window.addEventListener('load', function() {
     
     // === 新增：显示歌曲说明 ===
     const selectedMusic = relaxMusicList.find(music => music.src === newSrc);
-    if (selectedMusic && selectedMusic.description) {
-        showMusicDescription(selectedMusic.description, 5000);
+if (selectedMusic) {
+    const currentLang = localStorage.getItem('preferred_lang') || 'zh';
+    const t = i18nConfig.translations[currentLang];
+    
+    let finalDesc = "";
+    
+    if (currentLang === 'zh') {
+        // 中文环境：直接使用原本写死的 description
+        finalDesc = selectedMusic.description || "放松身心，享受音乐";
+    } else {
+        // 英文环境：尝试读取字典里的翻译，如果没有，就用兜底文案
+        const descKey = selectedMusic.nameKey ? selectedMusic.nameKey.replace('music_', 'desc_') : '';
+        if (t && descKey && t[descKey]) {
+            finalDesc = t[descKey]; // 如果你补了翻译，就用翻译的
+        } else {
+            // 兜底：显示英文歌名 + 通用提示
+            const englishName = t && selectedMusic.nameKey ? t[selectedMusic.nameKey] : selectedMusic.name;
+            finalDesc = `Now playing: ${englishName}. Relax and enjoy.`;
+        }
     }
+    
+    // 显示弹窗
+    if (finalDesc) {
+        showMusicDescription(finalDesc, 5000);
+    }
+}
     
     const wasRelaxPlaying = !relaxAudio.paused;
     relaxAudio.pause();
